@@ -1,56 +1,27 @@
-#include "Milieu.h"
+#include "Environment.h"
 
 #include <cstdlib>
 #include <ctime>
 
 
-const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
+const T Environment::white[] = { (T)255, (T)255, (T)255 };
 
+Environment::Environment(int _width, int _height) : UImg( _width, _height, 1, 3 ), width(_width), height(_height){
+   cout << "const Environment" << endl;
+   std::srand(time(NULL));}
 
-Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
-                                            width(_width), height(_height)
-{
+Environment::~Environment(){
+   cout << "dest Environment" << endl;}
 
-   cout << "const Milieu" << endl;
-
-   std::srand( time(NULL) );
-
-}
-
-
-Milieu::~Milieu( void )
-{
-
-   cout << "dest Milieu" << endl;
-
-}
-
-
-void Milieu::step( void )
-{
-
+void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-   {
-
+   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
       it->action( *this );
-      it->draw( *this );
+      it->draw( *this );}}
 
-   } // for
-
-}
-
-
-int Milieu::nbVoisins( const Bestiole & b )
-{
-
-   int         nb = 0;
-
-
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == *it) && b.jeTeVois(*it) )
+int Environment::nbNeighbors(const Pet& p){
+   int nb = 0;
+   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
+      if (!(p == *it) && p.iSeeYou(*it))
          ++nb;
-
-   return nb;
-
-}
+   return nb;}

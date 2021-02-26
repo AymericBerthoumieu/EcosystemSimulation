@@ -6704,7 +6704,7 @@ namespace cimg_library_suffixed {
       return _fibonacci(n); // Not precise, but better than the wrong overflowing calculation
     }
 
-    //! Calculate greatest common divisor.
+    //! Calculate greatest commy divisor.
     inline long gcd(long a, long b) {
       while (a) { const long c = a; a = b%a; b = c; }
       return b;

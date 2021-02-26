@@ -1,6 +1,5 @@
-#ifndef _BESTIOLES_H_
-#define _BESTIOLES_H_
-
+#ifndef _PETS_H_
+#define _PETS_H_
 
 #include "UImg.h"
 
@@ -9,46 +8,37 @@
 using namespace std;
 
 
-class Milieu;
+class Environment;
 
 
-class Bestiole
-{
+class Pet{
+   static const double AFF_SIZE;
+   static const double MAX_SPEED;
+   static const double LIMIT_VIEW;
 
-private :
-   static const double     AFF_SIZE;
-   static const double     MAX_VITESSE;
-   static const double     LIMITE_VUE;
+   static int next;
 
-   static int              next;
+   int identity;
+   int x, y;
+   double cumulX, cumulY;
+   double orientation;
+   double speed;
 
-private :
-   int               identite;
-   int               x, y;
-   double            cumulX, cumulY;
-   double            orientation;
-   double            vitesse;
+   T* color;
 
-   T               * couleur;
 
-private :
-   void bouge( int xLim, int yLim );
+   void move(int xLim, int yLim);
 
-public :                                           // Forme canonique :
-   Bestiole( void );                               // Constructeur par defaut
-   Bestiole( const Bestiole & b );                 // Constructeur de copies
-   ~Bestiole( void );                              // Destructeur
-                                                   // Operateur d'affectation binaire par defaut
-   void action( Milieu & monMilieu );
-   void draw( UImg & support );
+public :
+   Pet();
+   Pet(const Pet& p); // copy cstor
+   ~Pet();
 
-   bool jeTeVois( const Bestiole & b ) const;
-
-   void initCoords( int xLim, int yLim );
-
-   friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
+   void action(Environment& myEnvironment);
+   void draw(UImg& support);
+   bool iSeeYou(const Pet& p) const;
+   void initCoords(int xLim, int yLim);
+   friend bool operator==(const Pet& p1, const Pet& p2);
 };
-
 
 #endif

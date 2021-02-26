@@ -1,14 +1,11 @@
-main : main.cpp Aquarium.o Bestiole.o Milieu.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Bestiole.o Milieu.o -I . -lX11 -lpthread
+main : main.cpp Aquarium.o Pet.o Environment.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
 
-Bestiole.o : Bestiole.h Bestiole.cpp
-	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
+Pet.o : Pet.h Pet.cpp
+	g++ -Wall -std=c++11  -c Pet.cpp -I .
 
-Milieu.o : Milieu.h Milieu.cpp
-	g++ -Wall -std=c++11  -c Milieu.cpp -I .
-
-
-
+Environment.o : Environment.h Environment.cpp
+	g++ -Wall -std=c++11  -c Environment.cpp -I .
