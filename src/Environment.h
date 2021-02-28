@@ -23,7 +23,7 @@ public :
    int getWidth() const { return width; };
    int getHeight() const { return height; };
    void step();
-   void addMember(const Pet & p) { pets.push_back(b); pets.back().initCoords(width, height); };
+   void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
    int nbNeighbors(const Pet & p);};
 
 

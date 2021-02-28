@@ -22,7 +22,7 @@ Pet::Pet( void ){
    cumulX = cumulY = 0.;
 
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   SPEED = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
+   speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
