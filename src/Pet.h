@@ -36,7 +36,7 @@ public :
 
    void action(Environment& myEnvironment);
    void draw(UImg& support);
-   bool iSeeYou(const Pet& p) const;
+   bool isDetecting(const Pet& p) const;
    void initCoords(int xLim, int yLim);
    friend bool operator==(const Pet& p1, const Pet& p2);
 };

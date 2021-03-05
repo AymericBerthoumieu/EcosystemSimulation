@@ -98,7 +98,7 @@ bool operator==( const Pet & b1, const Pet & b2 ){
    return ( b1.identity == b2.identity );}
 
 
-bool Pet::iSeeYou( const Pet & p ) const{
+bool Pet::isDetecting( const Pet & p ) const{
    double         dist;
 
    dist = std::sqrt( (x-p.x)*(x-p.x) + (y-p.y)*(y-p.y) );
