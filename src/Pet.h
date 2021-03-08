@@ -23,6 +23,7 @@ class Pet{
    double cumulX, cumulY;
    double orientation;
    double speed;
+   int life;
 
    T* color;
 
@@ -38,6 +39,9 @@ public :
    void draw(UImg& support);
    bool isDetecting(const Pet& p) const;
    void initCoords(int xLim, int yLim);
+   void decrement();
+   int getIdentity() const {return identity;};
+   int getLife() const {return life;};
    friend bool operator==(const Pet& p1, const Pet& p2);
 };
 

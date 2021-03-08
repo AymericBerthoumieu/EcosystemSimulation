@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <memory>
 
 
 const T Environment::white[] = { (T)255, (T)255, (T)255 };
@@ -15,9 +16,14 @@ Environment::~Environment(){
 
 void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
       it->action( *this );
-      it->draw( *this );}}
+      it->draw( *this );
+   }
+
+   this->die();
+}
 
 int Environment::nbNeighbors(const Pet& p){
    int nb = 0;
@@ -25,3 +31,15 @@ int Environment::nbNeighbors(const Pet& p){
    //   if (!(p == *it) && p.iSeeYou(*it))
    //      ++nb;
    return nb;}
+
+void Environment::notifyDeath(Pet & p){
+    toDie.push_back(p.getIdentity());
+}
+
+
+bool mustDie(Pet const &p) {return p.getLife()==0;}
+
+void Environment::die() {
+    pets.erase(std::remove_if(pets.begin(), pets.end(), mustDie), pets.end());
+    toDie.clear();
+}

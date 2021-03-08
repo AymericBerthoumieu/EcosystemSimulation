@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <cmath>
+#include <memory>
 
 
 const double Pet::AFF_SIZE = 8.;
@@ -20,6 +21,7 @@ Pet::Pet( void ){
 
    x = y = 0;
    cumulX = cumulY = 0.;
+   life = 50; // must be initialized randomly
 
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
@@ -40,6 +42,7 @@ Pet::Pet( const Pet & p ){
    cumulX = cumulY = 0.;
    orientation = p.orientation;
    speed = p.speed;
+   life = 50; // might need to be changed
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
 
@@ -47,7 +50,7 @@ Pet::Pet( const Pet & p ){
 Pet::~Pet( void ){
    delete[] color;
 
-   cout << "dest Pet" << endl;}
+   cout << "dest Pet (" << identity << ")" << endl;}
 
 
 void Pet::initCoords( int xLim, int yLim ){
@@ -83,7 +86,13 @@ void Pet::move( int xLim, int yLim ){
 
 
 void Pet::action( Environment & myEnvironment ){
-   move( myEnvironment.getWidth(), myEnvironment.getHeight() );}
+    this->decrement();
+
+    if (life == 0) {
+        myEnvironment.notifyDeath(*this);
+    }
+    move( myEnvironment.getWidth(), myEnvironment.getHeight() );
+}
 
 
 void Pet::draw( UImg & support ){
@@ -103,3 +112,8 @@ bool Pet::isDetecting( const Pet & p ) const{
 
    dist = std::sqrt( (x-p.x)*(x-p.x) + (y-p.y)*(y-p.y) );
    return ( dist <= LIMIT_VIEW );}
+
+void Pet::decrement() {
+    // decrement the life of the animal
+    life--;
+}
