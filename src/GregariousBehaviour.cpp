@@ -72,9 +72,6 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
 
    
 
-   
-
-
    double nx, ny;
    double dx = cos( orientation )*speed;
    double dy = -sin( orientation )*speed;
