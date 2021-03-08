@@ -1,6 +1,7 @@
 #include "Pet.h"
 
 #include "Environment.h"
+#include "GregariousBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -24,6 +25,10 @@ Pet::Pet( void ){
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
+   // initialize pet behaviour
+   behaviour = new GregariousBehaviour();
+   isMultiple = 0;
+
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -40,11 +45,17 @@ Pet::Pet( const Pet & p ){
    cumulX = cumulY = 0.;
    orientation = p.orientation;
    speed = p.speed;
+
+   // initialize pet behaviour
+   behaviour = new GregariousBehaviour();
+   isMultiple = 0;
+
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
 
 
 Pet::~Pet( void ){
+   delete behaviour;
    delete[] color;
 
    cout << "dest Pet" << endl;}
@@ -55,8 +66,8 @@ void Pet::initCoords( int xLim, int yLim ){
    y = rand() % yLim;}
 
 
-void Pet::move( int xLim, int yLim ){
-   double nx, ny;
+void Pet::move( int xLim, int yLim, Environment& myEnvironment){
+   /*double nx, ny;
    double dx = cos( orientation )*speed;
    double dy = -sin( orientation )*speed;
    int cx, cy;
@@ -79,11 +90,12 @@ void Pet::move( int xLim, int yLim ){
       cumulY = 0.;}
    else {
       y = static_cast<int>( ny );
-      cumulY += ny - y;}}
-
+      cumulY += ny - y;}}*/
+   behaviour->move(xLim,yLim,*this, myEnvironment);}
 
 void Pet::action( Environment & myEnvironment ){
-   move( myEnvironment.getWidth(), myEnvironment.getHeight() );}
+   move( myEnvironment.getWidth(), myEnvironment.getHeight(), myEnvironment);}
+   
 
 
 void Pet::draw( UImg & support ){
@@ -103,3 +115,40 @@ bool Pet::isDetecting( const Pet & p ) const{
 
    dist = std::sqrt( (x-p.x)*(x-p.x) + (y-p.y)*(y-p.y) );
    return ( dist <= LIMIT_VIEW );}
+
+std::tuple<int, int> Pet::get_coordinates(){
+   return std::make_tuple(this->x,this->y);
+}
+
+std::tuple<double, double> Pet::get_cumul(){
+   return std::make_tuple(this->cumulX,this->cumulY);
+}
+   
+std::tuple<double, double> Pet::get_orient_speed(){
+   return std::make_tuple(this->orientation,this->speed);
+}
+
+int Pet::get_id(){
+   return this->identity;
+}
+
+void Pet::set_coordinates(int new_x,int new_y){
+   this->x = new_x;
+   this->y = new_y;
+}
+
+void Pet::set_cumul(double new_cumul_x,double new_cumul_y){
+   this->cumulX = new_cumul_x;
+   this->cumulY = new_cumul_y;
+}
+void Pet::set_orient_speed(double new_orientation,double new_speed){
+   this->orientation = new_orientation;
+   this->speed = new_speed;
+   }
+void Pet::changeBehaviour(){
+   if (isMultiple) {
+      //delete behaviour;
+      //behaviour = new GregariousBehaviour();
+}
+}
+
