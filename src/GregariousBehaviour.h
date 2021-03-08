@@ -5,6 +5,7 @@
 class GregariousBehaviour: public BehaviourStrategy{
 
 	static std::string NAME;
+	const double RADIUS_SURROUNDING = 15.;
 
 public:
 	~GregariousBehaviour(){}

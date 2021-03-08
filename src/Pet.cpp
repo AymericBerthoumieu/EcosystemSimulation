@@ -147,8 +147,8 @@ void Pet::set_orient_speed(double new_orientation,double new_speed){
    }
 void Pet::changeBehaviour(){
    if (isMultiple) {
-      //delete behaviour;
-      //behaviour = new GregariousBehaviour();
+      delete behaviour;
+      behaviour = new GregariousBehaviour();
 }
 }
 

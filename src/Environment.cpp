@@ -27,7 +27,7 @@ int Environment::nbNeighbors(const Pet& p){
          ++nb;
    return nb;}
 
-std::vector<Pet> Environment::nearestNeigbors(Pet & pet){
+std::vector<Pet> Environment::nearestNeighbors(Pet & pet){
    std::vector<Pet> petNeighbors;
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
