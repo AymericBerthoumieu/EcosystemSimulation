@@ -21,7 +21,7 @@ void Environment::step(){
 
 int Environment::nbNeighbors(const Pet& p){
    int nb = 0;
-   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
-      if (!(p == *it) && p.iSeeYou(*it))
-         ++nb;
+   //for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
+   //   if (!(p == *it) && p.iSeeYou(*it))
+   //      ++nb;
    return nb;}
