@@ -88,10 +88,9 @@ void Pet::move( int xLim, int yLim ){
 void Pet::action( Environment & myEnvironment ){
     this->decrement();
 
-    if (life == 0) {
-        myEnvironment.notifyDeath(*this);
+    if (life != 0) {
+        move( myEnvironment.getWidth(), myEnvironment.getHeight() );
     }
-    move( myEnvironment.getWidth(), myEnvironment.getHeight() );
 }
 
 

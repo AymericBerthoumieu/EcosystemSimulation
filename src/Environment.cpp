@@ -32,14 +32,8 @@ int Environment::nbNeighbors(const Pet& p){
    //      ++nb;
    return nb;}
 
-void Environment::notifyDeath(Pet & p){
-    toDie.push_back(p.getIdentity());
-}
-
-
 bool mustDie(Pet const &p) {return p.getLife()==0;}
 
 void Environment::die() {
     pets.erase(std::remove_if(pets.begin(), pets.end(), mustDie), pets.end());
-    toDie.clear();
 }
