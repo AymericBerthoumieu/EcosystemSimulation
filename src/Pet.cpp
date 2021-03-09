@@ -21,7 +21,9 @@ Pet::Pet( void ){
 
    x = y = 0;
    cumulX = cumulY = 0.;
-   life = 50; // must be initialized randomly
+
+   probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
+   life = 50 * 2  * probabilityOfFatalCollision; // must be initialized randomly
 
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
@@ -37,12 +39,14 @@ Pet::Pet( const Pet & p ){
 
    cout << "const Pet (" << identity << ") par copie" << endl;
 
+   probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
+   life = 50 * 2 * probabilityOfFatalCollision; // must be initialized randomly
+
    x = p.x;
    y = p.y;
    cumulX = cumulY = 0.;
    orientation = p.orientation;
    speed = p.speed;
-   life = 50; // might need to be changed
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
 
@@ -50,7 +54,7 @@ Pet::Pet( const Pet & p ){
 Pet::~Pet( void ){
    delete[] color;
 
-   cout << "dest Pet (" << identity << ")" << endl;}
+   cout << "dest Pet (" << identity << ") with life" << life << endl;}
 
 
 void Pet::initCoords( int xLim, int yLim ){
@@ -87,12 +91,10 @@ void Pet::move( int xLim, int yLim ){
 
 void Pet::action( Environment & myEnvironment ){
     this->decrement();
-
-    if (life != 0) {
+    if (life > 0) {
         move( myEnvironment.getWidth(), myEnvironment.getHeight() );
     }
 }
-
 
 void Pet::draw( UImg & support ){
    double xt = x + cos( orientation )*AFF_SIZE/2.1;
@@ -115,4 +117,12 @@ bool Pet::isDetecting( const Pet & p ) const{
 void Pet::decrement() {
     // decrement the life of the animal
     life--;
+}
+
+void Pet::onCollision(){
+    double proba = ((double) rand() / (RAND_MAX));
+    if (proba < this->getProbabilityOfFatalCollision()) {
+        cout << this->getIdentity() << " dies by collision" << endl;
+        life = 0;
+    }
 }

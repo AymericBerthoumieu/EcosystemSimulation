@@ -24,6 +24,7 @@ class Pet{
    double orientation;
    double speed;
    int life;
+   double probabilityOfFatalCollision;
 
    T* color;
 
@@ -40,8 +41,12 @@ public :
    bool isDetecting(const Pet& p) const;
    void initCoords(int xLim, int yLim);
    void decrement();
+   void onCollision();
+   int getX() {return x;};
+   int getY() {return y;};
    int getIdentity() const {return identity;};
    int getLife() const {return life;};
+   double getProbabilityOfFatalCollision() const {return probabilityOfFatalCollision;};
    friend bool operator==(const Pet& p1, const Pet& p2);
 };
 

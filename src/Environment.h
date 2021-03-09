@@ -16,6 +16,7 @@ class Environment : public UImg{
    static const T white[];
    int width, height;
    std::vector<Pet> pets;
+   int nb_steps;
 
 public :
    Environment(int _width, int _height);
@@ -25,6 +26,7 @@ public :
    int getHeight() const { return height; };
    void step();
    void die();
+   void hasCollision(Pet & p);
    void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
    int nbNeighbors(const Pet & p);};
 
