@@ -34,8 +34,11 @@ class Pet{
 public :
    Pet();
    Pet(const Pet& p); // copy cstor
+   Pet( Pet && p ); // move
    ~Pet();
 
+   Pet& operator=(Pet&& p) noexcept; //move constructor by assignment
+   Pet& operator=(const Pet& p); // assignment
    void action(Environment& myEnvironment);
    void draw(UImg& support);
    bool isDetecting(const Pet& p) const;

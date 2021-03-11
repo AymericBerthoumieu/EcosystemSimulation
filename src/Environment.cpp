@@ -20,7 +20,7 @@ void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-      //hasCollision(*it); // check if there is a collision
+      hasCollision(*it); // check if there is a collision
       it->action( *this );
 
       // we draw only if the pet is still alive
@@ -46,31 +46,29 @@ bool mustDie(Pet const &p) {
 
 void Environment::die() {
     cout << "At step <" << nb_steps << "> : " << endl;
-    pets.erase(std::remove_if(pets.begin(), pets.end(), mustDie), pets.end());
+    auto it = std::remove_if(pets.begin(), pets.end(), mustDie);
+    pets.erase(it, pets.end());
 }
 
-/*
 void Environment::hasCollision(Pet & p){
     int id = p.getIdentity();
-    double r = 2; // rayon de collision
+    double r = 10; // rayon de collision
     int x = p.getX();
     int y = p.getY();
     int current_x, current_y;
     double dist;
 
-    if (pets.size() > 1) {
-        for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
-            if (it->getIdentity() != id) {
-                current_x = it->getX();
-                current_y = it->getY();
+    for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
+        if (it->getIdentity() != id) {
+            current_x = it->getX();
+            current_y = it->getY();
 
-                dist = std::pow((std::pow((double(x) - double(current_x)), 2) + std::pow((double(y) - double(current_y)), 2)),0.5);
-                if (dist <= r) {
-                    cout << "Collision of " << p.getIdentity() << endl;
-                    p.onCollision();
-                }
+            dist = std::pow((std::pow((double(x) - double(current_x)), 2) + std::pow((double(y) - double(current_y)), 2)),0.5);
+            if (dist <= r) {
+                cout << "===================================" << dist << endl;
+                cout << "Collision of " << p.getIdentity() << endl;
+                p.onCollision();
             }
         }
     }
 }
-*/

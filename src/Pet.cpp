@@ -23,7 +23,7 @@ Pet::Pet( void ){
    cumulX = cumulY = 0.;
 
    probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
-   life = 50 * 2  * probabilityOfFatalCollision; // must be initialized randomly
+   life = 10000 * probabilityOfFatalCollision; // must be initialized randomly
 
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
@@ -40,7 +40,7 @@ Pet::Pet( const Pet & p ){
    cout << "const Pet (" << identity << ") par copie" << endl;
 
    probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
-   life = 50 * 2 * probabilityOfFatalCollision; // must be initialized randomly
+   life = 10000 * probabilityOfFatalCollision; // must be initialized randomly
 
    x = p.x;
    y = p.y;
@@ -50,11 +50,54 @@ Pet::Pet( const Pet & p ){
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
 
+Pet& Pet::operator=(Pet&& p) noexcept
+{
+    // Guard self assignment
+    if (this == &p)
+        return *this; // delete[]/size=0 would also be ok
+    cout << "Affectation Pet(" << p.getIdentity() << ")" << endl;
+    identity = p.getIdentity();
+
+    probabilityOfFatalCollision = p.getProbabilityOfFatalCollision();
+    life = p.getLife(); // must be initialized randomly
+
+    x = p.x;
+    y = p.y;
+    cumulX = cumulY = 0.;
+    orientation = p.orientation;
+    speed = p.speed;
+    color = p.color;
+    p.color = NULL;
+    return *this;
+}
+
+// copy assignment
+Pet& Pet::operator=(const Pet& p)
+{
+    cout << "Affectation par copie" << endl;
+    // Guard self assignment
+    if (this == &p)
+        return *this;
+
+    identity = p.getIdentity();
+    probabilityOfFatalCollision = p.getProbabilityOfFatalCollision();
+    life = p.getLife(); // must be initialized randomly
+
+    x = p.x;
+    y = p.y;
+    cumulX = cumulY = 0.;
+    orientation = p.orientation;
+    speed = p.speed;
+    memcpy( color, p.color, 3*sizeof(T) );
+    return *this;
+}
 
 Pet::~Pet( void ){
-   delete[] color;
-
-   cout << "dest Pet (" << identity << ") with life" << life << endl;}
+   if (color != NULL){
+       delete[] color;
+   }
+   cout << "dest Pet" << endl;
+}
 
 
 void Pet::initCoords( int xLim, int yLim ){
@@ -116,7 +159,7 @@ bool Pet::isDetecting( const Pet & p ) const{
 
 void Pet::decrement() {
     // decrement the life of the animal
-    life--;
+    --life;
 }
 
 void Pet::onCollision(){

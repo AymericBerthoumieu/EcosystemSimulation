@@ -1,8 +1,5 @@
 SRCDIR := src/
 
-main2 : main_test.cpp
-	g++ -Wall -std=c++11 -o main2 main_test.cpp
-
 main : main.cpp Aquarium.o Pet.o Environment.o
 	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o -I $(SRCDIR) -lX11 -lpthread
 
