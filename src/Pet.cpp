@@ -2,6 +2,7 @@
 
 #include "Environment.h"
 #include "GregariousBehaviour.h"
+#include "FearfulBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -26,7 +27,7 @@ Pet::Pet( void ){
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
    // initialize pet behaviour
-   behaviour = new GregariousBehaviour();
+   behaviour = new FearfulBehaviour();
    isMultiple = 0;
 
    color = new T[ 3 ];
@@ -47,7 +48,7 @@ Pet::Pet( const Pet & p ){
    speed = p.speed;
 
    // initialize pet behaviour
-   behaviour = new GregariousBehaviour();
+   behaviour = new FearfulBehaviour();
    isMultiple = 0;
 
    color = new T[ 3 ];
@@ -130,6 +131,10 @@ std::tuple<double, double> Pet::get_orient_speed(){
 
 int Pet::get_id(){
    return this->identity;
+}
+
+double Pet::get_max_speed(){
+   return MAX_SPEED;
 }
 
 void Pet::set_coordinates(int new_x,int new_y){

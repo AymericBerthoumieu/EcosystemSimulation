@@ -46,6 +46,7 @@ public :
    std::tuple<int, int> get_coordinates();
    std::tuple<double, double> get_cumul();
    std::tuple<double, double> get_orient_speed();
+   double get_max_speed();
    int get_id();
    void set_coordinates(int new_x,int new_y);
    void set_cumul(double new_cumul_x,double new_cumul_y);
