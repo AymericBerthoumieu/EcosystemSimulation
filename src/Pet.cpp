@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <cmath>
 
+#include <stdlib.h>
+
 
 const double Pet::AFF_SIZE = 8.;
 const double Pet::MAX_SPEED = 10.;
@@ -27,8 +29,22 @@ Pet::Pet( void ){
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
    // initialize pet behaviour
-   behaviour = new FearfulBehaviour();
+
+   int which_behaviour; 
+   which_behaviour = rand() % 3 + 1;
+   
    isMultiple = 0;
+   
+   if ( which_behaviour == 1 ){
+   behaviour = new GregariousBehaviour();}
+
+   if ( which_behaviour == 2 ){
+   behaviour = new FearfulBehaviour();}
+
+   if ( which_behaviour == 3 ){
+   behaviour = new FearfulBehaviour();
+   isMultiple = 1;}
+   
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -47,9 +63,23 @@ Pet::Pet( const Pet & p ){
    orientation = p.orientation;
    speed = p.speed;
 
-   // initialize pet behaviour
-   behaviour = new FearfulBehaviour();
+  // initialize pet behaviour
+
+   int which_behaviour; 
+   which_behaviour = rand() % 3 + 1;
+
    isMultiple = 0;
+   
+   if ( which_behaviour == 1 ){
+   behaviour = new GregariousBehaviour();}
+
+   if ( which_behaviour == 2 ){
+   behaviour = new FearfulBehaviour();}
+
+   if ( which_behaviour == 3 ){
+   behaviour = new FearfulBehaviour();
+   isMultiple = 1;}
+   
 
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
@@ -95,6 +125,7 @@ void Pet::move( int xLim, int yLim, Environment& myEnvironment){
    behaviour->move(xLim,yLim,*this, myEnvironment);}
 
 void Pet::action( Environment & myEnvironment ){
+   changeBehaviour();
    move( myEnvironment.getWidth(), myEnvironment.getHeight(), myEnvironment);}
    
 
