@@ -3,6 +3,7 @@
 //
 #include "Aquarium.h"
 #include "Environment.h"
+#include "Animal.h"
 #include "Pet.h"
 
 #include <iostream>
