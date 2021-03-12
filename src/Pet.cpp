@@ -172,3 +172,9 @@ void Pet::onCollision(){
         life = 0;
     }
 }
+
+
+// ############################## for tests ########################################
+void Pet::setLife(int i){
+    life = i;
+}

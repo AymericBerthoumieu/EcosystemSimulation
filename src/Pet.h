@@ -50,6 +50,9 @@ public :
    int getLife() const {return life;};
    double getProbabilityOfFatalCollision() const {return probabilityOfFatalCollision;};
    friend bool operator==(const Pet& p1, const Pet& p2);
+
+    // for tests
+    void setLife(int i);
 };
 
 #endif

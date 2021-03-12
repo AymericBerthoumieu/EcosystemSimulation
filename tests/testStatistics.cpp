@@ -30,4 +30,5 @@ int main() {
     st.modifyData(col3, true);
     st.saveData();
 
+    return 0;
 }

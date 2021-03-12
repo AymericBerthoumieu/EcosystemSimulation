@@ -28,6 +28,11 @@ public :
    void die();
    void hasCollision(Pet & p);
    void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
-   int nbNeighbors(const Pet & p);};
+   int nbNeighbors(const Pet & p);
+
+   // for test
+   void setLife(int i);
+};
+
 
 #endif

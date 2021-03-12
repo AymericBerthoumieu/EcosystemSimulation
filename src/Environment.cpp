@@ -76,3 +76,12 @@ void Environment::hasCollision(Pet &p) {
         }
     }
 }
+
+// ############################## for tests ########################################
+
+void Environment::setLife(int i){
+    cout << "[TEST] Setting life of all pets at " << i << "." << endl;
+    for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
+        it->setLife(i);
+    }
+}
