@@ -98,30 +98,7 @@ void Pet::initCoords( int xLim, int yLim ){
 
 
 void Pet::move( int xLim, int yLim, Environment& myEnvironment){
-   /*double nx, ny;
-   double dx = cos( orientation )*speed;
-   double dy = -sin( orientation )*speed;
-   int cx, cy;
-
-   cx = static_cast<int>( cumulX ); cumulX -= cx;
-   cy = static_cast<int>( cumulY ); cumulY -= cy;
-
-   nx = x + dx + cx;
-   ny = y + dy + cy;
-
-   if ( (nx < 0) || (nx > xLim - 1) ) {
-      orientation = M_PI - orientation;
-      cumulX = 0.;}
-   else {
-      x = static_cast<int>( nx );
-      cumulX += nx - x;}
-
-   if ( (ny < 0) || (ny > yLim - 1) ) {
-      orientation = -orientation;
-      cumulY = 0.;}
-   else {
-      y = static_cast<int>( ny );
-      cumulY += ny - y;}}*/
+   
    behaviour->move(xLim,yLim,*this, myEnvironment);}
 
 void Pet::action( Environment & myEnvironment ){
@@ -148,36 +125,36 @@ bool Pet::isDetecting( const Pet & p ) const{
    dist = std::sqrt( (x-p.x)*(x-p.x) + (y-p.y)*(y-p.y) );
    return ( dist <= LIMIT_VIEW );}
 
-std::tuple<int, int> Pet::get_coordinates(){
+std::tuple<int, int> Pet::getCoordinates(){
    return std::make_tuple(this->x,this->y);
 }
 
-std::tuple<double, double> Pet::get_cumul(){
+std::tuple<double, double> Pet::getCumul(){
    return std::make_tuple(this->cumulX,this->cumulY);
 }
    
-std::tuple<double, double> Pet::get_orient_speed(){
+std::tuple<double, double> Pet::getOrientationSpeed(){
    return std::make_tuple(this->orientation,this->speed);
 }
 
-int Pet::get_id(){
+int Pet::getId(){
    return this->identity;
 }
 
-double Pet::get_max_speed(){
+double Pet::getMaxSpeed(){
    return MAX_SPEED;
 }
 
-void Pet::set_coordinates(int new_x,int new_y){
+void Pet::setCoordinates(int new_x,int new_y){
    this->x = new_x;
    this->y = new_y;
 }
 
-void Pet::set_cumul(double new_cumul_x,double new_cumul_y){
+void Pet::setCumul(double new_cumul_x,double new_cumul_y){
    this->cumulX = new_cumul_x;
    this->cumulY = new_cumul_y;
 }
-void Pet::set_orient_speed(double new_orientation,double new_speed){
+void Pet::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
    }

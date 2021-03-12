@@ -43,14 +43,14 @@ public :
    bool isDetecting(const Pet& p) const;
    void initCoords(int xLim, int yLim);
    friend bool operator==(const Pet& p1, const Pet& p2);
-   std::tuple<int, int> get_coordinates();
-   std::tuple<double, double> get_cumul();
-   std::tuple<double, double> get_orient_speed();
-   double get_max_speed();
-   int get_id();
-   void set_coordinates(int new_x,int new_y);
-   void set_cumul(double new_cumul_x,double new_cumul_y);
-   void set_orient_speed(double new_orientation,double new_speed);
+   std::tuple<int, int> getCoordinates();
+   std::tuple<double, double> getCumul();
+   std::tuple<double, double> getOrientationSpeed();
+   double getMaxSpeed();
+   int getId();
+   void setCoordinates(int new_x,int new_y);
+   void setCumul(double new_cumul_x,double new_cumul_y);
+   void setOrientationSpeed(double new_orientation,double new_speed);
    void changeBehaviour();
 };
 

@@ -17,14 +17,14 @@ std::vector<Pet> FearfulBehaviour::nearestNeighbors(Pet& pet, Environment& myEnv
    std::vector<Pet> closestPets;
    std::vector<Pet> pets = myEnvironment.nearestNeighbors(pet);
 
-   auto cord = pet.get_coordinates();
+   auto cord = pet.getCoordinates();
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
 
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
 
-      auto neighbor_cord = it->get_coordinates();
+      auto neighbor_cord = it->getCoordinates();
       int neighbor_x = std::get<0>(neighbor_cord);
       int neighbor_y = std::get<1>(neighbor_cord);
 
@@ -39,9 +39,9 @@ std::vector<Pet> FearfulBehaviour::nearestNeighbors(Pet& pet, Environment& myEnv
 void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvironment) {
 
 
-   auto cord = pet.get_coordinates();
-   auto cumul = pet.get_cumul();
-   auto orient_speed = pet.get_orient_speed();
+   auto cord = pet.getCoordinates();
+   auto cumul = pet.getCumul();
+   auto orient_speed = pet.getOrientationSpeed();
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -67,7 +67,7 @@ void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviron
 
    if(nb_neighbors >= LIMIT_SURROUNDING){
    		orientation = -orientation;
-  	  	speed = pet.get_max_speed();}
+  	  	speed = pet.getMaxSpeed();}
 
   	// Otherwise we set the speed to the cruising speed
 
@@ -104,7 +104,7 @@ void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviron
 
    // We modify the pet travel information
    
-   pet.set_coordinates(x,y);
-   pet.set_cumul(cumulX,cumulY);
-   pet.set_orient_speed(orientation,speed); 
+   pet.setCoordinates(x,y);
+   pet.setCumul(cumulX,cumulY);
+   pet.setOrientationSpeed(orientation,speed); 
    } 

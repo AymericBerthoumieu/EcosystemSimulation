@@ -16,7 +16,7 @@ Environment::~Environment(){
 void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-      cout << "Pet id" << it->get_id()  << endl;
+      cout << "Pet id" << it->getId()  << endl;
       it->action( *this );
       it->draw( *this );}}
 
