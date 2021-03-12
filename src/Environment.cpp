@@ -32,7 +32,7 @@ std::vector<Pet> Environment::detectedNeighbors(Pet & pet){
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
       if (pet.getIdentity() != it->getIdentity() && pet.isDetecting(*it)){
-         cout << "Is detecting" << endl;
+         //cout << "Is detecting" << endl;
          petNeighbors.push_back(*it);
       }
 

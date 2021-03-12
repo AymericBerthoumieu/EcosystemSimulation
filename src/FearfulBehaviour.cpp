@@ -64,8 +64,12 @@ void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviron
    }
 
    if(nb_neighbors >= LIMIT_SURROUNDING){
+
    		orientation = M_PI-orientation;
-  	  	speed = pet.getMaxSpeed();}
+  	  	speed = pet.getMaxSpeed();
+  	  	cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
+
+  	  }
 
   	// Otherwise we set the speed to the cruising speed
 

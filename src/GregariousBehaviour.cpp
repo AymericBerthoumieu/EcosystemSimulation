@@ -29,6 +29,8 @@ std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& my
       int neighbor_y = std::get<1>(neighbor_cord);
 
       dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
+
+      //cout << "dist vs radius ???? " << dist <<  " " << RADIUS_SURROUNDING << endl;
       if ( dist <= RADIUS_SURROUNDING ){
          closestPets.push_back(*it);}
       }
@@ -55,6 +57,7 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
    int nb_neighbors = 0;
 
    std::vector<Pet> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   //cout << "No neighbors ???? " << closestPets.empty() << endl;
 
    for (std::vector<Pet>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
@@ -65,10 +68,13 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
 
    }
 
+
    // checker si nb_neighbors != 0
 
    if(nb_neighbors != 0 && nb_neighbors >= LIMIT_SURROUNDING){
+
       orientation = all_orientation/nb_neighbors;
+      //cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
    }
 
    

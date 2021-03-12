@@ -32,7 +32,6 @@ std::vector<Pet> KamikazeBehaviour::nearestNeighbors(Pet& pet, Environment& myEn
       dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
       if(dist <= best_distance){
          closestPets.push_back(*it);
-         cout << "Reach Here ? Kamikaze" << dist << endl;
       }
 
       }
@@ -65,23 +64,36 @@ void KamikazeBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviro
 
    // check if there is at leat one detected pet which should be the nearest one
 
+   cout << "Previous Orientation " << orientation  << endl;
+
    if(!closestPets.empty()){
 
       auto nearestPet_cord = closestPets.back().getCoordinates();
       nearestPet_x = std::get<0>(nearestPet_cord);
       nearestPet_y = std::get<1>(nearestPet_cord);
 
-      double abs_diff = nearestPet_x-x;
-      double ord_diff = nearestPet_y-y;
+      double abs_diff = abs(nearestPet_x-x);
+      double ord_diff = abs(nearestPet_y-y);
 
-      if(abs_diff != 0){
-         orientation = acos (ord_diff / abs_diff) * 180.0 / M_PI ;
+      if(ord_diff != 0){
+         orientation = acos (abs_diff / ord_diff) ;
+
+         if(abs_diff==0){
+
+            if (nearestPet_y >= y){
+               orientation = M_PI/2;
+            }
+
+            else{
+               orientation = -M_PI/2;
+            }
+         }
       }
 
       else{
 
-         if (nearestPet_y >= y){
-            orientation = 0;
+         if (nearestPet_x >= x){
+            orientation = 2*M_PI;
          }
 
          else{
@@ -90,6 +102,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviro
       }
    }
 
+   cout << "New Orientation " << orientation  << endl;
 
    
 

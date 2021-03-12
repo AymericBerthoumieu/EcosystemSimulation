@@ -32,12 +32,12 @@ Pet::Pet( void ){
    // initialize pet behaviour
 
    int which_behaviour; 
-   which_behaviour = rand() % 3 + 1;
-   //which_behaviour = 2;
+   which_behaviour = rand() % 4 + 1;
+  
       
    isMultiple = 0;
    
-   if ( which_behaviour == 1 ){
+   if ( which_behaviour == 2 ){
       behaviour = new GregariousBehaviour();
    }
 
@@ -45,13 +45,13 @@ Pet::Pet( void ){
       behaviour = new FearfulBehaviour();
    }
 
-   if ( which_behaviour == 2 ){
+   if ( which_behaviour == 1 ){
       behaviour = new KamikazeBehaviour();
    }
 
-   /*if ( which_behaviour == 4 ){
+   if ( which_behaviour == 4 ){
    behaviour = new FearfulBehaviour();
-   isMultiple = 1;}*/
+   isMultiple = 1;}
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -77,17 +77,17 @@ Pet::Pet( const Pet & p ){
    isMultiple = p.isMultipleBehaviour();
    
    if ( behaviour_name == "Gregarious"){
-      cout << "Reach Here ? Gregarious" << endl;
+      //cout << "Reach Here ? Gregarious" << endl;
       behaviour = new GregariousBehaviour();
    }
 
    if ( behaviour_name == "Fearful"){
-      cout << "Reach Here ? Fearful" << endl;
+      //cout << "Reach Here ? Fearful" << endl;
       behaviour = new FearfulBehaviour();
    }
 
    if ( behaviour_name == "Kamikaze" ){
-      cout << "Reach Here ? Kamikaze" << endl;
+      //cout << "Reach Here ? Kamikaze" << endl;
       behaviour = new KamikazeBehaviour();
   }
    
