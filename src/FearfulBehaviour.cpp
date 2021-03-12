@@ -58,12 +58,10 @@ void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviron
    std::vector<Pet> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
    for (std::vector<Pet>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
-
-      nb_neighbors += 1;
+     	
+     	nb_neighbors += 1;
 
    }
-
-   // If there are many pets around we change the direction and speed
 
    if(nb_neighbors >= LIMIT_SURROUNDING){
    		orientation = M_PI-orientation;

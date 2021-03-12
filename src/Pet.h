@@ -52,6 +52,8 @@ public :
    void setCumul(double new_cumul_x,double new_cumul_y);
    void setOrientationSpeed(double new_orientation,double new_speed);
    void changeBehaviour();
+   std::string getBehaviourName() const;
+   bool isMultipleBehaviour() const;
 };
 
 #endif

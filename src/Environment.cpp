@@ -16,7 +16,7 @@ Environment::~Environment(){
 void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-      cout << "Pet id" << it->getIdentity()  << endl;
+      //cout << "Pet id" << it->getIdentity()  << endl;
       it->action( *this );
       it->draw( *this );}}
 
@@ -31,8 +31,8 @@ std::vector<Pet> Environment::detectedNeighbors(Pet & pet){
    std::vector<Pet> petNeighbors;
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
-      if (pet.isDetecting(*it) && pet.getIdentity() != it->getIdentity()){
-         //cout << "reach here" << endl;
+      if (pet.getIdentity() != it->getIdentity() && pet.isDetecting(*it)){
+         cout << "Is detecting" << endl;
          petNeighbors.push_back(*it);
       }
 

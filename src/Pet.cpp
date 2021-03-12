@@ -21,7 +21,7 @@ int Pet::next = 0;
 Pet::Pet( void ){
    identity = ++next;
 
-   cout << "const Pet (" << identity << ") par défaut" << endl;
+   //cout << "const Pet (" << identity << ") par défaut" << endl;
 
    x = y = 0;
    cumulX = cumulY = 0.;
@@ -31,24 +31,27 @@ Pet::Pet( void ){
 
    // initialize pet behaviour
 
-   //int which_behaviour; 
-   //which_behaviour = rand() % 4 + 1;
-   
+   int which_behaviour; 
+   which_behaviour = rand() % 3 + 1;
+   //which_behaviour = 2;
+      
    isMultiple = 0;
    
-   if ( identity == 1 ){
-   behaviour = new GregariousBehaviour();}
+   if ( which_behaviour == 1 ){
+      behaviour = new GregariousBehaviour();
+   }
 
-   if ( identity == 2 ){
-   behaviour = new FearfulBehaviour();}
+   if ( which_behaviour == 3 ){
+      behaviour = new FearfulBehaviour();
+   }
 
-   if ( identity == 3 ){
-   behaviour = new KamikazeBehaviour();}
+   if ( which_behaviour == 2 ){
+      behaviour = new KamikazeBehaviour();
+   }
 
-   if ( identity == 4 ){
+   /*if ( which_behaviour == 4 ){
    behaviour = new FearfulBehaviour();
-   isMultiple = 1;}
-   
+   isMultiple = 1;}*/
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -59,7 +62,7 @@ Pet::Pet( void ){
 Pet::Pet( const Pet & p ){
    identity = ++next;
 
-   cout << "const Pet (" << identity << ") par copie" << endl;
+   //cout << "const Pet (" << identity << ") par copie" << endl;
 
    x = p.x;
    y = p.y;
@@ -69,22 +72,26 @@ Pet::Pet( const Pet & p ){
 
   // initialize pet behaviour
 
-   int which_behaviour; 
-   which_behaviour = rand() % 3 + 1;
-
-   isMultiple = 0;
+   std::string behaviour_name; 
+   behaviour_name = p.getBehaviourName();
+   isMultiple = p.isMultipleBehaviour();
    
-   if ( which_behaviour == 1 ){
-   behaviour = new GregariousBehaviour();}
+   if ( behaviour_name == "Gregarious"){
+      cout << "Reach Here ? Gregarious" << endl;
+      behaviour = new GregariousBehaviour();
+   }
 
-   if ( which_behaviour == 2 ){
-   behaviour = new FearfulBehaviour();}
+   if ( behaviour_name == "Fearful"){
+      cout << "Reach Here ? Fearful" << endl;
+      behaviour = new FearfulBehaviour();
+   }
 
-   if ( which_behaviour == 3 ){
-   behaviour = new FearfulBehaviour();
-   isMultiple = 1;}
+   if ( behaviour_name == "Kamikaze" ){
+      cout << "Reach Here ? Kamikaze" << endl;
+      behaviour = new KamikazeBehaviour();
+  }
    
-
+   
    color = new T[ 3 ];
    memcpy( color, p.color, 3*sizeof(T) );}
 
@@ -93,7 +100,8 @@ Pet::~Pet( void ){
    delete behaviour;
    delete[] color;
 
-   cout << "dest Pet" << endl;}
+   //cout << "dest Pet" << endl;
+}
 
 
 void Pet::initCoords( int xLim, int yLim ){
@@ -164,8 +172,16 @@ void Pet::setOrientationSpeed(double new_orientation,double new_speed){
    }
 void Pet::changeBehaviour(){
    if (isMultiple) {
+      cout << "Reach Here ? Change Behaviour" << endl;
       delete behaviour;
-      behaviour = new GregariousBehaviour();
+      behaviour = new FearfulBehaviour();
 }
 }
 
+bool Pet::isMultipleBehaviour() const{
+   return isMultiple;
+}
+
+std::string Pet::getBehaviourName() const{
+   return behaviour->getBehaviourName();
+}

@@ -21,10 +21,7 @@ std::vector<Pet> KamikazeBehaviour::nearestNeighbors(Pet& pet, Environment& myEn
    auto cord = pet.getCoordinates();
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
-
    double best_distance = std::numeric_limits<double>::max();
-   Pet nearestPet;
-
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
 
@@ -33,12 +30,13 @@ std::vector<Pet> KamikazeBehaviour::nearestNeighbors(Pet& pet, Environment& myEn
       int neighbor_y = std::get<1>(neighbor_cord);
 
       dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
-      if ( dist <= best_distance ){
-         best_distance = dist;
-         nearestPet = *it;
-         }
+      if(dist <= best_distance){
+         closestPets.push_back(*it);
+         cout << "Reach Here ? Kamikaze" << dist << endl;
+      }
+
+      }
       
-      closestPets.push_back(nearestPet);}
 
       return closestPets;}
 
@@ -62,21 +60,16 @@ void KamikazeBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviro
 
    double nearestPet_x;
    double nearestPet_y;
-   int nb_neighbors = 0;
 
    std::vector<Pet> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
-   for (std::vector<Pet>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
-
-      auto nearestPet_cord = it->getCoordinates();
-      nearestPet_x = std::get<0>(nearestPet_cord);
-      nearestPet_y = std::get<1>(nearestPet_cord);
-      nb_neighbors += 1; 
-   }
-
    // check if there is at leat one detected pet which should be the nearest one
 
-   if(nb_neighbors != 0){
+   if(!closestPets.empty()){
+
+      auto nearestPet_cord = closestPets.back().getCoordinates();
+      nearestPet_x = std::get<0>(nearestPet_cord);
+      nearestPet_y = std::get<1>(nearestPet_cord);
 
       double abs_diff = nearestPet_x-x;
       double ord_diff = nearestPet_y-y;
