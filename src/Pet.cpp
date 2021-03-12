@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "GregariousBehaviour.h"
 #include "FearfulBehaviour.h"
+#include "KamikazeBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -30,18 +31,21 @@ Pet::Pet( void ){
 
    // initialize pet behaviour
 
-   int which_behaviour; 
-   which_behaviour = rand() % 3 + 1;
+   //int which_behaviour; 
+   //which_behaviour = rand() % 4 + 1;
    
    isMultiple = 0;
    
-   if ( which_behaviour == 1 ){
+   if ( identity == 1 ){
    behaviour = new GregariousBehaviour();}
 
-   if ( which_behaviour == 2 ){
+   if ( identity == 2 ){
    behaviour = new FearfulBehaviour();}
 
-   if ( which_behaviour == 3 ){
+   if ( identity == 3 ){
+   behaviour = new KamikazeBehaviour();}
+
+   if ( identity == 4 ){
    behaviour = new FearfulBehaviour();
    isMultiple = 1;}
    
@@ -137,7 +141,7 @@ std::tuple<double, double> Pet::getOrientationSpeed(){
    return std::make_tuple(this->orientation,this->speed);
 }
 
-int Pet::getId(){
+int Pet::getIdentity(){
    return this->identity;
 }
 

@@ -15,7 +15,7 @@ std::vector<Pet> FearfulBehaviour::nearestNeighbors(Pet& pet, Environment& myEnv
 
    double         dist;
    std::vector<Pet> closestPets;
-   std::vector<Pet> pets = myEnvironment.nearestNeighbors(pet);
+   std::vector<Pet> pets = myEnvironment.detectedNeighbors(pet);
 
    auto cord = pet.getCoordinates();
    int x = std::get<0>(cord);
@@ -66,12 +66,12 @@ void FearfulBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnviron
    // If there are many pets around we change the direction and speed
 
    if(nb_neighbors >= LIMIT_SURROUNDING){
-   		orientation = -orientation;
+   		orientation = M_PI-orientation;
   	  	speed = pet.getMaxSpeed();}
 
   	// Otherwise we set the speed to the cruising speed
 
-  	if(nb_neighbors < LIMIT_SURROUNDING){
+  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet.getMaxSpeed()){
   		speed = CRUISING_SPEED;
   	}
 

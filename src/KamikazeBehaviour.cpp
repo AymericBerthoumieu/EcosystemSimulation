@@ -1,17 +1,18 @@
-#include "GregariousBehaviour.h"
+#include "KamikazeBehaviour.h"
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <limits>
 
 
-std::string GregariousBehaviour::NAME = "Gregarious";
+std::string KamikazeBehaviour::NAME = "Kamikaze";
 
-std::string GregariousBehaviour::getBehaviourName(){
+std::string KamikazeBehaviour::getBehaviourName(){
    return NAME;
 }
 
-std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& myEnvironment){
+std::vector<Pet> KamikazeBehaviour::nearestNeighbors(Pet& pet, Environment& myEnvironment){
 
    double         dist;
    std::vector<Pet> closestPets;
@@ -21,6 +22,9 @@ std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& my
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
 
+   double best_distance = std::numeric_limits<double>::max();
+   Pet nearestPet;
+
 
    for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
 
@@ -29,13 +33,18 @@ std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& my
       int neighbor_y = std::get<1>(neighbor_cord);
 
       dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
-      if ( dist <= RADIUS_SURROUNDING ){
-         closestPets.push_back(*it);}
-      }
+      if ( dist <= best_distance ){
+         best_distance = dist;
+         nearestPet = *it;
+         }
+      
+      closestPets.push_back(nearestPet);}
 
       return closestPets;}
 
-void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvironment) {
+
+
+void KamikazeBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvironment) {
 
 
    auto cord = pet.getCoordinates();
@@ -49,27 +58,45 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
 
-   // On calcule la direction moyenne des bestioles environnantes
+   // We retrieve the coordinates of the nearest pet
 
-   double all_orientation = 0;
+   double nearestPet_x;
+   double nearestPet_y;
    int nb_neighbors = 0;
 
    std::vector<Pet> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
    for (std::vector<Pet>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
-      auto neighbor_orient_speed = it->getCoordinates();
-      int neighbor_orient = std::get<0>(neighbor_orient_speed);
-      all_orientation += neighbor_orient;
-      nb_neighbors += 1;
-
+      auto nearestPet_cord = it->getCoordinates();
+      nearestPet_x = std::get<0>(nearestPet_cord);
+      nearestPet_y = std::get<1>(nearestPet_cord);
+      nb_neighbors += 1; 
    }
 
-   // checker si nb_neighbors != 0
+   // check if there is at leat one detected pet which should be the nearest one
 
-   if(nb_neighbors != 0 && nb_neighbors >= LIMIT_SURROUNDING){
-      orientation = all_orientation/nb_neighbors;
+   if(nb_neighbors != 0){
+
+      double abs_diff = nearestPet_x-x;
+      double ord_diff = nearestPet_y-y;
+
+      if(abs_diff != 0){
+         orientation = acos (ord_diff / abs_diff) * 180.0 / M_PI ;
+      }
+
+      else{
+
+         if (nearestPet_y >= y){
+            orientation = 0;
+         }
+
+         else{
+            orientation = M_PI;
+         }
+      }
    }
+
 
    
 
@@ -105,5 +132,3 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
    pet.setCumul(cumulX,cumulY);
    pet.setOrientationSpeed(orientation,speed); 
    } 
-
-  

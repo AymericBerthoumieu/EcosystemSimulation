@@ -25,7 +25,7 @@ public :
    void step();
    void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
    int nbNeighbors(const Pet & p);
-   std::vector<Pet> nearestNeighbors(Pet & pet);};
+   std::vector<Pet> detectedNeighbors(Pet & pet);};
 
 
 #endif
