@@ -41,6 +41,9 @@ public :
    void cloneMembers();
    int nbNeighbors(const Animal& a);
    std::vector<Animal> detectedNeighbors(Animal& a);
+
+   // for test
+   void setLife(int i);
 };
 
 

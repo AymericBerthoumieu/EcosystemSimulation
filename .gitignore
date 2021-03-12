@@ -1,2 +1,7 @@
 *.o
+*.csv
 main
+testStatistics
+testDeath1
+testDeath2
+testCollision
