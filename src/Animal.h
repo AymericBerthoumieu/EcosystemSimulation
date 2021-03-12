@@ -4,15 +4,18 @@
 #include "UImg.h"
 
 #include <iostream>
+
+#include <vector>
 #include <tuple>
 
 using namespace std;
 
-class Environment;
-class BehaviourStrategy;
 
+class BehaviourStrategy;
+class Environment;
 
 class Animal{
+protected:
    static const double AFF_SIZE;
    static const double MAX_SPEED;
    static const double LIMIT_VIEW;
@@ -24,35 +27,56 @@ class Animal{
    double cumulX, cumulY;
    double orientation;
    double speed;
-   bool isMultiple;
+
+   int life;
+   double probabilityOfFatalCollision;
+   bool isMultiple; // for multiple behaviour type
+   float visibility;
+
+   BehaviourStrategy* behaviour; 
 
    T* color;
-   BehaviourStrategy* behaviour;
 
 
-   void move(int xLim, int yLim, Environment& myEnvironment);
+   void move(int xLim, int yLim, Environment &myEnvironment);
 
 public :
    Animal();
-   Animal(const Animal& p); // copy cstor
-   virtual  ~Animal();
+   Animal(const Animal& a); // copy cstor
+   Animal(Animal&& a); // move cstor
+   virtual ~Animal();
 
+   friend bool operator==(const Animal& a1, const Animal& a2);
+   Animal& operator=(Animal&& a) noexcept; // move cstor by assignment
+   Animal& operator=(const Animal& a) noexcept; // assignment
+
+   void initCoords(int xLim, int yLim);
+   std::tuple<int, int> getCoordinates();
+   void setCoordinates(int new_x, int new_y);
+   tuple<double, double> getCumul();
+   void setCumul(double new_cumul_x, double new_cumul_y);
+   tuple<double, double> getOrientationSpeed();
+   void setOrientationSpeed(double new_orientation, double new_speed);
+   float getVisibility();
+   double getMaxSpeed();
+   vector<string> getAccessoriesAndCaptors();
+
+   int getIdentity() const;
+   int getLife() const;
+   double getProbabilityOfFatalCollision() const;
+
+   void decrement();
+   void onCollision();
    void action(Environment& myEnvironment);
    void draw(UImg& support);
-   bool isDetecting(const Animal& p) const;
-   void initCoords(int xLim, int yLim);
-   friend bool operator==(const Animal& p1, const Animal& p2);
-   std::tuple<int, int> getCoordinates();
-   std::tuple<double, double> getCumul();
-   std::tuple<double, double> getOrientationSpeed();
-   double getMaxSpeed();
-   int getIdentity();
-   void setCoordinates(int new_x,int new_y);
-   void setCumul(double new_cumul_x,double new_cumul_y);
-   void setOrientationSpeed(double new_orientation,double new_speed);
+   bool isDetecting(const Animal& a) const;
+
    void changeBehaviour();
    std::string getBehaviourName() const;
    bool isMultipleBehaviour() const;
+
+   // for tests
+   void setLife(int i);
 };
 
 #endif

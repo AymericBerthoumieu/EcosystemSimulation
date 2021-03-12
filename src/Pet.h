@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class Environment;
+
 
 class Pet: public Animal{
 public :
