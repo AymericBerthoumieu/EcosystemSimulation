@@ -85,3 +85,4 @@ void Environment::setLife(int i){
         it->setLife(i);
     }
 }
+
