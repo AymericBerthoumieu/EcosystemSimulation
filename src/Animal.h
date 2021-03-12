@@ -69,7 +69,8 @@ public :
 
    void changeBehaviour();
 
-
+   // for tests
+   void setLife(int i);
 };
 
 #endif

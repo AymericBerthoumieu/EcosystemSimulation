@@ -33,7 +33,6 @@ public :
    void step();
    void hasCollision(Animal& a);
    void die();
-   bool mustDie(const Animal& a);
    void addMember(const Animal& a);
    void addMembersAtRuntime();
    void chooseMembersToClone();
@@ -41,6 +40,9 @@ public :
    void cloneMembers();
    int nbNeighbors(const Animal& a);
    std::vector<Animal> detectedNeighbors(Animal& a);
+
+   // for test
+   void setLife(int i);
 };
 
 
