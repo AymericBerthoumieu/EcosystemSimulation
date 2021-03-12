@@ -34,7 +34,7 @@ class Pet{
 public :
    Pet();
    Pet(const Pet& p); // copy cstor
-   Pet( Pet && p ); // move
+   Pet( Pet && p ); // move cstor
    ~Pet();
 
    Pet& operator=(Pet&& p) noexcept; //move constructor by assignment
@@ -45,8 +45,7 @@ public :
    void initCoords(int xLim, int yLim);
    void decrement();
    void onCollision();
-   int getX() {return x;};
-   int getY() {return y;};
+   tuple<int, int> getCoordinates();
    int getIdentity() const {return identity;};
    int getLife() const {return life;};
    double getProbabilityOfFatalCollision() const {return probabilityOfFatalCollision;};

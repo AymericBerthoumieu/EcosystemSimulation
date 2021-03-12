@@ -99,6 +99,9 @@ Pet::~Pet( void ){
    cout << "dest Pet" << endl;
 }
 
+std::tuple<int, int> Pet::getCoordinates(){
+    return std::make_tuple(this->x,this->y);
+}
 
 void Pet::initCoords( int xLim, int yLim ){
    x = rand() % xLim;
