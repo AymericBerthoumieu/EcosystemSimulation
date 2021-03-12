@@ -1,10 +1,13 @@
 #include "Animal.h"
 
 #include "Environment.h"
+#include "GregariousBehaviour.h"
+#include "FearfulBehaviour.h"
+#include "KamikazeBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
-
+#include <stdlib.h>
 
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
@@ -27,6 +30,30 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
+   // initialize Animal behaviour
+
+   int which_behaviour; 
+   which_behaviour = rand() % 4 + 1;
+  
+      
+   isMultiple = 0;
+   
+   if ( which_behaviour == 1 ){
+      behaviour = new GregariousBehaviour();
+   }
+
+   if ( which_behaviour == 2 ){
+      behaviour = new FearfulBehaviour();
+   }
+
+   if ( which_behaviour == 3 ){
+      behaviour = new KamikazeBehaviour();
+   }
+
+   if ( which_behaviour == 4 ){
+   behaviour = new FearfulBehaviour();
+   isMultiple = 1;}
+
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -46,6 +73,30 @@ Animal::Animal( const Animal & a ){
    cumulX = cumulY = 0.;
    orientation = a.orientation;
    speed = a.speed;
+
+
+   // initialize Animal behaviour
+
+   std::string behaviour_name; 
+   behaviour_name = a.getBehaviourName();
+   isMultiple = a.isMultipleBehaviour();
+   
+   if ( behaviour_name == "Gregarious"){
+      //cout << "Reach Here ? Gregarious" << endl;
+      behaviour = new GregariousBehaviour();
+   }
+
+   if ( behaviour_name == "Fearful"){
+      //cout << "Reach Here ? Fearful" << endl;
+      behaviour = new FearfulBehaviour();
+   }
+
+   if ( behaviour_name == "Kamikaze" ){
+      //cout << "Reach Here ? Kamikaze" << endl;
+      behaviour = new KamikazeBehaviour();
+  }
+
+
    color = new T[ 3 ];
    memcpy( color, a.color, 3*sizeof(T) );}
 
@@ -54,6 +105,7 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
+    delete behaviour;
     cout << "dest Pet" << endl;
 }
 
@@ -104,37 +156,15 @@ void Animal::initCoords( int xLim, int yLim ){
    y = rand() % yLim;}
 
 
-void Animal::move( int xLim, int yLim ){
-   double nx, ny;
-   double dx = cos( orientation )*speed;
-   double dy = -sin( orientation )*speed;
-   int cx, cy;
-
-   cx = static_cast<int>( cumulX ); cumulX -= cx;
-   cy = static_cast<int>( cumulY ); cumulY -= cy;
-
-   nx = x + dx + cx;
-   ny = y + dy + cy;
-
-   if ( (nx < 0) || (nx > xLim - 1) ) {
-      orientation = M_PI - orientation;
-      cumulX = 0.;}
-   else {
-      x = static_cast<int>( nx );
-      cumulX += nx - x;}
-
-   if ( (ny < 0) || (ny > yLim - 1) ) {
-      orientation = -orientation;
-      cumulY = 0.;}
-   else {
-      y = static_cast<int>( ny );
-      cumulY += ny - y;}}
+void Animal::move( int xLim, int yLim, Environment& myEnvironment){
+   
+   behaviour->move(xLim,yLim,*this, myEnvironment);}
 
 
 void Animal::action( Environment & myEnvironment ){
     this->decrement();
     if (life > 0) {
-        move( myEnvironment.getWidth(), myEnvironment.getHeight() );
+        move( myEnvironment.getWidth(), myEnvironment.getHeight(), myEnvironment);
     }
 }
 
@@ -174,7 +204,7 @@ int Animal::getLife() const {
 }
 
 int Animal::getIdentity() const {
-    return identity;
+   return this->identity;
 }
 
 double Animal::getProbabilityOfFatalCollision() const {
@@ -183,6 +213,46 @@ double Animal::getProbabilityOfFatalCollision() const {
 
 std::tuple<int, int> Animal::getCoordinates(){
     return std::make_tuple(this->x,this->y);
+}
+
+std::tuple<double, double> Animal::getCumul(){
+   return std::make_tuple(this->cumulX,this->cumulY);
+}
+   
+std::tuple<double, double> Animal::getOrientationSpeed(){
+   return std::make_tuple(this->orientation,this->speed);
+}
+
+void Animal::setCoordinates(int new_x,int new_y){
+   this->x = new_x;
+   this->y = new_y;
+}
+
+void Animal::setCumul(double new_cumul_x,double new_cumul_y){
+   this->cumulX = new_cumul_x;
+   this->cumulY = new_cumul_y;
+}
+void Animal::setOrientationSpeed(double new_orientation,double new_speed){
+   this->orientation = new_orientation;
+   this->speed = new_speed;
+   }
+void Animal::changeBehaviour(){
+   if (isMultiple) {
+      cout << "Reach Here ? Change Behaviour" << endl;
+      delete behaviour;
+      behaviour = new FearfulBehaviour();}
+}
+
+double Animal::getMaxSpeed(){
+   return MAX_SPEED;
+}
+
+bool Animal::isMultipleBehaviour() const{
+   return isMultiple;
+}
+
+std::string Animal::getBehaviourName() const{
+   return behaviour->getBehaviourName();
 }
 
 // ############################## for tests ########################################

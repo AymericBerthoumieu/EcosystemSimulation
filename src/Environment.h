@@ -31,6 +31,7 @@ public :
    int getWidth() const;
    int getHeight() const;
    void step();
+
    void hasCollision(Animal& a);
    void die();
    void addMember(const Animal& a);

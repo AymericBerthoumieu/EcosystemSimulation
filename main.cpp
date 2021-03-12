@@ -10,7 +10,7 @@ using namespace std;
 int main(){
    Aquarium ecosystem(640, 480, 30);
 
-   for (int i = 1; i <= 20; ++i)
+   for (int i = 1; i <= 100; ++i)
       ecosystem.getEnvironment().addMember(Pet());
    ecosystem.run();
 

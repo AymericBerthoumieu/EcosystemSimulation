@@ -94,3 +94,15 @@ void Environment::setLife(int i){
         it->setLife(i);
     }
 }
+
+std::vector<Animal> Environment::detectedNeighbors(Animal & a){
+   std::vector<Animal> petNeighbors;
+
+   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
+      if (a.getIdentity() != it->getIdentity() && a.isDetecting(*it)){
+         //cout << "Is detecting" << endl;
+         petNeighbors.push_back(*it);
+      }
+
+   return petNeighbors;
+}

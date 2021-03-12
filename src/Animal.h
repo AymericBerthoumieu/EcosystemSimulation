@@ -4,9 +4,12 @@
 #include "UImg.h"
 
 #include <iostream>
+
 #include <vector>
+#include <tuple>
 
 using namespace std;
+
 
 class BehaviourStrategy;
 class Environment;
@@ -24,6 +27,7 @@ protected:
    double cumulX, cumulY;
    double orientation;
    double speed;
+
    int life;
    double probabilityOfFatalCollision;
    bool isMultiple; // for multiple behaviour type
@@ -34,7 +38,7 @@ protected:
    T* color;
 
 
-   void move(int xLim, int yLim);
+   void move(int xLim, int yLim, Environment &myEnvironment);
 
 public :
    Animal();
@@ -68,6 +72,8 @@ public :
    bool isDetecting(const Animal& a) const;
 
    void changeBehaviour();
+   std::string getBehaviourName() const;
+   bool isMultipleBehaviour() const;
 
    // for tests
    void setLife(int i);
