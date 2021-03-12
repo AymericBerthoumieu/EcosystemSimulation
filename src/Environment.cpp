@@ -52,7 +52,7 @@ void Environment::addMember(const Animal & a) {
 	this->animals.push_back(a); 
 	this->animals.back().initCoords(width, height);}
 
-bool mustDie(animals const &p) {
+bool mustDie(Animal const &p) {
     if (p.getLife() <= 0) {
         cout << " Pets (" << p.getIdentity() << ") is gonna be destructed with life = " << p.getLife() << endl;
     }
