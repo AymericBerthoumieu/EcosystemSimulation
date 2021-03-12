@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "Environment.h"
 
 #include <cstdlib>
