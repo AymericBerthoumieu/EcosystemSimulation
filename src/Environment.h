@@ -3,7 +3,7 @@
 
 
 #include "UImg.h"
-#include "Pet.h"
+#include "Animal.h"
 
 #include <iostream>
 #include <vector>
@@ -11,24 +11,36 @@
 
 using namespace std;
 
+class AnimalFactory;
+class Statistics;
 
 class Environment : public UImg{
    static const T white[];
    int width, height;
-   std::vector<Pet> pets;
+   std::vector<Animal> animals;
    int nb_steps;
+   std::vector<float> natalityRatios;
+   float cloningProbability;
+   AnimalFactory& petCreator();
+   Statistics& statistics();
 
 public :
    Environment(int _width, int _height);
    ~Environment();
 
-   int getWidth() const { return width; };
-   int getHeight() const { return height; };
+   int getWidth() const;
+   int getHeight() const;
    void step();
+   void hasCollision(Animal& a);
    void die();
-   void hasCollision(Pet & p);
-   void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
-   int nbNeighbors(const Pet & p);
+   bool mustDie(const Animal& a);
+   void addMember(const Animal& a);
+   void addMembersAtRuntime();
+   void chooseMembersToClone();
+   void addMemberToclone(Animal* a);
+   void cloneMembers();
+   int nbNeighbors(const Animal& a);
+   std::vector<Animal> detectedNeighbors(Animal& a);
 
    // for test
    void setLife(int i);

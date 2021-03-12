@@ -18,12 +18,18 @@ Environment::~Environment() {
     cout << "dest Environment" << endl;
 }
 
+int Environment::getWidth() const{
+   return width;}
+
+int Environment::getHeight() const{
+   return height;}
+
 void Environment::step() {
     ++nb_steps;
     cimg_forXY(*this, x, y)
     fillC(x, y, 0, white[0], white[1], white[2]);
 
-    for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
+    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
         hasCollision(*it); // check if there is a collision
         it->action(*this);
 
@@ -35,15 +41,18 @@ void Environment::step() {
     this->die();
 }
 
-int Environment::nbNeighbors(const Pet &p) {
-    int nb = 0;
-    //for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
-    //   if (!(p == *it) && p.iSeeYou(*it))
-    //      ++nb;
-    return nb;
-}
+int Environment::nbNeighbors(const Animal& a){
+   int nb = 0;
+   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
+      if (!(a == *it) && a.isDetecting(*it))
+         ++nb;
+   return nb;}
 
-bool mustDie(Pet const &p) {
+void Environment::addMember(const Animal & a) { 
+	this->animals.push_back(a); 
+	this->animals.back().initCoords(width, height);}
+
+bool mustDie(animals const &p) {
     if (p.getLife() <= 0) {
         cout << " Pets (" << p.getIdentity() << ") is gonna be destructed with life = " << p.getLife() << endl;
     }
@@ -52,18 +61,18 @@ bool mustDie(Pet const &p) {
 
 void Environment::die() {
     cout << "At step <" << nb_steps << "> : " << endl;
-    auto it = std::remove_if(pets.begin(), pets.end(), mustDie);
-    pets.erase(it, pets.end());
+    auto it = std::remove_if(animals.begin(), animals.end(), mustDie);
+    animals.erase(it, animals.end());
 }
 
-void Environment::hasCollision(Pet &p) {
+void Environment::hasCollision(Animal &p) {
     int id = p.getIdentity();
     double r = 15; // collision radius
     std::tuple<int, int> pet_coords = p.getCoordinates();
     std::tuple<int, int> current_coords;
     double dist;
 
-    for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
+    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
         if (it->getIdentity() != id) {
             current_coords = it->getCoordinates();
 
@@ -81,8 +90,7 @@ void Environment::hasCollision(Pet &p) {
 
 void Environment::setLife(int i){
     cout << "[TEST] Setting life of all pets at " << i << "." << endl;
-    for (std::vector<Pet>::iterator it = pets.begin(); it != pets.end(); ++it) {
+    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
         it->setLife(i);
     }
 }
-
