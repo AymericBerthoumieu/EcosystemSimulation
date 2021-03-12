@@ -15,22 +15,22 @@ Environment::~Environment(){
 
 void Environment::step(){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
+   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
       //cout << "Pet id" << it->getIdentity()  << endl;
       it->action( *this );
       it->draw( *this );}}
 
-int Environment::nbNeighbors(const Pet& p){
+int Environment::nbNeighbors(const Animal& p){
    int nb = 0;
-   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
+   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it)
       if (!(p == *it) && p.isDetecting(*it))
          ++nb;
    return nb;}
 
-std::vector<Pet> Environment::detectedNeighbors(Pet & pet){
-   std::vector<Pet> petNeighbors;
+std::vector<Animal> Environment::detectedNeighbors(Animal & pet){
+   std::vector<Animal> petNeighbors;
 
-   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it)
+   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it)
       if (pet.getIdentity() != it->getIdentity() && pet.isDetecting(*it)){
          //cout << "Is detecting" << endl;
          petNeighbors.push_back(*it);

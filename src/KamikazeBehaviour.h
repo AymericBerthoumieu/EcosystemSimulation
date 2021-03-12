@@ -9,7 +9,7 @@ class KamikazeBehaviour: public BehaviourStrategy{
 public:
 	~KamikazeBehaviour(){}
 	std::string getBehaviourName() override;
-	std::vector<Pet> nearestNeighbors(Pet& pet, Environment& myEnvironment) override;
-	void move(int xLim, int yLim, Pet& pet, Environment& myEnvironment) override;
+	std::vector<Animal> nearestNeighbors(Animal& pet, Environment& myEnvironment) override;
+	void move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) override;
 
 };

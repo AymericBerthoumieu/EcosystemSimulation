@@ -3,7 +3,7 @@
 
 
 #include "UImg.h"
-#include "Pet.h"
+#include "Animal.h"
 
 #include <iostream>
 #include <vector>
@@ -14,7 +14,7 @@ using namespace std;
 class Environment : public UImg{
    static const T white[];
    int width, height;
-   std::vector<Pet> pets;
+   std::vector<Animal> pets;
 
 public :
    Environment(int _width, int _height);
@@ -23,9 +23,9 @@ public :
    int getWidth() const { return width; };
    int getHeight() const { return height; };
    void step();
-   void addMember(const Pet & p) { pets.push_back(p); pets.back().initCoords(width, height); };
-   int nbNeighbors(const Pet & p);
-   std::vector<Pet> detectedNeighbors(Pet & pet);};
+   void addMember(const Animal & p) { pets.push_back(p); pets.back().initCoords(width, height); };
+   int nbNeighbors(const Animal & p);
+   std::vector<Animal> detectedNeighbors(Animal & pet);};
 
 
 #endif

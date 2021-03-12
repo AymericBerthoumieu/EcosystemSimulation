@@ -11,18 +11,18 @@ std::string GregariousBehaviour::getBehaviourName(){
    return NAME;
 }
 
-std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& myEnvironment){
+std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 
    double         dist;
-   std::vector<Pet> closestPets;
-   std::vector<Pet> pets = myEnvironment.detectedNeighbors(pet);
+   std::vector<Animal> closestPets;
+   std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
 
    auto cord = pet.getCoordinates();
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
 
 
-   for (std::vector<Pet>::iterator it = pets.begin() ; it != pets.end() ; ++it){
+   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
 
       auto neighbor_cord = it->getCoordinates();
       int neighbor_x = std::get<0>(neighbor_cord);
@@ -37,7 +37,7 @@ std::vector<Pet> GregariousBehaviour::nearestNeighbors(Pet& pet, Environment& my
 
       return closestPets;}
 
-void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvironment) {
+void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
 
 
    auto cord = pet.getCoordinates();
@@ -56,10 +56,10 @@ void GregariousBehaviour::move(int xLim, int yLim, Pet& pet, Environment& myEnvi
    double all_orientation = 0;
    int nb_neighbors = 0;
 
-   std::vector<Pet> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
    //cout << "No neighbors ???? " << closestPets.empty() << endl;
 
-   for (std::vector<Pet>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
+   for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
       auto neighbor_orient_speed = it->getCoordinates();
       int neighbor_orient = std::get<0>(neighbor_orient_speed);
