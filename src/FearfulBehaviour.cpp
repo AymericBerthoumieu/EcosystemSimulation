@@ -13,27 +13,9 @@ std::string FearfulBehaviour::getBehaviourName(){
 
 std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 
-   double         dist;
-   std::vector<Animal> closestPets;
-   std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
-
-   auto cord = pet.getCoordinates();
-   int x = std::get<0>(cord);
-   int y = std::get<1>(cord);
-
-
-   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-
-      auto neighbor_cord = it->getCoordinates();
-      int neighbor_x = std::get<0>(neighbor_cord);
-      int neighbor_y = std::get<1>(neighbor_cord);
-
-      dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
-      if ( dist <= RADIUS_SURROUNDING ){
-         closestPets.push_back(*it);}
-      }
-
-      return closestPets;}
+  
+  std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
+  return pets;}
 
 
 void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {

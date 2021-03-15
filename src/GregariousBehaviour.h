@@ -5,7 +5,6 @@
 class GregariousBehaviour: public BehaviourStrategy{
 
 	static std::string NAME ;
-	const double RADIUS_SURROUNDING = 30.;
 	const int LIMIT_SURROUNDING = 1;
 
 public:
