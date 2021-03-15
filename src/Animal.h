@@ -39,7 +39,7 @@ protected:
 
 
    void move(int xLim, int yLim, Environment &myEnvironment);
-
+   void changeBehaviour();
 public :
    Animal();
    Animal(const Animal& a); // copy cstor
@@ -71,9 +71,6 @@ public :
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
 
-   void changeBehaviour();
-   std::string getBehaviourName() const;
-   bool isMultipleBehaviour() const;
 
    // for tests
    void setLife(int i);
