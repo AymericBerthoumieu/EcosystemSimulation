@@ -30,6 +30,8 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
+
+   // Testtttttttttttttttttttttttttttttttttttttttttttt
    // initialize Animal behaviour
 
    int which_behaviour; 
@@ -53,6 +55,7 @@ Animal::Animal() {
    if ( which_behaviour == 4 ){
    behaviour = new FearfulBehaviour();
    isMultiple = 1;}
+   // Testtttttttttttttttttttttttttttttttttttttttttttt
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -75,27 +78,31 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
+   // Testtttttttttttttttttttttttttttttttttttttttttttt
    // initialize Animal behaviour
 
-   std::string behaviour_name; 
-   behaviour_name = a.getBehaviourName();
-   isMultiple = a.isMultipleBehaviour();
+   int which_behaviour; 
+   which_behaviour = rand() % 4 + 1;
+  
+      
+   isMultiple = 0;
    
-   if ( behaviour_name == "Gregarious"){
-      //cout << "Reach Here ? Gregarious" << endl;
+   if ( which_behaviour == 1 ){
       behaviour = new GregariousBehaviour();
    }
 
-   if ( behaviour_name == "Fearful"){
-      //cout << "Reach Here ? Fearful" << endl;
+   if ( which_behaviour == 2 ){
       behaviour = new FearfulBehaviour();
    }
 
-   if ( behaviour_name == "Kamikaze" ){
-      //cout << "Reach Here ? Kamikaze" << endl;
+   if ( which_behaviour == 3 ){
       behaviour = new KamikazeBehaviour();
-  }
+   }
 
+   if ( which_behaviour == 4 ){
+   behaviour = new FearfulBehaviour();
+   isMultiple = 1;}
+   // Testtttttttttttttttttttttttttttttttttttttttttttt
 
    color = new T[ 3 ];
    memcpy( color, a.color, 3*sizeof(T) );}
@@ -245,14 +252,6 @@ void Animal::changeBehaviour(){
 
 double Animal::getMaxSpeed(){
    return MAX_SPEED;
-}
-
-bool Animal::isMultipleBehaviour() const{
-   return isMultiple;
-}
-
-std::string Animal::getBehaviourName() const{
-   return behaviour->getBehaviourName();
 }
 
 // ############################## for tests ########################################
