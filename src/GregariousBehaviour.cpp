@@ -13,29 +13,9 @@ std::string GregariousBehaviour::getBehaviourName(){
 
 std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 
-   double         dist;
-   std::vector<Animal> closestPets;
+
    std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
-
-   auto cord = pet.getCoordinates();
-   int x = std::get<0>(cord);
-   int y = std::get<1>(cord);
-
-
-   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-
-      auto neighbor_cord = it->getCoordinates();
-      int neighbor_x = std::get<0>(neighbor_cord);
-      int neighbor_y = std::get<1>(neighbor_cord);
-
-      dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
-
-      //cout << "dist vs radius ???? " << dist <<  " " << RADIUS_SURROUNDING << endl;
-      if ( dist <= RADIUS_SURROUNDING ){
-         closestPets.push_back(*it);}
-      }
-
-      return closestPets;}
+   return pets;}
 
 void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
 
@@ -56,13 +36,15 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    double all_orientation = 0;
    int nb_neighbors = 0;
 
+
+   //cout << "Old orientation "  <<  orientation << endl;
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-   //cout << "No neighbors ???? " << closestPets.empty() << endl;
 
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
       auto neighbor_orient_speed = it->getCoordinates();
-      int neighbor_orient = std::get<0>(neighbor_orient_speed);
+      double neighbor_orient = std::get<0>(neighbor_orient_speed);
+
       all_orientation += neighbor_orient;
       nb_neighbors += 1;
 
@@ -74,10 +56,10 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    if(nb_neighbors != 0 && nb_neighbors >= LIMIT_SURROUNDING){
 
       orientation = all_orientation/nb_neighbors;
-      //cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
+      
    }
 
-   
+   //cout << "Orientation Updated and neigbors are " << nb_neighbors << " New orientation "  <<  orientation << endl;
 
    double nx, ny;
    double dx = cos( orientation )*speed;

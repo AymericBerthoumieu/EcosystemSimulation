@@ -1,9 +1,7 @@
 #include "Animal.h"
 
 #include "Environment.h"
-#include "GregariousBehaviour.h"
 #include "FearfulBehaviour.h"
-#include "KamikazeBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -11,7 +9,7 @@
 
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
-const double Animal::LIMIT_VIEW = 30.;
+const double Animal::LIMIT_VIEW = 300.;
 
 int Animal::next = 0;
 
@@ -19,7 +17,7 @@ int Animal::next = 0;
 Animal::Animal() {
    identity = ++next;
 
-   cout << "const Animal (" << identity << ") par défaut" << endl;
+   //cout << "const Animal (" << identity << ") par défaut" << endl;
 
    x = y = 0;
    cumulX = cumulY = 0.;
@@ -31,32 +29,11 @@ Animal::Animal() {
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
-
-   int which_behaviour; 
-   which_behaviour = rand() % 4 + 1;
   
-      
    isMultiple = 0;
-   
-   if ( which_behaviour == 1 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( which_behaviour == 2 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( which_behaviour == 3 ){
-      behaviour = new KamikazeBehaviour();
-   }
-
-   if ( which_behaviour == 4 ){
    behaviour = new FearfulBehaviour();
-   isMultiple = 1;}
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-
+   
+   
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -66,7 +43,7 @@ Animal::Animal() {
 Animal::Animal( const Animal & a ){
    identity = ++next;
 
-   cout << "const Animal (" << identity << ") par copie" << endl;
+   //cout << "const Animal (" << identity << ") par copie" << endl;
 
    probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
    life = 10000 * ((double) rand() / (RAND_MAX));; // must be initialized randomly
@@ -78,31 +55,10 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
-
-   int which_behaviour; 
-   which_behaviour = rand() % 4 + 1;
   
-      
    isMultiple = 0;
-   
-   if ( which_behaviour == 1 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( which_behaviour == 2 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( which_behaviour == 3 ){
-      behaviour = new KamikazeBehaviour();
-   }
-
-   if ( which_behaviour == 4 ){
    behaviour = new FearfulBehaviour();
-   isMultiple = 1;}
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
+   
 
    color = new T[ 3 ];
    memcpy( color, a.color, 3*sizeof(T) );}
@@ -113,7 +69,7 @@ Animal::~Animal( void ){
         delete[] color;
     }
     delete behaviour;
-    cout << "dest Pet" << endl;
+    //cout << "dest Pet" << endl;
 }
 
 Animal& Animal::operator=(Animal&& p) noexcept
@@ -121,7 +77,7 @@ Animal& Animal::operator=(Animal&& p) noexcept
     // Guard self assignment
     if (this == &p)
         return *this; // delete[]/size=0 would also be ok
-    cout << "Affectation Pet(" << p.getIdentity() << ")" << endl;
+    //cout << "Affectation Pet(" << p.getIdentity() << ")" << endl;
     identity = p.getIdentity();
 
     probabilityOfFatalCollision = p.getProbabilityOfFatalCollision();
@@ -140,7 +96,7 @@ Animal& Animal::operator=(Animal&& p) noexcept
 // copy assignment
 Animal& Animal::operator=(const Animal& p) noexcept
 {
-    cout << "Affectation par copie" << endl;
+    //cout << "Affectation par copie" << endl;
     // Guard self assignment
     if (this == &p)
         return *this;
@@ -196,14 +152,14 @@ bool Animal::isDetecting( const Animal & a ) const{
 
 void Animal::decrement() {
     // decrement the life of the animal
-    --life;
+    //--life;
 }
 
 void Animal::onCollision(){
     double proba = ((double) rand() / (RAND_MAX));
     if (proba < this->getProbabilityOfFatalCollision()) {
-        cout << this->getIdentity() << " dies by collision" << endl;
-        life = 0;
+        //cout << this->getIdentity() << " dies by collision" << endl;
+        //life = 0;
     }
 }
 
@@ -248,7 +204,7 @@ void Animal::changeBehaviour(){
    if (isMultiple) {
       cout << "Reach Here ? Change Behaviour" << endl;
       delete behaviour;
-      behaviour = new KamikazeBehaviour();}
+      behaviour = new FearfulBehaviour();}
 }
 
 double Animal::getMaxSpeed(){

@@ -15,28 +15,29 @@ std::string KamikazeBehaviour::getBehaviourName(){
 std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 
    double         dist;
+   Animal closest;
    std::vector<Animal> closestPets;
    std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
 
    auto cord = pet.getCoordinates();
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
-   double best_distance = std::numeric_limits<double>::max();
-
+   double best_distance = std::numeric_limits<double>::infinity();
+   int neighbor = 0;
    for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
 
       auto neighbor_cord = it->getCoordinates();
       int neighbor_x = std::get<0>(neighbor_cord);
       int neighbor_y = std::get<1>(neighbor_cord);
-
+      ++neighbor;
       dist = std::sqrt( (x-neighbor_x)*(x-neighbor_x) + (y-neighbor_y)*(y-neighbor_y) );
       if(dist <= best_distance){
-         closestPets.push_back(*it);
+            closest = *it;
       }
 
       }
-      
-
+      cout << "Number of neighbor Kamikaze" << neighbor << endl;
+      closestPets.push_back(closest);
       return closestPets;}
 
 
@@ -64,8 +65,6 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
    // check if there is at leat one detected pet which should be the nearest one
 
-   cout << "Previous Orientation " << orientation  << endl;
-
    if(!closestPets.empty()){
 
       auto nearestPet_cord = closestPets.back().getCoordinates();
@@ -74,10 +73,13 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
       double abs_diff = abs(nearestPet_x-x);
       double ord_diff = abs(nearestPet_y-y);
+      double hypothenuse = sqrt (pow(abs_diff,2)+pow(ord_diff,2));
 
-      if(ord_diff != 0){
-         orientation = acos (abs_diff / ord_diff) ;
+      cout << "Nearest neighbor for kamikaze"<< endl;
+      if(hypothenuse != 0){
+         orientation = acos (abs_diff / hypothenuse) ;
 
+         cout << "New Orientation of Kamikaze" << orientation << endl;
          if(abs_diff==0){
 
             if (nearestPet_y >= y){
@@ -101,10 +103,6 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
          }
       }
    }
-
-   cout << "New Orientation " << orientation  << endl;
-
-   
 
    double nx, ny;
    double dx = cos( orientation )*speed;

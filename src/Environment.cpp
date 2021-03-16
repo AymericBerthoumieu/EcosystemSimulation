@@ -10,12 +10,12 @@ const T Environment::white[] = {(T) 255, (T) 255, (T) 255};
 
 Environment::Environment(int _width, int _height) : UImg(_width, _height, 1, 3), width(_width), height(_height),
                                                     nb_steps(0) {
-    cout << "const Environment" << endl;
+    //cout << "const Environment" << endl;
     std::srand(time(NULL));
 }
 
 Environment::~Environment() {
-    cout << "dest Environment" << endl;
+    //cout << "dest Environment" << endl;
 }
 
 int Environment::getWidth() const{
@@ -54,13 +54,13 @@ void Environment::addMember(const Animal & a) {
 
 bool mustDie(Animal const &p) {
     if (p.getLife() <= 0) {
-        cout << " Pets (" << p.getIdentity() << ") is gonna be destructed with life = " << p.getLife() << endl;
+        //cout << " Pets (" << p.getIdentity() << ") is gonna be destructed with life = " << p.getLife() << endl;
     }
     return p.getLife() <= 0;
 }
 
 void Environment::die() {
-    cout << "At step <" << nb_steps << "> : " << endl;
+    //cout << "At step <" << nb_steps << "> : " << endl;
     auto it = std::remove_if(animals.begin(), animals.end(), mustDie);
     animals.erase(it, animals.end());
 }
@@ -79,7 +79,7 @@ void Environment::hasCollision(Animal &p) {
             dist = std::pow((std::pow((double(std::get<0>(pet_coords)) - double(std::get<0>(current_coords))), 2) +
                              std::pow((double(std::get<1>(pet_coords)) - double(std::get<1>(current_coords))), 2)), 0.5);
             if (dist <= r) {
-                cout << "Collision of " << p.getIdentity() << endl;
+                //cout << "Collision of " << p.getIdentity() << endl;
                 p.onCollision();
             }
         }
@@ -89,7 +89,7 @@ void Environment::hasCollision(Animal &p) {
 // ############################## for tests ########################################
 
 void Environment::setLife(int i){
-    cout << "[TEST] Setting life of all pets at " << i << "." << endl;
+    //cout << "[TEST] Setting life of all pets at " << i << "." << endl;
     for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
         it->setLife(i);
     }
