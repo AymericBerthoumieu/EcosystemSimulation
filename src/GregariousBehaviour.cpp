@@ -36,13 +36,15 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    double all_orientation = 0;
    int nb_neighbors = 0;
 
+
+   //cout << "Old orientation "  <<  orientation << endl;
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-   //cout << "No neighbors ???? " << closestPets.empty() << endl;
 
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
       auto neighbor_orient_speed = it->getCoordinates();
-      int neighbor_orient = std::get<0>(neighbor_orient_speed);
+      double neighbor_orient = std::get<0>(neighbor_orient_speed);
+
       all_orientation += neighbor_orient;
       nb_neighbors += 1;
 
@@ -54,10 +56,10 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    if(nb_neighbors != 0 && nb_neighbors >= LIMIT_SURROUNDING){
 
       orientation = all_orientation/nb_neighbors;
-      //cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
+      
    }
 
-   
+   //cout << "Orientation Updated and neigbors are " << nb_neighbors << " New orientation "  <<  orientation << endl;
 
    double nx, ny;
    double dx = cos( orientation )*speed;

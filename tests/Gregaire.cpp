@@ -11,7 +11,7 @@
 
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
-const double Animal::LIMIT_VIEW = 30.;
+const double Animal::LIMIT_VIEW = 300.;
 
 int Animal::next = 0;
 
@@ -36,21 +36,18 @@ Animal::Animal() {
 
       
    isMultiple = 0;
-   
-   if ( next%3 == 1 ){
+   behaviour = new GregariousBehaviour();
+   /*if ( next%3 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 
    if ( next%3 == 2 ){
-      //behaviour = new FearfulBehaviour();
-      //behaviour = new KamikazeBehaviour();
       behaviour = new GregariousBehaviour();
    }
 
    if ( next%3 == 0 ){
-      //behaviour = new FearfulBehaviour();
       behaviour = new FearfulBehaviour();
-   }
+   }*/
    // Testtttttttttttttttttttttttttttttttttttttttttttt
 
    color = new T[ 3 ];
@@ -79,21 +76,19 @@ Animal::Animal( const Animal & a ){
 
       
    isMultiple = 0;
+   behaviour = new GregariousBehaviour();
    
-   if ( next%3 == 1 ){
+   /*if ( next%3 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 
    if ( next%3 == 2 ){
-      //behaviour = new FearfulBehaviour();
-      //behaviour = new KamikazeBehaviour();
       behaviour = new GregariousBehaviour();
    }
 
    if ( next%3 == 0 ){
-      //behaviour = new FearfulBehaviour();
       behaviour = new FearfulBehaviour();
-   }
+   }*/
    // Testtttttttttttttttttttttttttttttttttttttttttttt
 
 
@@ -189,14 +184,15 @@ bool Animal::isDetecting( const Animal & a ) const{
 
 void Animal::decrement() {
     // decrement the life of the animal
-    --life;
+    //--life;
 }
 
 void Animal::onCollision(){
     double proba = ((double) rand() / (RAND_MAX));
     if (proba < this->getProbabilityOfFatalCollision()) {
         //cout << this->getIdentity() << " dies by collision" << endl;
-        life = 0;
+        //life = 0;
+      life = life;
     }
 }
 
