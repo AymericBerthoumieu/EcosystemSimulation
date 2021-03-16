@@ -2,8 +2,6 @@
 
 #include "Environment.h"
 #include "GregariousBehaviour.h"
-#include "FearfulBehaviour.h"
-#include "KamikazeBehaviour.h"
 
 #include <cstdlib>
 #include <cmath>
@@ -31,25 +29,11 @@ Animal::Animal() {
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
-
-      
+  
    isMultiple = 0;
    behaviour = new GregariousBehaviour();
-   /*if ( next%3 == 1 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( next%3 == 2 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( next%3 == 0 ){
-      behaviour = new FearfulBehaviour();
-   }*/
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-
+   
+   
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -71,26 +55,10 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
-
-      
+  
    isMultiple = 0;
    behaviour = new GregariousBehaviour();
    
-   /*if ( next%3 == 1 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( next%3 == 2 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( next%3 == 0 ){
-      behaviour = new FearfulBehaviour();
-   }*/
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-
 
    color = new T[ 3 ];
    memcpy( color, a.color, 3*sizeof(T) );}
@@ -192,7 +160,6 @@ void Animal::onCollision(){
     if (proba < this->getProbabilityOfFatalCollision()) {
         //cout << this->getIdentity() << " dies by collision" << endl;
         //life = 0;
-      life = life;
     }
 }
 
@@ -237,7 +204,7 @@ void Animal::changeBehaviour(){
    if (isMultiple) {
       cout << "Reach Here ? Change Behaviour" << endl;
       delete behaviour;
-      behaviour = new FearfulBehaviour();}
+      behaviour = new GregariousBehaviour();}
 }
 
 double Animal::getMaxSpeed(){
