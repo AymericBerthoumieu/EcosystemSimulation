@@ -13,6 +13,7 @@ const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 300.;
 
+int Animal::STEPS_TO_CHANGE_BEHAVIOUR = 10;
 int Animal::next = 0;
 
 
@@ -42,16 +43,21 @@ Animal::Animal() {
       
    isMultiple = 0;
    
-   if ( next%2 == 2 ){
+   if ( next%4 == 0 ){
       behaviour = new GregariousBehaviour();
    }
 
-   if ( next%2 == 1 ){
+   if ( next%4 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 
-   if ( next%2 == 0 ){
+   if ( next%4 == 2 ){
       behaviour = new KamikazeBehaviour();
+   }
+
+   if ( next%4 == 3 ){
+      behaviour = new KamikazeBehaviour();
+      isMultiple = 1;
    }
 
    // Testtttttttttttttttttttttttttttttttttttttttttttt
@@ -88,16 +94,21 @@ Animal::Animal( const Animal & a ){
       
    isMultiple = 0;
    
-   if ( next%2 == 2 ){
+   if ( next%4 == 0 ){
       behaviour = new GregariousBehaviour();
    }
 
-   if ( next%2 == 1 ){
+   if ( next%4 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 
-   if ( next%2 == 0 ){
+   if ( next%4 == 2 ){
       behaviour = new KamikazeBehaviour();
+   }
+
+   if ( next%4 == 3 ){
+      behaviour = new KamikazeBehaviour();
+      isMultiple = 1;
    }
 
    // Testtttttttttttttttttttttttttttttttttttttttttttt
@@ -244,10 +255,26 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->speed = new_speed;
    }
 void Animal::changeBehaviour(){
-   if (isMultiple) {
+   --STEPS_TO_CHANGE_BEHAVIOUR;
+  if (isMultiple && STEPS_TO_CHANGE_BEHAVIOUR == 0) {
+      STEPS_TO_CHANGE_BEHAVIOUR = 10;
       cout << "Reach Here ? Change Behaviour" << endl;
       delete behaviour;
-      behaviour = new KamikazeBehaviour();}
+      int which_behaviour; 
+      which_behaviour = rand() % 3 + 1;
+
+      if ( which_behaviour == 1 ){
+        behaviour = new GregariousBehaviour();
+      }
+
+      if ( which_behaviour == 2 ){
+        behaviour = new FearfulBehaviour();
+      }
+
+      if ( which_behaviour == 3 ){
+        behaviour = new KamikazeBehaviour();
+      }
+    }
 }
 
 double Animal::getMaxSpeed(){
