@@ -39,11 +39,11 @@ Animal::Animal() {
    }
 
    if ( next%4 == 1 ){
-      behaviour = new FearfulBehaviour();
+      behaviour = new KamikazeBehaviour();
    }
 
    if ( next%4 == 2 ){
-      behaviour = new KamikazeBehaviour();
+      behaviour = new FearfulBehaviour();
    }
 
    if ( next%4 == 3 ){
@@ -80,11 +80,11 @@ Animal::Animal( const Animal & a ){
    }
 
    if ( next%4 == 1 ){
-      behaviour = new FearfulBehaviour();
+      behaviour = new KamikazeBehaviour();
    }
 
    if ( next%4 == 2 ){
-      behaviour = new KamikazeBehaviour();
+      behaviour = new FearfulBehaviour();
    }
 
    if ( next%4 == 3 ){
