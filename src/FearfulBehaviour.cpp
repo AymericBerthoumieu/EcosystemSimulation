@@ -49,7 +49,7 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
 
    		orientation = M_PI-orientation;
   	  	speed = pet.getMaxSpeed();
-  	  	cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
+  	  	//cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
 
   	  }
 

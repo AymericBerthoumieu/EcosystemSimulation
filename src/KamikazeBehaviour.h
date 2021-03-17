@@ -5,6 +5,7 @@
 class KamikazeBehaviour: public BehaviourStrategy{
 
 	static std::string NAME ;
+	bool has_reset_orientation = 0;
 
 public:
 	~KamikazeBehaviour(){}

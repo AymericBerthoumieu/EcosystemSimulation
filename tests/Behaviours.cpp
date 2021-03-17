@@ -42,11 +42,11 @@ Animal::Animal() {
       
    isMultiple = 0;
    
-   if ( next%2 == 1 ){
+   if ( next%2 == 2 ){
       behaviour = new GregariousBehaviour();
    }
 
-   if ( next%2 == 3 ){
+   if ( next%2 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 
@@ -88,11 +88,11 @@ Animal::Animal( const Animal & a ){
       
    isMultiple = 0;
    
-   if ( next%2 == 1 ){
+   if ( next%2 == 2 ){
       behaviour = new GregariousBehaviour();
    }
 
-   if ( next%2 == 3 ){
+   if ( next%2 == 1 ){
       behaviour = new FearfulBehaviour();
    }
 

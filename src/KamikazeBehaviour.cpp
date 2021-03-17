@@ -65,45 +65,68 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
    // check if there is at leat one detected pet which should be the nearest one
 
+   cout << "No neighbor for Kamikaze ? " << closestPets.size() << endl;
+
    if(!closestPets.empty()){
+
+      cout << "At least one neighbor for Kamikaze ? " << endl;
+      has_reset_orientation = 0;
 
       auto nearestPet_cord = closestPets.back().getCoordinates();
       nearestPet_x = std::get<0>(nearestPet_cord);
       nearestPet_y = std::get<1>(nearestPet_cord);
 
-      double abs_diff = abs(nearestPet_x-x);
-      double ord_diff = abs(nearestPet_y-y);
+      double abs_diff = nearestPet_x-x;
+      double ord_diff = nearestPet_y-y;
       double hypothenuse = sqrt (pow(abs_diff,2)+pow(ord_diff,2));
 
-      cout << "Nearest neighbor for kamikaze"<< endl;
+      //cout << "Nearest neighbor for kamikaze"<< endl;
+
       if(hypothenuse != 0){
+
          orientation = acos (abs_diff / hypothenuse) ;
-
-         cout << "New Orientation of Kamikaze" << orientation << endl;
-         if(abs_diff==0){
-
-            if (nearestPet_y >= y){
-               orientation = M_PI/2;
-            }
-
-            else{
-               orientation = -M_PI/2;
-            }
+         /*if(abs_diff >= 0){
+            orientation = acos (abs_diff / hypothenuse) ;
          }
+         else{
+            orientation = M_PI - acos (abs_diff / hypothenuse) ;
+         }*/
+
       }
 
-      else{
+      if(hypothenuse == abs(abs_diff)){
 
-         if (nearestPet_x >= x){
-            orientation = 2*M_PI;
+         if(abs_diff >= 0){
+            orientation = 2*M_PI; ;
          }
-
          else{
             orientation = M_PI;
          }
       }
+
+      if(hypothenuse == abs(ord_diff)){
+         
+         if(ord_diff >= 0){
+            orientation = M_PI/2; ;
+         }
+         else{
+            orientation = -M_PI/2;
+         }
+      }
    }
 
+
+   else{
+      // If no nearest neighbor, we instantiate a random direction to the Animal
+      cout << "No neighbor for Kamikaze "<< endl;
+      if (!has_reset_orientation){
+         cout << "Reset Orientation for Kamikaze "<< orientation << endl;
+         has_reset_orientation = 1;
+         orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+      }
+   }
+
+   //cout << "Nearest orientation for kamikaze "<<  orientation << endl;
    double nx, ny;
    double dx = cos( orientation )*speed;
    double dy = -sin( orientation )*speed;
