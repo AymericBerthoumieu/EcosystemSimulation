@@ -36,8 +36,11 @@ std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment
       }
 
       }
-      cout << "Number of neighbor Kamikaze" << neighbor << endl;
-      closestPets.push_back(closest);
+      //cout << "Number of neighbor Kamikaze" << neighbor << endl;
+      if(neighbor != 0){
+         closestPets.push_back(closest);
+      }
+      
       return closestPets;}
 
 
@@ -65,11 +68,11 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
    // check if there is at leat one detected pet which should be the nearest one
 
-   cout << "No neighbor for Kamikaze ? " << closestPets.size() << endl;
+   //cout << "No neighbor for Kamikaze ? " << closestPets.size() << endl;
 
    if(!closestPets.empty()){
 
-      cout << "At least one neighbor for Kamikaze ? " << endl;
+      cout << "At least one neighbor for Kamikaze ! " << endl;
       has_reset_orientation = 0;
 
       auto nearestPet_cord = closestPets.back().getCoordinates();
@@ -94,7 +97,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
       }
 
-      if(hypothenuse == abs(abs_diff)){
+      /*if(hypothenuse == abs(abs_diff)){
 
          if(abs_diff >= 0){
             orientation = 2*M_PI; ;
@@ -112,7 +115,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
          else{
             orientation = -M_PI/2;
          }
-      }
+      }*/
    }
 
 
