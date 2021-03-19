@@ -7,8 +7,22 @@
 
 std::string GregariousBehaviour::NAME = "Gregarious";
 
+GregariousBehaviour* GregariousBehaviour::gregariousbehaviour= nullptr;
+
 std::string GregariousBehaviour::getBehaviourName(){
    return NAME;
+}
+
+void GregariousBehaviour::getRidOfInstance(void){
+   delete gregariousbehaviour;
+   cout << " LA DESTRUCTION DE LA GREGAIRE EFFECTIVEMENT LIEU !" <<endl;   
+}
+
+GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
+   if (gregariousbehaviour == nullptr ){
+        gregariousbehaviour = new GregariousBehaviour(); 
+    }
+    return gregariousbehaviour;
 }
 
 std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){

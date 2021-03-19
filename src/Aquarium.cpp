@@ -1,5 +1,8 @@
 #include "Aquarium.h"
 #include "Environment.h"
+#include "GregariousBehaviour.h"
+#include "FearfulBehaviour.h"
+#include "KamikazeBehaviour.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay ){
@@ -15,6 +18,9 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 }
 
 Aquarium::~Aquarium( void ){
+    KamikazeBehaviour::getRidOfInstance();
+    GregariousBehaviour::getRidOfInstance();
+    FearfulBehaviour::getRidOfInstance();
     delete water;
     cout << "dest Aquarium" << endl;}
 
