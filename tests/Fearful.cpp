@@ -30,8 +30,8 @@ Animal::Animal() {
 
 
   
-   isMultiple = 0;
-   behaviour = new FearfulBehaviour();
+  isMultiple = 0; 
+  behaviour = FearfulBehaviour::getBehaviourInstance();
    
    
    color = new T[ 3 ];
@@ -56,8 +56,8 @@ Animal::Animal( const Animal & a ){
 
 
   
-   isMultiple = 0;
-   behaviour = new FearfulBehaviour();
+  isMultiple = 0; 
+  behaviour = FearfulBehaviour::getBehaviourInstance();
    
 
    color = new T[ 3 ];
@@ -68,7 +68,6 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
     //cout << "dest Pet" << endl;
 }
 
@@ -203,8 +202,7 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
 void Animal::changeBehaviour(){
    if (isMultiple) {
       cout << "Reach Here ? Change Behaviour" << endl;
-      delete behaviour;
-      behaviour = new FearfulBehaviour();}
+      behaviour = FearfulBehaviour::getBehaviourInstance();}
 }
 
 double Animal::getMaxSpeed(){

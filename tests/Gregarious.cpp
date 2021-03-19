@@ -31,7 +31,7 @@ Animal::Animal() {
 
   
    isMultiple = 0;
-   behaviour = new GregariousBehaviour();
+   behaviour = GregariousBehaviour::getBehaviourInstance();
    
    
    color = new T[ 3 ];
@@ -57,7 +57,7 @@ Animal::Animal( const Animal & a ){
 
   
    isMultiple = 0;
-   behaviour = new GregariousBehaviour();
+   behaviour = GregariousBehaviour::getBehaviourInstance();
    
 
    color = new T[ 3 ];
@@ -68,7 +68,6 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
     //cout << "dest Pet" << endl;
 }
 
@@ -203,8 +202,7 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
 void Animal::changeBehaviour(){
    if (isMultiple) {
       cout << "Reach Here ? Change Behaviour" << endl;
-      delete behaviour;
-      behaviour = new GregariousBehaviour();}
+      behaviour = GregariousBehaviour::getBehaviourInstance();}
 }
 
 double Animal::getMaxSpeed(){

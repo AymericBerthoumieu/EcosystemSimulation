@@ -57,7 +57,7 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-  isMultiple = 0;
+  isMultiple = 1;
   //behaviour = new KamikazeBehaviour();
   behaviour = FearfulBehaviour::getBehaviourInstance();
 

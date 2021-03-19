@@ -32,7 +32,7 @@ Animal::Animal() {
   
       
   isMultiple = 1;
-  behaviour = new KamikazeBehaviour();
+  behaviour = KamikazeBehaviour::getBehaviourInstance();
    
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -55,7 +55,7 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
   isMultiple = 1;
-  behaviour = new KamikazeBehaviour();
+  behaviour = KamikazeBehaviour::getBehaviourInstance();
    
 
    color = new T[ 3 ];
@@ -66,7 +66,6 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
     //cout << "dest Pet" << endl;
 }
 
@@ -202,22 +201,21 @@ void Animal::changeBehaviour(){
   double proba_to_change = ((double) rand() / (RAND_MAX));
   if (isMultiple && proba_to_change >= 0.9) {
       cout << "Reach Here ? Change Behaviour" << endl;
-      delete behaviour;
       int which_behaviour; 
       which_behaviour = rand() % 3 + 1;
 
       if ( which_behaviour == 1 ){
-        behaviour = new GregariousBehaviour();
+        behaviour = GregariousBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 2 ){
-        behaviour = new FearfulBehaviour();
+        behaviour = FearfulBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 3 ){
-        behaviour = new KamikazeBehaviour();
-      }
+        behaviour = KamikazeBehaviour::getBehaviourInstance();
     }
+  }
 }
 
 double Animal::getMaxSpeed(){
