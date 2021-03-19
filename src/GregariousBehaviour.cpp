@@ -5,7 +5,7 @@
 #include <vector>
 
 
-std::string GregariousBehaviour::NAME = "Gregarious";
+std::string GregariousBehaviour::NAME = "B_Gregarious";
 
 GregariousBehaviour* GregariousBehaviour::gregariousbehaviour= nullptr;
 

@@ -5,7 +5,7 @@
 #include <vector>
 
 
-std::string FearfulBehaviour::NAME = "Fearful";
+std::string FearfulBehaviour::NAME = "B_Fearful";
 
 FearfulBehaviour* FearfulBehaviour::fearfulbehaviour= nullptr;
 

@@ -6,7 +6,7 @@
 #include <limits>
 
 
-std::string KamikazeBehaviour::NAME = "Kamikaze";
+std::string KamikazeBehaviour::NAME = "B_Kamikaze";
 
 KamikazeBehaviour* KamikazeBehaviour::kamikazebehaviour= nullptr;
 
