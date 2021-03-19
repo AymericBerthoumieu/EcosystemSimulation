@@ -13,7 +13,6 @@ const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 300.;
 
-int Animal::STEPS_TO_CHANGE_BEHAVIOUR = 10;
 int Animal::next = 0;
 
 
@@ -31,8 +30,10 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
-  behaviour = new GregariousBehaviour();
-  isMultiple = 1;
+  isMultiple = 0;
+  if(next==1){isMultiple = 1;}
+  behaviour = KamikazeBehaviour::getBehaviourInstance();
+
 
    
    color = new T[ 3 ];
@@ -57,8 +58,9 @@ Animal::Animal( const Animal & a ){
 
 
   
-  behaviour = new GregariousBehaviour();
   isMultiple = 1;
+  if(next==1){isMultiple = 1;}
+  behaviour = KamikazeBehaviour::getBehaviourInstance();
    
 
    color = new T[ 3 ];
@@ -69,7 +71,6 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
     //cout << "dest Pet" << endl;
 }
 
@@ -202,32 +203,24 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->speed = new_speed;
    }
 void Animal::changeBehaviour(){
-   --STEPS_TO_CHANGE_BEHAVIOUR;
-  if (isMultiple && STEPS_TO_CHANGE_BEHAVIOUR == 0) {
-      STEPS_TO_CHANGE_BEHAVIOUR = 10;
-      
-      delete behaviour;
+  double proba_to_change = ((double) rand() / (RAND_MAX));
+  if (isMultiple && proba_to_change >= 0.9) {
+      cout << "Reach Here ? Change Behaviour" << endl;
       int which_behaviour; 
       which_behaviour = rand() % 3 + 1;
 
       if ( which_behaviour == 1 ){
-        behaviour = new GregariousBehaviour();
-        cout << "Gregaire Behaviour Set" << endl;
-      
+        behaviour = GregariousBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 2 ){
-        behaviour = new FearfulBehaviour();
-         cout << "Fearful Behaviour Set" << endl;
+        behaviour = FearfulBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 3 ){
-        behaviour = new KamikazeBehaviour();
-        cout << "Kamikaze Behaviour Set" << endl;
-      }
-
-
+        behaviour = KamikazeBehaviour::getBehaviourInstance();
     }
+  }
 }
 
 double Animal::getMaxSpeed(){

@@ -8,8 +8,22 @@
 
 std::string KamikazeBehaviour::NAME = "Kamikaze";
 
+KamikazeBehaviour* KamikazeBehaviour::kamikazebehaviour= nullptr;
+
 std::string KamikazeBehaviour::getBehaviourName(){
    return NAME;
+}
+
+void KamikazeBehaviour::getRidOfInstance(void){
+   delete kamikazebehaviour;
+   cout << " LA DESTRUCTION DE LA KAMIKAZE EFFECTIVEMENT LIEU !" <<endl;   
+}
+
+KamikazeBehaviour* KamikazeBehaviour::getBehaviourInstance(){
+   if (kamikazebehaviour == nullptr ){
+        kamikazebehaviour = new KamikazeBehaviour(); 
+    }
+    return kamikazebehaviour;
 }
 
 std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){

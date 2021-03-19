@@ -13,7 +13,6 @@ const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 30.;
 
-int Animal::STEPS_TO_CHANGE_BEHAVIOUR = 10;
 int Animal::next = 0;
 
 
@@ -32,30 +31,10 @@ Animal::Animal() {
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
-
-
-   isMultiple = 0;
-   
-   if ( next%4 == 0 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( next%4 == 1 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( next%4 == 2 ){
-      behaviour = new KamikazeBehaviour();
-   }
-
-   if ( next%4 == 3 ){
-      behaviour = new KamikazeBehaviour();
-      isMultiple = 1;
-   }
-
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
+  
+  isMultiple = 1;
+  //behaviour = new KamikazeBehaviour();
+  behaviour = FearfulBehaviour::getBehaviourInstance();
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -78,39 +57,19 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-   // initialize Animal behaviour
+  isMultiple = 1;
+  //behaviour = new KamikazeBehaviour();
+  behaviour = FearfulBehaviour::getBehaviourInstance();
 
-   isMultiple = 0;
-   
-   if ( next%4 == 0 ){
-      behaviour = new GregariousBehaviour();
-   }
-
-   if ( next%4 == 1 ){
-      behaviour = new FearfulBehaviour();
-   }
-
-   if ( next%4 == 2 ){
-      behaviour = new KamikazeBehaviour();
-   }
-
-   if ( next%4 == 3 ){
-      behaviour = new KamikazeBehaviour();
-      isMultiple = 1;
-   }
-
-   // Testtttttttttttttttttttttttttttttttttttttttttttt
-
-   color = new T[ 3 ];
-   memcpy( color, a.color, 3*sizeof(T) );}
+  color = new T[ 3 ];
+  memcpy( color, a.color, 3*sizeof(T) );}
 
 
 Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
+    //delete behaviour;
     cout << "dest Pet" << endl;
 }
 
@@ -243,29 +202,40 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->speed = new_speed;
    }
 void Animal::changeBehaviour(){
-  --STEPS_TO_CHANGE_BEHAVIOUR;
-  if (isMultiple && STEPS_TO_CHANGE_BEHAVIOUR == 0) {
-      STEPS_TO_CHANGE_BEHAVIOUR = 10;
+  double proba_to_change = ((double) rand() / (RAND_MAX));
+
+  if (isMultiple && proba_to_change >= 0.9) {
       cout << "Reach Here ? Change Behaviour" << endl;
-      delete behaviour;
+      //delete behaviour;
       int which_behaviour; 
       which_behaviour = rand() % 3 + 1;
 
       if ( which_behaviour == 1 ){
-        behaviour = new GregariousBehaviour();
+        //behaviour = new GregariousBehaviour();
+        behaviour = GregariousBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 2 ){
-        behaviour = new FearfulBehaviour();
+        //behaviour = new FearfulBehaviour();
+        behaviour = FearfulBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 3 ){
-        behaviour = new KamikazeBehaviour();
+        //behaviour = new KamikazeBehaviour();
+        behaviour = KamikazeBehaviour::getBehaviourInstance();
       }
     }
 }
 double Animal::getMaxSpeed(){
    return MAX_SPEED;
+}
+
+bool Animal::getIsMultiple(){
+  return isMultiple;
+}
+
+std::string Animal::getBehaviourName(){
+  return behaviour->getBehaviourName();
 }
 
 // ############################## for tests ########################################

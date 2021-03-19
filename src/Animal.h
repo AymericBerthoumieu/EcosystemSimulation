@@ -19,7 +19,6 @@ protected:
    static const double AFF_SIZE;
    static const double MAX_SPEED;
    static const double LIMIT_VIEW;
-   static int STEPS_TO_CHANGE_BEHAVIOUR;
 
    static int next;
 
@@ -71,6 +70,8 @@ public :
    void action(Environment& myEnvironment);
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
+   std::string getBehaviourName();
+   bool getIsMultiple();
 
 
    // for tests

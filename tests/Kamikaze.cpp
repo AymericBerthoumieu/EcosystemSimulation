@@ -11,7 +11,6 @@ const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 300.;
 
-int Animal::STEPS_TO_CHANGE_BEHAVIOUR = 10;
 int Animal::next = 0;
 
 
@@ -31,8 +30,8 @@ Animal::Animal() {
 
 
   
-   isMultiple = 0;
-   behaviour = new KamikazeBehaviour();
+   isMultiple = 0; 
+   behaviour = KamikazeBehaviour::getBehaviourInstance();
    
    
    color = new T[ 3 ];
@@ -58,7 +57,7 @@ Animal::Animal( const Animal & a ){
 
   
    isMultiple = 0;
-   behaviour = new KamikazeBehaviour();
+   behaviour = KamikazeBehaviour::getBehaviourInstance();
    
 
    color = new T[ 3 ];
@@ -69,7 +68,6 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    delete behaviour;
     //cout << "dest Pet" << endl;
 }
 
@@ -204,8 +202,7 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
 void Animal::changeBehaviour(){
    if (isMultiple) {
       cout << "Reach Here ? Change Behaviour" << endl;
-      delete behaviour;
-      behaviour = new KamikazeBehaviour();}
+      behaviour = KamikazeBehaviour::getBehaviourInstance();}
 }
 
 double Animal::getMaxSpeed(){

@@ -7,8 +7,22 @@
 
 std::string FearfulBehaviour::NAME = "Fearful";
 
+FearfulBehaviour* FearfulBehaviour::fearfulbehaviour= nullptr;
+
 std::string FearfulBehaviour::getBehaviourName(){
    return NAME;
+}
+
+void FearfulBehaviour::getRidOfInstance(void){
+   delete fearfulbehaviour;
+   cout << " LA DESTRUCTION DE LA PEUREUSE EFFECTIVEMENT LIEU !" <<endl;   
+}
+
+FearfulBehaviour* FearfulBehaviour::getBehaviourInstance(){
+   if (fearfulbehaviour == nullptr ){
+        fearfulbehaviour = new FearfulBehaviour(); 
+    }
+    return fearfulbehaviour;
 }
 
 std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){

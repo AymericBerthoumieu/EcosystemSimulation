@@ -1,11 +1,11 @@
 SRCDIR := src/
 TESTSDIR := tests/
 
-testFearful : $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Fearful.o FearfulBehaviour.o 
-	g++ -Wall -std=c++11 -o testFearful $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Fearful.o FearfulBehaviour.o -I $(SRCDIR) -lX11 -lpthread
+testFearful : $(TESTSDIR)testFearful.cpp FearAqua.o Pet.o Environment.o Fearful.o FearfulBehaviour.o 
+	g++ -Wall -std=c++11 -o testFearful $(TESTSDIR)testFearful.cpp FearAqua.o Pet.o Environment.o Fearful.o FearfulBehaviour.o -I $(SRCDIR) -lX11 -lpthread
 
-Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
-	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR) 
+FearAqua.o : $(SRCDIR)Aquarium.h $(TESTSDIR)FearAqua.cpp
+	g++ -Wall -std=c++11  -c $(TESTSDIR)FearAqua.cpp -I $(SRCDIR) 
 
 Pet.o : $(SRCDIR)Pet.h $(SRCDIR)Pet.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Pet.cpp -I  $(SRCDIR)
