@@ -54,6 +54,7 @@ bool mustDie(Pet const &p) {
 void Environment::die() {
     cout << "At step <" << nb_steps << "> : " << endl;
     auto it = std::remove_if(pets.begin(), pets.end(), mustDie);
+
     pets.erase(it, pets.end());
 }
 
