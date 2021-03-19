@@ -15,7 +15,7 @@ $ ./main
 ```
 Then, your code will run.
 
-## Analyse results
+## Results analysis
 At the end of the simulation, a `.csv` file will have been generated in the directory of your `main`. This `.csv` file contains the number of each behaviour, accessory and captors at each step of the simulation. You can plot a graph of the evolution of the differents populations inside the environment of simulation using Excel, python or any tools that is able to read a `.csv` file. If you want to have access to the total number of animal in the aquarium, you will just need to sum all subpopulations of the different behaviours (and behaviour only not accessorie and captors). 
 
 ## Miscellaneous
