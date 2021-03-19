@@ -38,5 +38,5 @@ void Fin::move(int xLim, int yLim){
 }
 
 std::string Fin::getName() {
-    return "Fin";
+    return "a_Fin";
 }

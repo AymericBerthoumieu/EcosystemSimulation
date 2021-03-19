@@ -6,13 +6,11 @@
 #define _EARS_H_
 #include "Sensor.h"
 
-
-
 class Ears: public Sensor {
 public:
-    Ears(Animal& animal);
-    bool isDetecting(const Animal& animal);
+    Ears(Animal* animal);
+    bool isDetecting(Animal* neighborAnimal);
+    std::string getName();
 };
 
-
-#endif //CPP_ECOSYSTEM_PROJECT_EARS_H
+#endif

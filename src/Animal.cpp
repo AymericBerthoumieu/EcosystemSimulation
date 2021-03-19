@@ -103,3 +103,12 @@ bool Animal::isDetecting( const Animal & a ) const{
 
    dist = std::sqrt( (x-a.x)*(x-a.x) + (y-a.y)*(y-a.y) );
    return ( dist <= LIMIT_VIEW );}
+
+float Animal::getVisibility() {
+    return 1.0;
+}
+
+std::tuple<int, int> Animal::getCoordinates(){
+    return std::make_tuple(this->x,this->y);
+}
+

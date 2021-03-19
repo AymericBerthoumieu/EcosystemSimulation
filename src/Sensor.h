@@ -8,13 +8,13 @@
 
 class Sensor: public BaseDecorator {
 protected:
-    Animal& wrapAnimal;
+    Animal* wrapAnimal;
     float capacityOfDetection;
-    minimiDdistanceOfDetection;
-    maximumDistanceOfDetection;
+    float minimumDistanceOfPerception;
+    float maximumDistanceOfPerception;
 
 public:
-    virtual bool isDetecting(const Animal& animal) =0;
+    virtual bool isDetecting(const Animal* animal) =0;
 };
 
 

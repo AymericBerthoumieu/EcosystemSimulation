@@ -1,6 +1,7 @@
 //
-// Created by Rafinesque on 12/03/2021.
+// Created by Rafinesque on 19/03/2021.
 //
+
 #include "Aquarium.h"
 #include "Environment.h"
 #include "Pet.h"
@@ -10,8 +11,8 @@
 int main(){
     Aquarium ecosystem(640, 480, 30);
 
-    Fin f = Fin(new Pet());
-    Fin f2 = Fin(f);
+    Ears f = Ears(new Pet());
+    Ears f2 = Ears(f);
     std::cout << "Accessories name: " << f.getName() << std::endl;
     std::cout << "Accessories name: " << f2.getName() << std::endl;
     ecosystem.getEnvironment().addMember(f);
