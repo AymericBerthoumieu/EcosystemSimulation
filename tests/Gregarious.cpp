@@ -11,7 +11,6 @@ const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 300.;
 
-int Animal::STEPS_TO_CHANGE_BEHAVIOUR = 10;
 int Animal::next = 0;
 
 
