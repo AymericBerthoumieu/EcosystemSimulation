@@ -16,7 +16,7 @@ class Aquarium : public CImgDisplay{
     int delay;
 
 public :
-    Aquarium(int width, int height, int _delay);
+    Aquarium(int width, int height, int _delay, int startingNbOfAnimals);
     ~Aquarium(void);
 
     Environment& getEnvironment(void) {return *water;}

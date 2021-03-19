@@ -3,13 +3,15 @@
 
 #include "UImg.h"
 
+#include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
-class BehaviourStrategy;
 class Environment;
+class BehaviourStrategy;
 
 class Animal{
 protected:
@@ -35,6 +37,8 @@ protected:
 
 
    void move(int xLim, int yLim);
+   void changeBehaviour();
+   void setColor(const T* c);
 
 public :
    Animal();
@@ -67,7 +71,8 @@ public :
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
 
-   void changeBehaviour();
+   void setBehaviour(string behaviourName);
+   void setBehaviourAsMultiple();
 
 
 };

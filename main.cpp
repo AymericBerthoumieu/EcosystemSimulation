@@ -8,10 +8,10 @@ using namespace std;
 
 
 int main(){
-   Aquarium ecosystem(640, 480, 30);
+   Aquarium ecosystem(640, 480, 30, 10);
 
-   for (int i = 1; i <= 20; ++i)
-      ecosystem.getEnvironment().addMember(Pet());
+//   for (int i = 1; i <= 20; ++i)
+//      ecosystem.getEnvironment().addMember(Pet());
    ecosystem.run();
 
    return 0;}

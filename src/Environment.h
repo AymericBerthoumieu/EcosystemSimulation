@@ -4,6 +4,11 @@
 
 #include "UImg.h"
 #include "Animal.h"
+#include "PetFactory.h"
+#include "Statistics.h"
+#include "GregariousBehaviour.h"
+#include "FearfulBehaviour.h"
+#include "KamikazeBehaviour.h"
 
 #include <iostream>
 #include <vector>
@@ -11,8 +16,6 @@
 
 using namespace std;
 
-class AnimalFactory;
-class Statistics;
 
 class Environment : public UImg{
    static const T white[];
@@ -21,11 +24,11 @@ class Environment : public UImg{
    int nb_steps;
    std::vector<float> natalityRatios;
    float cloningProbability;
-   AnimalFactory& petCreator();
-   Statistics& statistics();
+   AnimalFactory& petCreator;
+   Statistics& statistics;
 
 public :
-   Environment(int _width, int _height);
+   Environment(int _width, int _height, int nbAnimalsToStartWith, AnimalFactory& factory, Statistics& stats);
    ~Environment();
 
    int getWidth() const;

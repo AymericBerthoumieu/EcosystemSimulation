@@ -1,25 +1,32 @@
-#include "Animal.h"
-#include "AnimalFactory.h"
+#ifndef PET_FACTORY_H
+#define PET_FACTORY_H
 
-#include <map>
-#include <iostream>
+#include "AnimalFactory.h"
+#include "Statistics.h"
+
+#include <unordered_set>
 
 using namespace std;
 
 
-class Statistics;
+class PetFactory final: public AnimalFactory {
+    int XLIM;
+    int YLIM;
 
-class PetFactory: public AnimalFactory {
-    Statistics statistics();
-    map<string, float> accessoriesAndCaptorsDistribution;
-    map<string, float> behaviorsDistribution;
+    Statistics& statistics;
+    map<string, float> behavioursDistribution;
+    unordered_set<string> availableAccessoriesAndCaptors;
 
-
-    Animal createMember(string behaviour="none");
+    Animal& createMember(string behaviour="none") override;
 
 public:
-    vector<Animal> initializePopulation();
-    vector<Animal> createMembersAtRuntime() {cout << "PetFactory::createMembersAtRuntime is currently not implemented. You shouldn't use it!" << endl; return vector<Animal>();};
-    Animal createMember(Environment& environment, string behaviour="none") {cout << "PetFactory::createMember is currently not implemented. You shouldn't use it!" << endl; return Animal();};
-    void cloneMember(Animal* animal) {cout << "PetFactory::cloneMember is currently not implemented. You shouldn't use it!" << endl;};
+    PetFactory();
+    PetFactory(int xLim, int yLim, map<string, float> behavioursDistribution, unordered_set<string> availableAccessoriesAndCaptors, Statistics& stats);
+
+    vector<Animal> initializePopulation(int number) override;
+//    vector<Animal> createMembersAtRuntime() override {cout << "PetFactory::createMembersAtRuntime is currently not implemented. You shouldn't use it!" << endl; return vector<Animal>();};
+//    Animal& createMember(Environment& environment, string behaviour="none") override {cout << "PetFactory::createMember is currently not implemented. You shouldn't use it!" << endl; return Animal();};
+//    Animal& cloneMember(Animal* animal) override {cout << "PetFactory::cloneMember is currently not implemented. You shouldn't use it!" << endl;};
 };    
+
+#endif
