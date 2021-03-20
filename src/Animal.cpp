@@ -59,7 +59,8 @@ Animal::Animal( const Animal & a ){
 
   isMultiple = 1;
   //behaviour = new KamikazeBehaviour();
-  behaviour = FearfulBehaviour::getBehaviourInstance();
+  //behaviour = FearfulBehaviour::getBehaviourInstance();
+  behaviour = a.behaviour;
 
   color = new T[ 3 ];
   memcpy( color, a.color, 3*sizeof(T) );}
