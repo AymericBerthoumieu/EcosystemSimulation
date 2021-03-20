@@ -91,17 +91,21 @@ Animal& PetFactory::createMember(string behaviour) {
 vector<Animal> PetFactory::initializePopulation(int number){
     vector<Animal> createdPets;
     map<string, int> toCreate;
-    int totalNumber = 0;
+    int createdNumber = 0;
 
     for (const auto &dist : this->behavioursDistribution) {
         toCreate.insert(pair<string, int>(dist.first, static_cast<int>(dist.second*number/100.)));
-        totalNumber = totalNumber + static_cast<int>(dist.second*number/100.);
     }
-    cout << totalNumber << endl;
     for (const auto &nbPetsPerBehaviourPair : toCreate) {
+        createdNumber = createdNumber + static_cast<int>(nbPetsPerBehaviourPair.second);
         for (int _i=0; _i<nbPetsPerBehaviourPair.second; _i++) {
             createdPets.push_back(this->createMember(nbPetsPerBehaviourPair.first));
         }
+        // in case the rounding of the rounding while casting to int results in a lower number of created pets than requested
+    }
+    for (int _i=0; _i < number-createdNumber; _i++) {
+        const auto nbPetsPerBehaviourPair = toCreate.end();
+        createdPets.push_back(this->createMember(nbPetsPerBehaviourPair->first));
     }
     return createdPets;
 }
