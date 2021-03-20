@@ -10,11 +10,6 @@ Environment::Environment(int _width, int _height, int nbAnimalsToStartWith, Anim
    petCreator(factory), statistics(stats){
    cout << "const Environment" << endl;
    this->animals = this->petCreator.initializePopulation(nbAnimalsToStartWith);
-    cout << "((((((((((((((((((((((((" << endl;
-#include <memory>
-    for (auto const &pet : this->animals) {
-       cout << "number of pets: "<< std::addressof(pet) << endl;
-    }
    std::srand(time(NULL));}
 
 Environment::~Environment(){

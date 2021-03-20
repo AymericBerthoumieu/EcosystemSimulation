@@ -69,7 +69,6 @@ Animal& PetFactory::createMember(string behaviour) {
             }
         }
     }
-    pet->initCoords(this->XLIM, this->YLIM);
     if (behaviour == "multiple"){
         pet->setBehaviourAsMultiple();
     }
@@ -83,8 +82,8 @@ Animal& PetFactory::createMember(string behaviour) {
     for (string e : captorsAndAccessories) {
         this->statistics.modifyData(e, true);
     }
-    cout << "////////////////////" << endl; 
-    cout << "created pet with behaviour " << behaviour << endl;
+
+    pet->initCoords(this->XLIM, this->YLIM);
 
     return *pet;
 }
@@ -98,23 +97,12 @@ vector<Animal> PetFactory::initializePopulation(int number){
         toCreate.insert(pair<string, int>(dist.first, static_cast<int>(dist.second*number/100.)));
         totalNumber = totalNumber + static_cast<int>(dist.second*number/100.);
     }
-    #include <iostream>
-    cout << "#########################################" << endl;
     cout << totalNumber << endl;
-    cout << "#########################################" << endl;
     for (const auto &nbPetsPerBehaviourPair : toCreate) {
-        cout << "#########################################" << endl;
-        cout << nbPetsPerBehaviourPair.second << endl;
-        cout << "#########################################" << endl;
         for (int _i=0; _i<nbPetsPerBehaviourPair.second; _i++) {
-            createdPets.insert(createdPets.end(), this->createMember(nbPetsPerBehaviourPair.first));
+            createdPets.push_back(this->createMember(nbPetsPerBehaviourPair.first));
         }
     }
-    cout << "((((((((((((((((((((((((" << endl;
-    cout << "number of pets: "<< createdPets.size() << endl;
-//    for (const auto &animal : createdPets) {
-  //      cout << "created pets :" << animal << endl;
-  //  }
     return createdPets;
 }
 

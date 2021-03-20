@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <CImg.h>
+#include <map>
 
 using namespace std;
 using namespace cimg_library;
@@ -16,7 +17,7 @@ class Aquarium : public CImgDisplay{
     int delay;
 
 public :
-    Aquarium(int width, int height, int _delay, int startingNbOfAnimals);
+    Aquarium(int width, int height, int _delay, int startingNbOfAnimals, map<string, float> animalsDistribution);
     ~Aquarium(void);
 
     Environment& getEnvironment(void) {return *water;}

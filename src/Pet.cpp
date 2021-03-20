@@ -3,5 +3,5 @@
 
 
 
-Pet::Pet(): Animal(){};
+Pet::Pet(): Animal(){ cout << "const Pet par défaut" << endl;};
 Pet::~Pet() {};

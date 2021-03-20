@@ -6,15 +6,15 @@
 #include "Eyes.h"
 
 
-Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals) : CImgDisplay(), delay( _delay ){
+Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, map<string, float> animalsDistribution) : CImgDisplay(), delay( _delay ){
    int screenWidth = 1280; //screen_width();
    int screenHeight = 1024; //screen_height();
 
    cout << "const Aquarium" << endl;
 
-   Statistics* statistics = new Statistics({Fin::getName(), Fin::getName()});
+   Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName()});
 
-   AnimalFactory* factory = new PetFactory(screenWidth, screenHeight, {{KamikazeBehaviour::getBehaviourName(), 20}, {FearfulBehaviour::getBehaviourName(), 70}, {KamikazeBehaviour::getBehaviourName(), 10}, {"multiple", 0}}, {Fin::getName(), Eyes::getName()}, *statistics);
+   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);
 
    water = new Environment(width, height, startingNbOfAnimals, *factory, *statistics);
    assign( *water, "Simulation d'écosystème" );

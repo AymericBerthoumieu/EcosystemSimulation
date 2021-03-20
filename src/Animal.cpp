@@ -64,8 +64,8 @@ Animal& Animal::operator=(Animal&& p) noexcept
     // Guard self assignment
     if (this == &p)
         return *this; // delete[]/size=0 would also be ok
-//    cout << "Affectation Pet(" << p.getIdentity() << ")" << endl;
-//    identity = p.getIdentity();
+    cout << "Affectation Pet(" << p.getIdentity() << ")" << endl;
+    identity = p.getIdentity();
 
 //    probabilityOfFatalCollision = p.getProbabilityOfFatalCollision();
 //    life = p.getLife(); // must be initialized randomly
@@ -88,7 +88,7 @@ Animal& Animal::operator=(const Animal& p) noexcept
     if (this == &p)
         return *this;
 
-//    identity = p.getIdentity();
+    identity = p.getIdentity();
 //    probabilityOfFatalCollision = p.getProbabilityOfFatalCollision();
 //    life = p.getLife(); // must be initialized randomly
 
@@ -193,4 +193,8 @@ void Animal::setBehaviour(string behaviourName) {
      }
      
     // TODO set behaviour
+}
+
+int Animal::getIdentity() const {
+    return identity;
 }

@@ -1,3 +1,3 @@
 #include "Fin.h"
 
-Fin::Fin(Animal& a) {};
+Fin::Fin(Animal& a): Animal(a) {};

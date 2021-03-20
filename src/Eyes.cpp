@@ -1,3 +1,3 @@
 #include "Eyes.h"
 
-Eyes::Eyes(Animal& a) {};
+Eyes::Eyes(Animal& a): Animal(a) {};
