@@ -15,12 +15,12 @@ Animal.o : $(SRCDIR)Animal.h $(SRCDIR)Animal.cpp
 Environment.o : $(SRCDIR)Environment.h $(SRCDIR)Environment.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Environment.cpp -I $(SRCDIR)
 
-GregariousBehaviour.o : $(SRCDIR)GregariousBehaviour.h $(SRCDIR)GregariousBehaviour.cpp
+GregariousBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)GregariousBehaviour.h $(SRCDIR)GregariousBehaviour.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)GregariousBehaviour.cpp -I $(SRCDIR)
 
-FearfulBehaviour.o : $(SRCDIR)FearfulBehaviour.h $(SRCDIR)FearfulBehaviour.cpp
+FearfulBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)FearfulBehaviour.h $(SRCDIR)FearfulBehaviour.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)FearfulBehaviour.cpp -I $(SRCDIR)
 
-KamikazeBehaviour.o : $(SRCDIR)KamikazeBehaviour.h $(SRCDIR)KamikazeBehaviour.cpp
+KamikazeBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)KamikazeBehaviour.h $(SRCDIR)KamikazeBehaviour.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)KamikazeBehaviour.cpp -I $(SRCDIR)
 

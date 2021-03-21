@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <cmath>
+#include <stdlib.h>
 
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
@@ -31,9 +32,9 @@ Animal::Animal() {
 
 
   
-  // isMultiple = 1;
-  // //behaviour = new KamikazeBehaviour();
-  // behaviour = FearfulBehaviour::getBehaviourInstance();
+  isMultiple = 1;
+  //behaviour = new KamikazeBehaviour();
+  behaviour = FearfulBehaviour::getBehaviourInstance();
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -56,9 +57,9 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-  // isMultiple = 1;
-  // //behaviour = new KamikazeBehaviour();
-  // behaviour = FearfulBehaviour::getBehaviourInstance();
+  isMultiple = 1;
+  //behaviour = new KamikazeBehaviour();
+  behaviour = FearfulBehaviour::getBehaviourInstance();
 
   color = new T[ 3 ];
   memcpy( color, a.color, 3*sizeof(T) );}
