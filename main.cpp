@@ -10,7 +10,7 @@ using namespace std;
 int main(){
     int windowWidth = 1200; //640
     int windowHeight = 800; //480
-    int delay = 100;
+    int delay = 30;
     int startingNbPets = 30;
     map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourName(), 30}, {FearfulBehaviour::getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourName(), 20}, {"multiple", 20}};
     Aquarium ecosystem(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
