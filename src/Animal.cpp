@@ -7,7 +7,6 @@
 
 #include <cstdlib>
 #include <cmath>
-#include <stdlib.h>
 
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
