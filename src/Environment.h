@@ -6,6 +6,7 @@
 #include "Animal.h"
 #include "PetFactory.h"
 #include "Statistics.h"
+
 #include "GregariousBehaviour.h"
 #include "FearfulBehaviour.h"
 #include "KamikazeBehaviour.h"
@@ -34,9 +35,9 @@ public :
    int getWidth() const;
    int getHeight() const;
    void step();
+
    void hasCollision(Animal& a);
    void die();
-   bool mustDie(const Animal& a);
    void addMember(const Animal& a);
    void addMembersAtRuntime();
    void chooseMembersToClone();
@@ -44,6 +45,10 @@ public :
    void cloneMembers();
    int nbNeighbors(const Animal& a);
    std::vector<Animal> detectedNeighbors(Animal& a);
+
+
+   // for test    
+   void setLife(int i);
 };
 
 

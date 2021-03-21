@@ -3,9 +3,9 @@
 
 #include "UImg.h"
 
-#include <string>
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include <map>
 
 using namespace std;
@@ -26,6 +26,7 @@ protected:
    double cumulX, cumulY;
    double orientation;
    double speed;
+
    int life;
    double probabilityOfFatalCollision;
    bool isMultiple; // for multiple behaviour type
@@ -36,7 +37,7 @@ protected:
    T* color;
 
 
-   void move(int xLim, int yLim);
+   void move(int xLim, int yLim, Environment& myEnvironment);
    void changeBehaviour();
    void setColor(const T* c);
 
@@ -51,7 +52,7 @@ public :
    Animal& operator=(const Animal& a) noexcept; // assignment
 
    void initCoords(int xLim, int yLim);
-   std::tuple<int, int> getCoordinates();
+   tuple<int, int> getCoordinates();
    void setCoordinates(int new_x, int new_y);
    tuple<double, double> getCumul();
    void setCumul(double new_cumul_x, double new_cumul_y);
@@ -71,10 +72,14 @@ public :
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
 
+   string getBehaviourName();
+   bool getIsMultiple();
    void setBehaviour(string behaviourName);
    void setBehaviourAsMultiple();
 
 
+   // for tests
+   void setLife(int i);
 };
 
 #endif

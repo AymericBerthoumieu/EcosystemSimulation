@@ -27,8 +27,8 @@ Eyes.o : $(SRCDIR)Eyes.h $(SRCDIR)Eyes.cpp
 GregariousBehaviour.o : $(SRCDIR)GregariousBehaviour.h $(SRCDIR)GregariousBehaviour.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)GregariousBehaviour.cpp -I $(SRCDIR)
 
-FearfulBehaviour.o : $(SRCDIR)FearfulBehaviour.h $(SRCDIR)FearfulBehaviour.cpp
-	g++ -Wall -std=c++11 -c $(SRCDIR)FearfulBehaviour.cpp -I $(SRCDIR)
+FearfulBehaviour.o : $(SRCDIR)FearfulBehaviour.h $(SRCDIR)FearfulBehaviour.cpp 
+	g++ -Wall -std=c++11 -c $(SRCDIR)FearfulBehaviour.cpp  -I $(SRCDIR)
 
 KamikazeBehaviour.o : $(SRCDIR)KamikazeBehaviour.h $(SRCDIR)KamikazeBehaviour.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)KamikazeBehaviour.cpp -I $(SRCDIR)
