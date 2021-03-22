@@ -24,14 +24,18 @@ PetFactory::PetFactory(int xLim, int yLim, map<string, float> behavioursDistribu
 
 string choose_unchosen_element(const unordered_set<string> remaining_elements) {
     string chosen_one;
+
+    // randomly choosing an index in remaining_elements
     default_random_engine random_generator;
     uniform_int_distribution<int> distribution(0, remaining_elements.size()-1);
     int index = distribution(random_generator);
+    
     auto it = remaining_elements.begin();
     for (int _i=0; _i<index; _i++){
         it++;
     }
     chosen_one = *it;
+
     return  chosen_one;
 }
 
@@ -40,6 +44,8 @@ unordered_set<string> choose_elements(const unordered_set<string> available_elem
     unordered_set<string> remaining_elements;
     remaining_elements = available_elements;
 
+    // randomly choosing a number of elements to choose
+    // this number is bound by the number of elements in available_elements
     default_random_engine random_generator;
     uniform_int_distribution<int> distribution(0,available_elements.size());
     int nb_to_choose = distribution(random_generator);
@@ -55,6 +61,8 @@ unordered_set<string> choose_elements(const unordered_set<string> available_elem
 
 Animal* PetFactory::createMember(string behaviour) {
     Animal* pet = new Pet(); 
+
+    // choosing and adding captors and accessories to the returned pet
     unordered_set<string> captorsAndAccessories = choose_elements(this->availableAccessoriesAndCaptors);
     for (string e : captorsAndAccessories) {
         if (e == "fin") {
@@ -66,6 +74,8 @@ Animal* PetFactory::createMember(string behaviour) {
             }
         }
     }
+
+    // adding the requested behaviour the returned pet
     if (behaviour == "multiple"){
         pet->setBehaviourAsMultiple();
     }
@@ -74,6 +84,7 @@ Animal* PetFactory::createMember(string behaviour) {
             pet->setBehaviour(behaviour);
         }
     }
+
     // updating stats
     this->statistics.modifyData(behaviour, true);
     for (string e : captorsAndAccessories) {
@@ -90,15 +101,18 @@ vector<Animal*> PetFactory::initializePopulation(int number){
     map<string, int> toCreate;
     int createdNumber = 0;
 
+    // computing the number of pets to create per behaviour
     for (const auto &dist : this->behavioursDistribution) {
         toCreate.insert(pair<string, int>(dist.first, static_cast<int>(dist.second*number/100.)));
     }
+
+    // creating the pets with their behaviour and possibly some accessories and captors
     for (const auto &nbPetsPerBehaviourPair : toCreate) {
         createdNumber = createdNumber + static_cast<int>(nbPetsPerBehaviourPair.second);
         for (int _i=0; _i<nbPetsPerBehaviourPair.second; _i++) {
             createdPets.push_back(this->createMember(nbPetsPerBehaviourPair.first));
         }
-    // in case the rounding of the rounding while casting to int results in a lower number of created pets than requested
+    // in case the rounding, while casting to int, results in a lower number of created pets than requested
     }
     for (int _i=0; _i < number-createdNumber; _i++) {
         const auto nbPetsPerBehaviourPair = toCreate.end();
