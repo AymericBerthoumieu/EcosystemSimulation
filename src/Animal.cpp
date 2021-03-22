@@ -49,17 +49,19 @@ Animal::Animal( const Animal & a ){
    orientation = a.orientation;
    speed = a.speed;
 
-   color = new T[ 3 ];
-   memcpy( color, a.color, 3*sizeof(T) );
-   behaviour = FearfulBehaviour::getBehaviourInstance();
-}
+  isMultiple = a.isMultiple;
+  behaviour = a.behaviour;
+
+
+  color = new T[ 3 ];
+  memcpy( color, a.color, 3*sizeof(T) );}
 
 
 Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    //delete behaviour;
+
     cout << "dest Pet" << endl;
 }
 
@@ -229,6 +231,8 @@ void Animal::setBehaviourAsMultiple(){
     this->behaviour = choose_behaviour();
 }
 
+
+// Method to randomly change the behaviour of an animal with multiple behaviour
 void Animal::changeBehaviour(){
   double proba_to_change = ((double) rand() / (RAND_MAX));
 
@@ -269,13 +273,16 @@ double Animal::getMaxSpeed(){
    return MAX_SPEED;
 }
 
+
 bool Animal::getIsMultiple(){
   return isMultiple;
 }
 
+
 std::string Animal::getBehaviourName(){
   return behaviour->getBehaviourName();
 }
+
 
 // ############################## for tests ########################################
 void Animal::setLife(int i){
