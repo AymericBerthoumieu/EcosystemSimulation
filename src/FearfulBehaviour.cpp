@@ -1,17 +1,27 @@
 #include "FearfulBehaviour.h"
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <vector>
 
 
-std::string FearfulBehaviour::NAME = "Fearful";
+std::string FearfulBehaviour::NAME = "b_Fearful";
+
+
+const T FearfulBehaviour::color[3] = {0, 0, 230};
+
+const T* FearfulBehaviour::getColor() {
+    return color;
+}
+
 
 FearfulBehaviour* FearfulBehaviour::fearfulbehaviour= nullptr;
 
 std::string FearfulBehaviour::getBehaviourName(){
    return NAME;
 }
+
 
 void FearfulBehaviour::getRidOfInstance(void){
    delete fearfulbehaviour;
@@ -25,16 +35,18 @@ FearfulBehaviour* FearfulBehaviour::getBehaviourInstance(){
     return fearfulbehaviour;
 }
 
-std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
+FearfulBehaviour::~FearfulBehaviour() {
+    delete[] &color;
+}
 
-  
+
+std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
   std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
-  return pets;}
+  return pets;
+}
 
 
 void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
-
-
    auto cord = pet.getCoordinates();
    auto cumul = pet.getCumul();
    auto orient_speed = pet.getOrientationSpeed();
@@ -46,32 +58,22 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
 
-   // On calcule le nombre de bestioles environnantes
-
-   
+   // Computing the number of surrounding animals
    int nb_neighbors = 0;
-
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
-     	
      	nb_neighbors += 1;
-
    }
-
    if(nb_neighbors >= LIMIT_SURROUNDING){
+        orientation = M_PI-orientation;
+        speed = pet.getMaxSpeed();
+        //cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
+    }
 
-   		orientation = M_PI-orientation;
-  	  	speed = pet.getMaxSpeed();
-  	  	//cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
-
-  	  }
-
-  	// Otherwise we set the speed to the cruising speed
-
-  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet.getMaxSpeed()){
-  		speed = CRUISING_SPEED;
-  	}
+    // Otherwise we set the speed to the cruising speed
+    if(nb_neighbors < LIMIT_SURROUNDING && speed == pet.getMaxSpeed()){
+  	speed = CRUISING_SPEED;
+    }
 
 
    double nx, ny;
@@ -105,4 +107,4 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    pet.setCoordinates(x,y);
    pet.setCumul(cumulX,cumulY);
    pet.setOrientationSpeed(orientation,speed); 
-   } 
+} 

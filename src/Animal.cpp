@@ -201,31 +201,81 @@ void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
    }
+
+BehaviourStrategy* choose_behaviour() {
+  BehaviourStrategy* behaviour;
+  int which_behaviour;
+  which_behaviour = rand() % 3 + 1;
+
+  if ( which_behaviour == 1 ){
+      // TODO
+    //behaviour = GregariousBehaviour::getBehaviourInstance();
+    behaviour = FearfulBehaviour::getBehaviourInstance();
+  }
+
+  if ( which_behaviour == 2 ){
+    behaviour = FearfulBehaviour::getBehaviourInstance();
+  }
+
+  if ( which_behaviour == 3 ){
+      // TODO
+    //behaviour = KamikazeBehaviour::getBehaviourInstance();
+    behaviour = FearfulBehaviour::getBehaviourInstance();
+  }
+  return behaviour;
+}
+
+
+void Animal::setBehaviourAsMultiple(){
+    T c[3] = {0, 0, 0};
+    this->setColor(c);
+    this->isMultiple = true;
+    this->behaviour = choose_behaviour();
+}
+
 void Animal::changeBehaviour(){
   double proba_to_change = ((double) rand() / (RAND_MAX));
 
   if (isMultiple && proba_to_change >= 0.9) {
-      cout << "Reach Here ? Change Behaviour" << endl;
-      //delete behaviour;
-      int which_behaviour; 
-      which_behaviour = rand() % 3 + 1;
-
-      if ( which_behaviour == 1 ){
-        //behaviour = new GregariousBehaviour();
-        behaviour = GregariousBehaviour::getBehaviourInstance();
-      }
-
-      if ( which_behaviour == 2 ){
-        //behaviour = new FearfulBehaviour();
-        behaviour = FearfulBehaviour::getBehaviourInstance();
-      }
-
-      if ( which_behaviour == 3 ){
-        //behaviour = new KamikazeBehaviour();
-        behaviour = KamikazeBehaviour::getBehaviourInstance();
-      }
+      this->behaviour = choose_behaviour();
     }
 }
+
+
+void Animal::setColor(const T c[3]) {
+    this->color[0] = c[0];
+    this->color[1] = c[1];
+    this->color[2] = c[2];
+}
+
+
+void Animal::setBehaviour(string behaviourName) {
+        this->setColor(FearfulBehaviour::getColor());
+        this->behaviour = FearfulBehaviour::getBehaviourInstance();
+    // TODO TODO TODO
+//    if (behaviourName == GregariousBehaviour::getBehaviourName()) {
+//        this->setColor(GregariousBehaviour::getColor());
+//        // TODO
+//        //this->behaviour = GregariousBehaviour::getBehaviourInstance();
+//        this->behaviour = FearfulBehaviour::getBehaviourInstance();
+//        }
+//     else {
+//         if (behaviourName == FearfulBehaviour::getBehaviourName()) {
+//            this->setColor(FearfulBehaviour::getColor());
+//            this->behaviour = FearfulBehaviour::getBehaviourInstance();
+//         }
+//          else {
+//             if (behaviourName == KamikazeBehaviour::getBehaviourName()) {
+//                this->setColor(KamikazeBehaviour::getColor());
+//                // TODO
+//                //this->behaviour = KamikazeBehaviour::getBehaviourInstance();
+//                this->behaviour = FearfulBehaviour::getBehaviourInstance();
+//             }
+//          }
+//     }
+}
+
+
 double Animal::getMaxSpeed(){
    return MAX_SPEED;
 }

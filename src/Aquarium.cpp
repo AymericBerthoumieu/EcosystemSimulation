@@ -1,17 +1,28 @@
 #include "Aquarium.h"
 #include "Environment.h"
+#include "Statistics.h"
+#include "PetFactory.h"
+
 #include "GregariousBehaviour.h"
 #include "FearfulBehaviour.h"
 #include "KamikazeBehaviour.h"
 
+#include "Fin.h"
+#include "Eyes.h"
 
-Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay ){
+
+Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, map<string, float> animalsDistribution) : CImgDisplay(), delay( _delay ){
    int screenWidth = 1280; //screen_width();
    int screenHeight = 1024; //screen_height();
 
    cout << "const Aquarium" << endl;
 
-   water = new Environment( width, height );
+   Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName()});
+
+   // TODO : fixer la liste des availableCaptorsAndAccessories
+   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);
+
+   water = new Environment(width, height, startingNbOfAnimals, *factory, *statistics);
    assign( *water, "Simulation d'écosystème" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );

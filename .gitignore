@@ -1,6 +1,7 @@
 .idea
 *.o
 *.csv
+*.swp
 main
 
 

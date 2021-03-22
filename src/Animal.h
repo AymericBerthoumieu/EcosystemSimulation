@@ -40,6 +40,8 @@ protected:
 
    void move(int xLim, int yLim, Environment &myEnvironment);
    void changeBehaviour();
+   void setColor(const T* c);
+
 public :
    Animal();
    Animal(const Animal& a); // copy cstor
@@ -70,8 +72,11 @@ public :
    void action(Environment& myEnvironment);
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
+
    std::string getBehaviourName();
    bool getIsMultiple();
+   void setBehaviour(string behaviourName);
+   void setBehaviourAsMultiple();
 
 
    // for tests

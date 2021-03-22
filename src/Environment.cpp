@@ -1,4 +1,6 @@
 #include "Environment.h"
+#include "AnimalFactory.h"
+#include "Statistics.h"
 
 #include <cstdlib>
 #include <ctime>
@@ -8,21 +10,30 @@
 
 const T Environment::white[] = {(T) 255, (T) 255, (T) 255};
 
-Environment::Environment(int _width, int _height) : UImg(_width, _height, 1, 3), width(_width), height(_height),
-                                                    nb_steps(0) {
-    //cout << "const Environment" << endl;
-    std::srand(time(NULL));
+Environment::Environment(int _width, int _height, int nbAnimalsToStartWith, AnimalFactory& factory, Statistics& stats): 
+ UImg( _width, _height, 1, 3 ), width(_width), height(_height), 
+ petCreator(factory), statistics(stats){
+   cout << "const Environment" << endl;
+   this->animals = this->petCreator.initializePopulation(nbAnimalsToStartWith);
+   std::srand(time(NULL));
 }
 
+
 Environment::~Environment() {
+    delete &petCreator;
+    delete &statistics;
+    // TODO : delete animals
     //cout << "dest Environment" << endl;
 }
+
 
 int Environment::getWidth() const{
    return width;}
 
+
 int Environment::getHeight() const{
    return height;}
+
 
 void Environment::step() {
     ++nb_steps;
@@ -41,16 +52,32 @@ void Environment::step() {
     this->die();
 }
 
-int Environment::nbNeighbors(const Animal& a){
-   int nb = 0;
-   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
-      if (!(a == *it) && a.isDetecting(*it))
-         ++nb;
-   return nb;}
+
+//int Environment::nbNeighbors(const Animal& a){
+//   int nb = 0;
+//   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
+//      if (!(a == *it) && a.isDetecting(*it))
+//         ++nb;
+//   return nb;}
+
 
 void Environment::addMember(const Animal & a) { 
 	this->animals.push_back(a); 
 	this->animals.back().initCoords(width, height);}
+
+
+std::vector<Animal> Environment::detectedNeighbors(Animal & a){
+   std::vector<Animal> petNeighbors;
+
+   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
+      if (a.getIdentity() != it->getIdentity() && a.isDetecting(*it)){
+         //cout << "Is detecting" << endl;
+         petNeighbors.push_back(*it);
+      }
+
+   return petNeighbors;
+}
+
 
 bool mustDie(Animal const &p) {
     if (p.getLife() <= 0) {
@@ -58,12 +85,12 @@ bool mustDie(Animal const &p) {
     }
     return p.getLife() <= 0;
 }
-
 void Environment::die() {
     //cout << "At step <" << nb_steps << "> : " << endl;
     auto it = std::remove_if(animals.begin(), animals.end(), mustDie);
     animals.erase(it, animals.end());
 }
+
 
 void Environment::hasCollision(Animal &p) {
     int id = p.getIdentity();
@@ -86,8 +113,8 @@ void Environment::hasCollision(Animal &p) {
     }
 }
 
-// ############################## for tests ########################################
 
+// ############################## for tests ########################################
 void Environment::setLife(int i){
     //cout << "[TEST] Setting life of all pets at " << i << "." << endl;
     for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
@@ -95,14 +122,3 @@ void Environment::setLife(int i){
     }
 }
 
-std::vector<Animal> Environment::detectedNeighbors(Animal & a){
-   std::vector<Animal> petNeighbors;
-
-   for (std::vector<Animal>::iterator it = animals.begin() ; it != animals.end() ; ++it)
-      if (a.getIdentity() != it->getIdentity() && a.isDetecting(*it)){
-         //cout << "Is detecting" << endl;
-         petNeighbors.push_back(*it);
-      }
-
-   return petNeighbors;
-}
