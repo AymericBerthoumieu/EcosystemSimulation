@@ -1,23 +1,28 @@
 #include "GregariousBehaviour.h"
+#include "MoveUtils.h"
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <vector>
 
+// Définition du nom du comportement 
+std::string GregariousBehaviour::NAME = "B_Gregarious";
 
-std::string GregariousBehaviour::NAME = "Gregarious";
-
+// Initialisation du comportement avec un pointeur nul
 GregariousBehaviour* GregariousBehaviour::gregariousbehaviour= nullptr;
 
 std::string GregariousBehaviour::getBehaviourName(){
    return NAME;
 }
 
+// Cette méthode sera appelée lors de la création du
+// (singleton) comportement 
 void GregariousBehaviour::getRidOfInstance(void){
    delete gregariousbehaviour;
-   cout << " LA DESTRUCTION DE LA GREGAIRE EFFECTIVEMENT LIEU !" <<endl;   
 }
 
+// Cette méthode permet de créer une fois pour toute
+// une instance du comportement 
 GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
    if (gregariousbehaviour == nullptr ){
         gregariousbehaviour = new GregariousBehaviour(); 
@@ -25,9 +30,10 @@ GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
     return gregariousbehaviour;
 }
 
+// Méthode permettant de récupérer les bestioles environnantes
 std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 
-
+   // On récupère le vecteurs des voisins détectés dans l'environnement
    std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
    return pets;}
 
@@ -49,9 +55,6 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
 
    double all_orientation = 0;
    int nb_neighbors = 0;
-
-
-   //cout << "Old orientation "  <<  orientation << endl;
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
@@ -65,7 +68,9 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    }
 
 
-   // checker si nb_neighbors != 0
+   // S'il n'y a aucune bestiole environante, la bestiole
+   // courante poursuivra son mouvement avec son orientation
+   // précédente
 
    if(nb_neighbors != 0 && nb_neighbors >= LIMIT_SURROUNDING){
 
@@ -73,39 +78,8 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
       
    }
 
-   //cout << "Orientation Updated and neigbors are " << nb_neighbors << " New orientation "  <<  orientation << endl;
-
-   double nx, ny;
-   double dx = cos( orientation )*speed;
-   double dy = -sin( orientation )*speed;
-   int cx, cy;
-
-   cx = static_cast<int>( cumulX ); cumulX -= cx;
-   cy = static_cast<int>( cumulY ); cumulY -= cy;
-
-   nx = x + dx + cx;
-   ny = y + dy + cy;
-
-   if ( (nx < 0) || (nx > xLim - 1) ) {
-      orientation = M_PI - orientation;
-      cumulX = 0.;}
-   else {
-      x = static_cast<int>( nx );
-      cumulX += nx - x;}
-
-   if ( (ny < 0) || (ny > yLim - 1) ) {
-      orientation = -orientation;
-      cumulY = 0.;}
-   else {
-      y = static_cast<int>( ny );
-      cumulY += ny - y;} 
-
-
-   // We modify the pet travel information
-   
-   pet.setCoordinates(x,y);
-   pet.setCumul(cumulX,cumulY);
-   pet.setOrientationSpeed(orientation,speed); 
-   } 
+   // On définit les nouveaux paramètres de mouvement de la bestiole
+   MoveUtils::setMoveParameters(pet, x, y, xLim, yLim, orientation, speed, cumulX, cumulY);
+} 
 
   

@@ -1,7 +1,7 @@
 SRCDIR := src/
 
-main : main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o -I $(SRCDIR) -lX11 -lpthread
+main : main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o MoveUtils.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o MoveUtils.o -I $(SRCDIR) -lX11 -lpthread
 
 Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR) 
@@ -14,6 +14,9 @@ Animal.o : $(SRCDIR)Animal.h $(SRCDIR)Animal.cpp
 
 Environment.o : $(SRCDIR)Environment.h $(SRCDIR)Environment.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Environment.cpp -I $(SRCDIR)
+
+MoveUtils.o : $(SRCDIR)MoveUtils.h $(SRCDIR)MoveUtils.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)MoveUtils.cpp -I $(SRCDIR)
 
 GregariousBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)GregariousBehaviour.h $(SRCDIR)GregariousBehaviour.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)GregariousBehaviour.cpp -I $(SRCDIR)
