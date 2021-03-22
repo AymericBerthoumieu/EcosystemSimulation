@@ -24,7 +24,7 @@ class GregariousBehaviour: public BehaviourStrategy{
 	static GregariousBehaviour* getBehaviourInstance();
 	static void getRidOfInstance();
 
-	static std::string getBehaviourName();
+	std::string getBehaviourName() override;
         static const T* getColor();
 
 	std::vector<Animal *> nearestNeighbors(Animal* pet, Environment& myEnvironment) override;

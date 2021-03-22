@@ -19,7 +19,7 @@ public:
         static const T* getColor();
 	static FearfulBehaviour* getBehaviourInstance();
 	static void getRidOfInstance();
-	static  std::string getBehaviourName();
+	std::string getBehaviourName() override;
 	std::vector<Animal *> nearestNeighbors(Animal* pet, Environment& myEnvironment) override;
 	void move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) override;
 

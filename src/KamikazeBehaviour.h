@@ -23,7 +23,7 @@ class KamikazeBehaviour: public BehaviourStrategy{
         static KamikazeBehaviour* getBehaviourInstance();
 	static void getRidOfInstance();
 	
-        static std::string getBehaviourName();
+        std::string getBehaviourName() override;
         static const T* getColor() ;
 
 	std::vector<Animal *> nearestNeighbors(Animal* pet, Environment& myEnvironment) override;

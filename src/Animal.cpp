@@ -248,17 +248,17 @@ void Animal::setColor(const T c[3]) {
 
 
 void Animal::setBehaviour(string behaviourName) {
-    if (behaviourName == GregariousBehaviour::getBehaviourName()) {
+    if (behaviourName == GregariousBehaviour::getBehaviourInstance()->getBehaviourName()) {
         this->setColor(GregariousBehaviour::getColor());
         this->behaviour = GregariousBehaviour::getBehaviourInstance();
         }
      else {
-         if (behaviourName == FearfulBehaviour::getBehaviourName()) {
+         if (behaviourName == FearfulBehaviour::getBehaviourInstance()->getBehaviourName()) {
             this->setColor(FearfulBehaviour::getColor());
             this->behaviour = FearfulBehaviour::getBehaviourInstance();
          }
           else {
-             if (behaviourName == KamikazeBehaviour::getBehaviourName()) {
+             if (behaviourName == KamikazeBehaviour::getBehaviourInstance()->getBehaviourName()) {
                 this->setColor(KamikazeBehaviour::getColor());
                 this->behaviour = KamikazeBehaviour::getBehaviourInstance();
              }

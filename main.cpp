@@ -16,7 +16,7 @@ int main(){
     int windowHeight = 800; //480
     int delay = 30;
     int startingNbPets = 70;
-    map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourName(), 10}, {FearfulBehaviour::getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourName(), 40}, {"multiple", 20}};
+    map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(), 10}, {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 40}, {"multiple", 20}};
     Aquarium ecosystem(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
 
     ecosystem.run();
