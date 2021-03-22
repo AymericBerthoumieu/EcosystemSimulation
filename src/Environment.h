@@ -4,6 +4,7 @@
 
 #include "UImg.h"
 #include "Animal.h"
+#include "Statistics.h"
 
 #include <iostream>
 #include <vector>
@@ -22,7 +23,7 @@ class Environment : public UImg{
    std::vector<float> natalityRatios;
    float cloningProbability;
    AnimalFactory& petCreator();
-   Statistics& statistics();
+   Statistics& statistics;
 
 public :
    Environment(int _width, int _height);

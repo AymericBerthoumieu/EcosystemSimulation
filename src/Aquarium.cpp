@@ -1,5 +1,6 @@
 #include "Aquarium.h"
 #include "Environment.h"
+#include "Statistics.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay ){
@@ -8,7 +9,10 @@ Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( 
 
    cout << "const Aquarium" << endl;
 
-   water = new Environment( width, height );
+   vector<string> names;
+   Statistics* stats = new Statistics(names);
+
+   water = new Environment( width, height, petcreator, stats );
    assign( *water, "Simulation d'écosystème" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );
@@ -21,7 +25,6 @@ Aquarium::~Aquarium( void ){
 void Aquarium::run( void ){
    cout << "running Aquarium" << endl;
    while ( ! is_closed() ){
-      // cout << "iteration de la simulation" << endl;
       if ( is_key() ) {
          cout << "Vous avez pressé la touche " << static_cast<unsigned char>( key() );
          cout << " (" << key() << ")" << endl;
