@@ -7,19 +7,14 @@
 
 #include "Animal.h"
 
+/*
+ * Base of all the decorator Animals are going to be composed by 0,one or several decorators that inherit this class
+ */
 class BaseDecorator: public Animal {
-
-
-
-
+protected:
+    Animal* wrapAnimal; // Give access to the decorated object
 public:
-
-    virtual void move(int xLim, int yLim, Environment &myEnvironment) = 0;
-    virtual std::string getName() = 0;
-    //virtual bool isDetecting(const Animal& animal) const = 0;
-    virtual ~BaseDecorator() {};
-    //virtual vector<string> getAccessoriesAndCaptors() = 0;
-
+    virtual std::string getName() = 0; //Give the name of the decorator. Used for statistics.
 };
 
 #endif

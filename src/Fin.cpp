@@ -7,14 +7,14 @@
 #include <iostream>
 #include <cstring>
 
-
-Fin::Fin(Animal* animal):  wrapAnimal(animal), speedCoef((double)rand()) {}
+// Create the decorator with the decorated object as attribut and the speedCoef
+Fin::Fin(Animal* animal): wrapAnimal(animal), speedCoef((double)rand()) {}
 
 
 void Fin::move(int xLim, int yLim, Environment &myEnvironment){
     double nx, ny;
-    double dx = cos( orientation )*speed*speedCoef;
-    double dy = -sin( orientation )*speed*speedCoef;
+    double dx = cos( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object
+    double dy = -sin( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object
     int cx, cy;
 
     cx = static_cast<int>( cumulX ); cumulX -= cx;

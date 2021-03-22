@@ -37,14 +37,12 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
    auto cord = pet.getCoordinates();
    auto cumul = pet.getCumul();
    auto orient_speed = pet.getOrientationSpeed();
-    std::cout << "Greg move attribut" << std::endl;
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
    double cumulX = std::get<0>(cumul); 
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
-    std::cout << "Grego move attribut 2" << std::endl;
    // On calcule la direction moyenne des bestioles environnantes
 
    double all_orientation = 0;
@@ -53,9 +51,7 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
 
    //cout << "Old orientation "  <<  orientation << endl;
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-    std::cout << "Greg move vector" << std::endl;
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
-       std::cout << "Gereg move For" << std::endl;
       auto neighbor_orient_speed = it->getCoordinates();
       double neighbor_orient = std::get<0>(neighbor_orient_speed);
 

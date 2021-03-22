@@ -5,14 +5,13 @@
 #ifndef _EARS_H_
 #define _EARS_H_
 #include "Sensor.h"
-
+/*
+ * Ears is a concrete decorator that gives the capacity of decorated object to detect object in the environment
+ */
 class Ears: public Sensor {
-    void move(int xLim,int yLim, Environment &myEnvironment) override{return wrapAnimal->move(xLim,yLim, myEnvironment);};
-
-
 public:
-    Ears(Animal* animal);
-    bool isDetecting(const Animal& animal) const override;
+    Ears(Animal* animal); // Constructor that decorate the object in parameter
+    bool isDetecting(const Animal& animal) const override; // Method used to know if the animal in parameter is detectable by the current object
     std::string getName() override;
     ~Ears();
 };

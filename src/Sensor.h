@@ -6,19 +6,14 @@
 #define _SENSOR_H_
 #include "BaseDecorator.h"
 
+/*
+ * Ears and Eyes are going to heritate from this class there common inherit and method
+ */
 class Sensor: public BaseDecorator {
-
 protected:
-    Animal* wrapAnimal;
-    float capacityOfDetection;
-    float minimumDistanceOfPerception;
-    float maximumDistanceOfPerception;
-
-public:
-    virtual void move(int xLim, int yLim, Environment &myEnvironment) = 0;
-    virtual std::string getName() = 0;
-    //virtual bool isDetecting(const Animal& animal) const = 0;
-    virtual ~Sensor() {};
+    float capacityOfDetection; // Coefficient to use to determine if the object is detectable by the current object
+    float minimumDistanceOfPerception; // Minimum distance for the object to know there is an object close to him
+    float maximumDistanceOfPerception; // Maximum distance for the current object to know there is an object close to him
 };
 
 

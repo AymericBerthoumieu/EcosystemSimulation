@@ -25,8 +25,6 @@ bool Ears::isDetecting(const Animal& animal) const{
     return (exp1 && exp2);
 }
 
-
-
 std::string Ears::getName() {
     return "c_Ears";
 }
