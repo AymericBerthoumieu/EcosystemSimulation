@@ -30,11 +30,8 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
-
-  
-  isMultiple = 1;
-  //behaviour = new KamikazeBehaviour();
-  behaviour = FearfulBehaviour::getBehaviourInstance();
+   //isMultiple = 1;
+   //behaviour = KamikazeBehaviour::getBehaviourInstance();
 
    color = new T[ 3 ];
    color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -57,10 +54,9 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-  isMultiple = 1;
-  //behaviour = new KamikazeBehaviour();
-  //behaviour = FearfulBehaviour::getBehaviourInstance();
+  isMultiple = a.isMultiple;
   behaviour = a.behaviour;
+
 
   color = new T[ 3 ];
   memcpy( color, a.color, 3*sizeof(T) );}
@@ -70,7 +66,7 @@ Animal::~Animal( void ){
     if (color != NULL){
         delete[] color;
     }
-    //delete behaviour;
+
     cout << "dest Pet" << endl;
 }
 
@@ -177,63 +173,93 @@ double Animal::getProbabilityOfFatalCollision() const {
     return probabilityOfFatalCollision;
 }
 
+// Méthode permettant de récupérer les 
+// coordonnées de la bestiole
+
 std::tuple<int, int> Animal::getCoordinates(){
     return std::make_tuple(this->x,this->y);
 }
+// Méthode permettant de récupérer les positions
+// cumulées de la bestiole
 
 std::tuple<double, double> Animal::getCumul(){
    return std::make_tuple(this->cumulX,this->cumulY);
 }
-   
+
+// Méthode permettant de récupérer l'angle d'orientation
+// et la vitesse de la bestiole
+
 std::tuple<double, double> Animal::getOrientationSpeed(){
    return std::make_tuple(this->orientation,this->speed);
 }
+
+// Méthode permettant de modifier les 
+// coordonnées de la bestiole
 
 void Animal::setCoordinates(int new_x,int new_y){
    this->x = new_x;
    this->y = new_y;
 }
 
+// Méthode permettant de modifier les positions
+// cumulées de la bestiole
+
 void Animal::setCumul(double new_cumul_x,double new_cumul_y){
    this->cumulX = new_cumul_x;
    this->cumulY = new_cumul_y;
 }
+
+// Méthode permettant de modifier l'angle d'orientation
+// et la vitesse de la bestiole
+
 void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
    }
+
+// Fonction permettant d'attribuer un nouveau comportement
+// à une bestiole à comportement multiple
+
 void Animal::changeBehaviour(){
   double proba_to_change = ((double) rand() / (RAND_MAX));
 
+  // Si la bestiole est à comportement multiple, alors on 
+  // on lui assigne (avec certaine probabiité) un comportement 
+  // tiré au hasard 
+
   if (isMultiple && proba_to_change >= 0.9) {
-      cout << "Reach Here ? Change Behaviour" << endl;
-      //delete behaviour;
       int which_behaviour; 
       which_behaviour = rand() % 3 + 1;
 
       if ( which_behaviour == 1 ){
-        //behaviour = new GregariousBehaviour();
         behaviour = GregariousBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 2 ){
-        //behaviour = new FearfulBehaviour();
         behaviour = FearfulBehaviour::getBehaviourInstance();
       }
 
       if ( which_behaviour == 3 ){
-        //behaviour = new KamikazeBehaviour();
         behaviour = KamikazeBehaviour::getBehaviourInstance();
       }
     }
 }
+
+// Méthode retournant la vitesse 
+// maximale d'une bestiole
+
 double Animal::getMaxSpeed(){
    return MAX_SPEED;
 }
+// Méthode permettant de récupérer le caractère 
+// à comportement multiple ou non d'une bestiole
 
 bool Animal::getIsMultiple(){
   return isMultiple;
 }
+
+// Méthode permettant de récupérer le nom du 
+//du comportement d'une bestiole
 
 std::string Animal::getBehaviourName(){
   return behaviour->getBehaviourName();
