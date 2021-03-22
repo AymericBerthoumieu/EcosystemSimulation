@@ -15,6 +15,7 @@ class Statistics{
     vector<string> headers;
     string csvFile;
 
+
 public:
     Statistics(vector<string> behaviorAccessoriesCaptorsNames);
     ~Statistics();
