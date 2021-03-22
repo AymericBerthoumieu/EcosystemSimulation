@@ -42,4 +42,12 @@ std::string Fin::getName() {
     return "a_Fin";
 }
 
+float Fin::getSpeedCoef() const{
+    return speedCoef;
+}
+
+void Fin::setSpeedCoef(float speedCoef) {
+    this->speedCoef = speedCoef;
+}
+
 Fin::~Fin(){}

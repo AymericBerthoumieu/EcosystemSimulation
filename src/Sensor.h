@@ -14,6 +14,13 @@ protected:
     float capacityOfDetection; // Coefficient to use to determine if the object is detectable by the current object
     float minimumDistanceOfPerception; // Minimum distance for the object to know there is an object close to him
     float maximumDistanceOfPerception; // Maximum distance for the current object to know there is an object close to him
+public:
+    float getCapacityOfDetection() const;
+    void setCapacityOfDetection(float capacityOfDetection);
+    float getMinimumDistanceOfPerception() const;
+    void setMinimumDistanceOfPerception(float minimumDistanceOfPerception);
+    float getMaximumDistanceOfPerception() const;
+    void setMaximumDistanceOfPerception(float MaximumDistanceOfPerception);
 };
 
 

@@ -1,7 +1,7 @@
 SRCDIR := src/
 
-main : main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o BaseDecorator.o Sensor.o Fin.o Ears.o
-	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o BaseDecorator.o Sensor.o Fin.o Ears.o -I $(SRCDIR) -lX11 -lpthread
+main : main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o BaseDecorator.o Sensor.o Fin.o Ears.o Shell.o
+	g++ -Wall -std=c++11 -o main main.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o BaseDecorator.o Sensor.o Fin.o Ears.o Shell.o -I $(SRCDIR) -lX11 -lpthread
 
 Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR) 
@@ -35,4 +35,7 @@ Fin.o : $(SRCDIR)Fin.h $(SRCDIR)Fin.cpp
 
 Ears.o : $(SRCDIR)Ears.h $(SRCDIR)Ears.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)Ears.cpp -I $(SRCDIR)
+
+Shell.o : $(SRCDIR)Shell.h $(SRCDIR)Shell.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)Shell.cpp -I $(SRCDIR)
 

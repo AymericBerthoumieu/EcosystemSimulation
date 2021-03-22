@@ -67,7 +67,7 @@ public :
    double getProbabilityOfFatalCollision() const;
 
    void decrement();
-   void onCollision();
+   virtual void onCollision();
    void action(Environment& myEnvironment);
    void draw(UImg& support);
    virtual bool isDetecting(const Animal& a) const;
