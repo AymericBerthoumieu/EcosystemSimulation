@@ -4,5 +4,5 @@
 
 
 Pet::Pet(): Animal(){};
-Pet::Pet(const Pet& p): Animal(p){};
+Pet::Pet(const Pet* p): Animal(p){};
 Pet::~Pet() {};

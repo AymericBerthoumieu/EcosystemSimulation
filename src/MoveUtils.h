@@ -6,7 +6,7 @@
 class MoveUtils{
    
 public:
-    static void setMoveParameters(Animal& a, int& x, int& y, int xLim, int yLim, double& orientation, double& speed, double& cumulX, double& cumulY);
+    static void setMoveParameters(Animal* a, int& x, int& y, int xLim, int yLim, double& orientation, double& speed, double& cumulX, double& cumulY);
 };
 
 #endif

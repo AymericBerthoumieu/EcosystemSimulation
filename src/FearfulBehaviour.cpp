@@ -31,19 +31,19 @@ FearfulBehaviour* FearfulBehaviour::getBehaviourInstance(){
 }
 
 // Méthode permettant de récupérer les bestioles environnantes
-std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
+std::vector<Animal *> FearfulBehaviour::nearestNeighbors(Animal* pet, Environment& myEnvironment){
 
   // On récupère le vecteurs des voisins détectés dans l'environnement
-  std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
+  std::vector<Animal *> pets = myEnvironment.detectedNeighbors(pet);
   return pets;}
 
 
-void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
+void FearfulBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
 
 
-   auto cord = pet.getCoordinates();
-   auto cumul = pet.getCumul();
-   auto orient_speed = pet.getOrientationSpeed();
+   auto cord = pet->getCoordinates();
+   auto cumul = pet->getCumul();
+   auto orient_speed = pet->getOrientationSpeed();
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -55,9 +55,9 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    // On calcule le nombre de bestioles environnantes
    
    int nb_neighbors = 0;
-   std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   std::vector<Animal *> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
-   for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
+   for (std::vector<Animal *>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
      	
      	nb_neighbors += 1;
 
@@ -68,13 +68,13 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    if(nb_neighbors >= LIMIT_SURROUNDING){
 
    		orientation = M_PI-orientation;
-  	  	speed = pet.getMaxSpeed();
+  	  	speed = pet->getMaxSpeed();
   	  }
 
   	// Si le nombre de bestioles environnantes n'est pas 
     // important et que sa vitesse est la vitesse maximale
     // la bestiole reprend sa vitesse de croisière
-  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet.getMaxSpeed()){
+  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet->getMaxSpeed()){
   		speed = CRUISING_SPEED;
   	}
 

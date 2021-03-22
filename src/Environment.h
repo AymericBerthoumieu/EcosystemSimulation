@@ -17,7 +17,7 @@ class Statistics;
 class Environment : public UImg{
    static const T white[];
    int width, height;
-   std::vector<Animal> animals;
+   std::vector<Animal *> animals;
    int nb_steps;
    std::vector<float> natalityRatios;
    float cloningProbability;
@@ -32,15 +32,15 @@ public :
    int getHeight() const;
    void step();
 
-   void hasCollision(Animal& a);
+   void hasCollision(Animal* a);
    void die();
-   void addMember(const Animal& a);
+   void addMember(Animal * a);
    void addMembersAtRuntime();
    void chooseMembersToClone();
    void addMemberToclone(Animal* a);
    void cloneMembers();
-   int nbNeighbors(const Animal& a);
-   std::vector<Animal> detectedNeighbors(Animal& a);
+   int nbNeighbors(const Animal* a);
+   std::vector<Animal *> detectedNeighbors(Animal* a);
 
    // for test
    void setLife(int i);

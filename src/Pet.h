@@ -14,7 +14,7 @@ class Environment;
 class Pet: public Animal{
 public :
    Pet();
-   Pet(const Pet& p); 
+   Pet(const Pet* p); 
    ~Pet();
 };
 

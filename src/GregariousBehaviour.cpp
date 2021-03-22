@@ -31,18 +31,18 @@ GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
 }
 
 // Méthode permettant de récupérer les bestioles environnantes
-std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
+std::vector<Animal *> GregariousBehaviour::nearestNeighbors(Animal* pet, Environment& myEnvironment){
 
    // On récupère le vecteurs des voisins détectés dans l'environnement
-   std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
+   std::vector<Animal *> pets = myEnvironment.detectedNeighbors(pet);
    return pets;}
 
-void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
+void GregariousBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
 
 
-   auto cord = pet.getCoordinates();
-   auto cumul = pet.getCumul();
-   auto orient_speed = pet.getOrientationSpeed();
+   auto cord = pet->getCoordinates();
+   auto cumul = pet->getCumul();
+   auto orient_speed = pet->getOrientationSpeed();
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -55,11 +55,11 @@ void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myE
 
    double all_orientation = 0;
    int nb_neighbors = 0;
-   std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   std::vector<Animal *> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
-   for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
+   for (std::vector<Animal *>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
 
-      auto neighbor_orient_speed = it->getCoordinates();
+      auto neighbor_orient_speed = (*it)->getCoordinates();
       double neighbor_orient = std::get<0>(neighbor_orient_speed);
 
       all_orientation += neighbor_orient;

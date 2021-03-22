@@ -20,7 +20,6 @@ Animal::Animal() {
    identity = ++next;
 
    cout << "const Animal (" << identity << ") par défaut" << endl;
-
    x = y = 0;
    cumulX = cumulY = 0.;
 
@@ -39,7 +38,7 @@ Animal::Animal() {
    color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );}
 
 
-Animal::Animal( const Animal & a ){
+Animal::Animal( const Animal* a ){
    identity = ++next;
 
    cout << "const Animal (" << identity << ") par copie" << endl;
@@ -47,19 +46,19 @@ Animal::Animal( const Animal & a ){
    probabilityOfFatalCollision = ((double) rand() / (RAND_MAX));
    life = 10000 * ((double) rand() / (RAND_MAX));; // must be initialized randomly
 
-   x = a.x;
-   y = a.y;
+   x = a->x;
+   y = a->y;
    cumulX = cumulY = 0.;
-   orientation = a.orientation;
-   speed = a.speed;
+   orientation = a->orientation;
+   speed = a->speed;
 
 
-  isMultiple = a.isMultiple;
-  behaviour = a.behaviour;
+  isMultiple = a->isMultiple;
+  behaviour = a->behaviour;
 
 
   color = new T[ 3 ];
-  memcpy( color, a.color, 3*sizeof(T) );}
+  memcpy( color, a->color, 3*sizeof(T) );}
 
 
 Animal::~Animal( void ){
@@ -119,7 +118,7 @@ void Animal::initCoords( int xLim, int yLim ){
 
 void Animal::move( int xLim, int yLim, Environment& myEnvironment){
    
-   behaviour->move(xLim,yLim,*this, myEnvironment);}
+   behaviour->move(xLim,yLim,this, myEnvironment);}
 
 
 void Animal::action( Environment & myEnvironment ){
