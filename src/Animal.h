@@ -1,4 +1,4 @@
-#ifndef _ANIMAL_H_
+#ifndef _ANIMAL_H_ 
 #define _ANIMAL_H_
 
 #include "UImg.h"
@@ -42,7 +42,7 @@ protected:
    void changeBehaviour();
 public :
    Animal();
-   Animal(const Animal& a); // copy cstor
+   Animal(const Animal* a); // copy cstor
    Animal(Animal&& a); // move cstor
    virtual ~Animal();
 
