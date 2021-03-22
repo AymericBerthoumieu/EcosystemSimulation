@@ -17,7 +17,7 @@ class Statistics;
 class Environment : public UImg{
    static const T white[];
    int width, height;
-   std::vector<Animal> animals;
+   std::vector<Animal *> animals;
    int nb_steps;
    AnimalFactory& petCreator;
    Statistics& statistics;
@@ -30,11 +30,10 @@ public :
    int getHeight() const;
    void step();
 
-   void hasCollision(Animal& a);
+   void hasCollision(Animal* a);
    void die();
-   void addMember(const Animal& a);
-   // int nbNeighbors(const Animal& a);
-   std::vector<Animal> detectedNeighbors(Animal& a);
+   void addMember(Animal * a);
+   std::vector<Animal *> detectedNeighbors(Animal* a);
 
    // for test
    void setLife(int i);

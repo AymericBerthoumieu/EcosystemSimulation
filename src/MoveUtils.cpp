@@ -1,6 +1,6 @@
 #include "MoveUtils.h"
 
-void MoveUtils::setMoveParameters(Animal& a, int& x, int& y, int xLim, int yLim, double& orientation, double& speed, double& cumulX, double& cumulY){
+void MoveUtils::setMoveParameters(Animal* a, int& x, int& y, int xLim, int yLim, double& orientation, double& speed, double& cumulX, double& cumulY){
 
 	double nx, ny;
 	double dx = cos( orientation )*speed;
@@ -28,7 +28,7 @@ void MoveUtils::setMoveParameters(Animal& a, int& x, int& y, int xLim, int yLim,
 	  cumulY += ny - y;} 
 
 
-	a.setCoordinates(x,y);
-	a.setCumul(cumulX,cumulY);
-	a.setOrientationSpeed(orientation,speed); 
+	a->setCoordinates(x,y);
+	a->setCumul(cumulX,cumulY);
+	a->setOrientationSpeed(orientation,speed); 
 }

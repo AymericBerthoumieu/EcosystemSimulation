@@ -27,8 +27,8 @@ class GregariousBehaviour: public BehaviourStrategy{
 	static std::string getBehaviourName();
         static const T* getColor();
 
-	std::vector<Animal> nearestNeighbors(Animal& pet, Environment& myEnvironment) override;
-	void move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) override;
+	std::vector<Animal *> nearestNeighbors(Animal* pet, Environment& myEnvironment) override;
+	void move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) override;
 
 };
 

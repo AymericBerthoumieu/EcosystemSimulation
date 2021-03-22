@@ -17,13 +17,13 @@ class PetFactory final: public AnimalFactory {
     map<string, float> behavioursDistribution;
     unordered_set<string> availableAccessoriesAndCaptors;
 
-    Animal& createMember(string behaviour="none") override;
+    Animal* createMember(string behaviour="none") override;
 
 public:
 //    PetFactory();
     PetFactory(int xLim, int yLim, map<string, float> behavioursDistribution, unordered_set<string> availableAccessoriesAndCaptors, Statistics& stats);
 
-    vector<Animal> initializePopulation(int number) override;
+    vector<Animal*> initializePopulation(int number) override;
 };    
 
 #endif

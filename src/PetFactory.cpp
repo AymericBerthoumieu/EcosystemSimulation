@@ -53,7 +53,7 @@ unordered_set<string> choose_elements(const unordered_set<string> available_elem
     return chosen_elements;
 }
 
-Animal& PetFactory::createMember(string behaviour) {
+Animal* PetFactory::createMember(string behaviour) {
     Animal* pet = new Pet(); 
     unordered_set<string> captorsAndAccessories = choose_elements(this->availableAccessoriesAndCaptors);
     for (string e : captorsAndAccessories) {
@@ -82,11 +82,11 @@ Animal& PetFactory::createMember(string behaviour) {
 
     pet->initCoords(this->XLIM, this->YLIM);
 
-    return *pet;
+    return pet;
 }
 
-vector<Animal> PetFactory::initializePopulation(int number){
-    vector<Animal> createdPets;
+vector<Animal*> PetFactory::initializePopulation(int number){
+    vector<Animal*> createdPets;
     map<string, int> toCreate;
     int createdNumber = 0;
 

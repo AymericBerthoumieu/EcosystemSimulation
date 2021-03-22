@@ -7,10 +7,10 @@ using namespace std;
 
 class AnimalFactory {
 
-    virtual Animal& createMember(string behaviour="none") = 0;
+    virtual Animal* createMember(string behaviour="none") = 0;
 
 public:
-    virtual vector<Animal> initializePopulation(int number) = 0;
+    virtual vector<Animal*> initializePopulation(int number) = 0;
     virtual ~AnimalFactory() {};
 };    
 

@@ -45,22 +45,22 @@ KamikazeBehaviour::~KamikazeBehaviour() {
 
 // Méthode permettant de récupérer la bestiole la plus proche
 // de la bestiole courante
-std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
+std::vector<Animal*> KamikazeBehaviour::nearestNeighbors(Animal* pet, Environment& myEnvironment){
    double         dist;
-   Animal closest;
-   std::vector<Animal> closestPets;
+   Animal* closest;
+   std::vector<Animal *> closestPets;
    // On récupère le vecteurs des voisins détectés dans l'environnement
-   std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
+   std::vector<Animal*> pets = myEnvironment.detectedNeighbors(pet);
 
-   auto cord = pet.getCoordinates();
+   auto cord = pet->getCoordinates();
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
    double best_distance = std::numeric_limits<double>::infinity();
    int neighbor = 0;
 
    // On ne garde que la bestiole la plus proche
-   for (std::vector<Animal>::iterator it = pets.begin() ; it != pets.end() ; ++it){
-      auto neighbor_cord = it->getCoordinates();
+   for (std::vector<Animal *>::iterator it = pets.begin() ; it != pets.end() ; ++it){
+      auto neighbor_cord = (*it)->getCoordinates();
       int neighbor_x = std::get<0>(neighbor_cord);
       int neighbor_y = std::get<1>(neighbor_cord);
       ++neighbor;
@@ -79,10 +79,10 @@ std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment
 }
 
 
-void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
-   auto cord = pet.getCoordinates();
-   auto cumul = pet.getCumul();
-   auto orient_speed = pet.getOrientationSpeed();
+void KamikazeBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
+   auto cord = pet->getCoordinates();
+   auto cumul = pet->getCumul();
+   auto orient_speed = pet->getOrientationSpeed();
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -95,7 +95,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
    // de la bestiole courante
    double nearestPet_x;
    double nearestPet_y;
-   std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   std::vector<Animal *> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
    // On vérifie qu'il y a au moins une bestiole identifiée
    // comme étant la plus proche
@@ -106,7 +106,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
       // la bestiole a relancé son mouvement avec une orientation
       // aléatoire
       has_reset_orientation = 0;
-      auto nearestPet_cord = closestPets.back().getCoordinates();
+      auto nearestPet_cord = closestPets.back()->getCoordinates();
       nearestPet_x = std::get<0>(nearestPet_cord);
       nearestPet_y = std::get<1>(nearestPet_cord);
 

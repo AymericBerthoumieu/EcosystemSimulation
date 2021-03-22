@@ -1,4 +1,4 @@
-#ifndef _ANIMAL_H_
+#ifndef _ANIMAL_H_ 
 #define _ANIMAL_H_
 
 #include "UImg.h"

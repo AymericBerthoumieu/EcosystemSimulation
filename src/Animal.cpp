@@ -21,7 +21,6 @@ Animal::Animal() {
    identity = ++next;
 
    cout << "const Animal (" << identity << ") par défaut" << endl;
-
    x = y = 0;
    cumulX = cumulY = 0.;
 
@@ -35,7 +34,7 @@ Animal::Animal() {
    behaviour = FearfulBehaviour::getBehaviourInstance();
 }
 
-Animal::Animal( const Animal & a ){
+Animal::Animal( const Animal& a ){
    identity = ++next;
 
    cout << "const Animal (" << identity << ") par copie" << endl;
@@ -57,11 +56,10 @@ Animal::Animal( const Animal & a ){
   memcpy( color, a.color, 3*sizeof(T) );}
 
 
-Animal::~Animal( void ){
+Animal::~Animal(){
     if (color != NULL){
         delete[] color;
     }
-
     cout << "dest Pet" << endl;
 }
 
@@ -114,8 +112,8 @@ void Animal::initCoords( int xLim, int yLim ){
    y = rand() % yLim;}
 
 
-void Animal::move( int xLim, int yLim, Environment& myEnvironment){   
-   behaviour->move(xLim,yLim,*this, myEnvironment);}
+void Animal::move( int xLim, int yLim, Environment& myEnvironment){
+   behaviour->move(xLim,yLim,this, myEnvironment);}
 
 
 void Animal::action( Environment & myEnvironment ){

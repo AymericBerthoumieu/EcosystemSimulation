@@ -19,9 +19,6 @@ int main(){
     map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourName(), 10}, {FearfulBehaviour::getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourName(), 40}, {"multiple", 20}};
     Aquarium ecosystem(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
 
-//   for (int i = 1; i <= 20; ++i)
-//      ecosystem.getEnvironment().addMember(Pet());
     ecosystem.run();
 
     return 0;}
-
