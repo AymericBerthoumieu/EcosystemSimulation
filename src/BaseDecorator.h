@@ -8,7 +8,8 @@
 #include "Animal.h"
 
 class BaseDecorator: public Animal {
-protected:
+
+
 
 
 public:

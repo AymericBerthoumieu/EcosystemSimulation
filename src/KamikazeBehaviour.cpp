@@ -65,33 +65,34 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
    auto cord = pet.getCoordinates();
    auto cumul = pet.getCumul();
    auto orient_speed = pet.getOrientationSpeed();
-
+    std::cout << "Fearfull move attribut 1" << std::endl;
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
    double cumulX = std::get<0>(cumul); 
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
-
+    std::cout << "Kamikaze move attribut 2" << std::endl;
    // We retrieve the coordinates of the nearest pet
 
    double nearestPet_x;
    double nearestPet_y;
 
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-
+    std::cout << "Kamikaze move attribut vector" << std::endl;
    // check if there is at leat one detected pet which should be the nearest one
 
    //cout << "No neighbor for Kamikaze ? " << closestPets.size() << endl;
 
    if(!closestPets.empty()){
-
+       std::cout << "Kamikaze move if" << std::endl;
       cout << "At least one neighbor for Kamikaze ! " << endl;
       has_reset_orientation = 0;
 
       auto nearestPet_cord = closestPets.back().getCoordinates();
       nearestPet_x = std::get<0>(nearestPet_cord);
       nearestPet_y = std::get<1>(nearestPet_cord);
+       std::cout << "Kamikaze move back()" << std::endl;
 
       double abs_diff = nearestPet_x-x;
       double ord_diff = nearestPet_y-y;
@@ -100,7 +101,7 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
       //cout << "Nearest neighbor for kamikaze"<< endl;
 
       if(hypothenuse != 0){
-
+          std::cout << "Kamikaze move hypothenuse" << std::endl;
          orientation = acos (abs_diff / hypothenuse) ;
          /*if(abs_diff >= 0){
             orientation = acos (abs_diff / hypothenuse) ;
@@ -134,9 +135,11 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnv
 
 
    else{
+       std::cout << "Kamikaze move else" << std::endl;
       // If no nearest neighbor, we instantiate a random direction to the Animal
       cout << "No neighbor for Kamikaze "<< endl;
       if (!has_reset_orientation){
+          std::cout << "Kamikaze move if 2" << std::endl;
          cout << "Reset Orientation for Kamikaze "<< orientation << endl;
          has_reset_orientation = 1;
          orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;

@@ -13,7 +13,6 @@ protected:
     float speedCoef;
 
 
-    // TODO implémenter isDetecting
 public:
     void move(int xLim, int yLim, Environment &myEnvironment) override;
     bool isDetecting(const Animal& animal) const override{return wrapAnimal->isDetecting(animal);};

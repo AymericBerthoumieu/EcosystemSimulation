@@ -38,9 +38,10 @@ protected:
    T* color;
 
 
-   void move(int xLim, int yLim, Environment &myEnvironment);
+
    void changeBehaviour();
 public :
+    virtual void move(int xLim, int yLim, Environment &myEnvironment);
    Animal();
    Animal(const Animal& a); // copy cstor
    Animal(Animal&& a); // move cstor
@@ -51,13 +52,13 @@ public :
    Animal& operator=(const Animal& a) noexcept; // assignment
 
    void initCoords(int xLim, int yLim);
-   std::tuple<int, int> getCoordinates();
+   std::tuple<int, int> getCoordinates() const;
    void setCoordinates(int new_x, int new_y);
    tuple<double, double> getCumul();
    void setCumul(double new_cumul_x, double new_cumul_y);
    tuple<double, double> getOrientationSpeed();
    void setOrientationSpeed(double new_orientation, double new_speed);
-   float getVisibility();
+   float getVisibility() const;
    double getMaxSpeed();
    vector<string> getAccessoriesAndCaptors();
 
@@ -69,7 +70,7 @@ public :
    void onCollision();
    void action(Environment& myEnvironment);
    void draw(UImg& support);
-   bool isDetecting(const Animal& a) const;
+   virtual bool isDetecting(const Animal& a) const;
    std::string getBehaviourName();
    bool getIsMultiple();
 

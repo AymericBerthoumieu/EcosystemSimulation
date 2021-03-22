@@ -38,6 +38,7 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    auto cord = pet.getCoordinates();
    auto cumul = pet.getCumul();
    auto orient_speed = pet.getOrientationSpeed();
+   std::cout << "Fearfull move attribut" << std::endl;
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -45,16 +46,16 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
-
+    std::cout << "Fearfull move attribut 2" << std::endl;
    // On calcule le nombre de bestioles environnantes
 
    
    int nb_neighbors = 0;
 
    std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-
+    std::cout << "Fearfull move std vector" << std::endl;
    for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
-     	
+       std::cout << "Fearfull move For" << std::endl;
      	nb_neighbors += 1;
 
    }

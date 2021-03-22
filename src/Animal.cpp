@@ -57,9 +57,9 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-  // isMultiple = 1;
-  // //behaviour = new KamikazeBehaviour();
-  // behaviour = FearfulBehaviour::getBehaviourInstance();
+  //isMultiple = 1;
+  //behaviour = new KamikazeBehaviour();
+  behaviour = FearfulBehaviour::getBehaviourInstance();
 
   color = new T[ 3 ];
   memcpy( color, a.color, 3*sizeof(T) );}
@@ -117,8 +117,12 @@ Animal& Animal::operator=(const Animal& p) noexcept
 
 void Animal::initCoords( int xLim, int yLim ){
    x = rand() % xLim;
-   y = rand() % yLim;}
+   y = rand() % yLim;
+}
 
+float Animal::getVisibility() const {
+    return visibility;
+}
 
 void Animal::move( int xLim, int yLim, Environment& myEnvironment){
    
@@ -176,7 +180,7 @@ double Animal::getProbabilityOfFatalCollision() const {
     return probabilityOfFatalCollision;
 }
 
-std::tuple<int, int> Animal::getCoordinates(){
+std::tuple<int, int> Animal::getCoordinates() const{
     return std::make_tuple(this->x,this->y);
 }
 

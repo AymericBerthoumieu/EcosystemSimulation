@@ -7,10 +7,10 @@
 #include "Sensor.h"
 
 class Ears: public Sensor {
-protected:
+    void move(int xLim,int yLim, Environment &myEnvironment) override{return wrapAnimal->move(xLim,yLim, myEnvironment);};
+
 
 public:
-    void move(int xLim,int yLim, Environment &myEnvironment) override{return wrapAnimal->move(xLim,yLim, myEnvironment);};
     Ears(Animal* animal);
     bool isDetecting(const Animal& animal) const override;
     std::string getName() override;

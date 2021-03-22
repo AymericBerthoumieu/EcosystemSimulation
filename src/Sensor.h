@@ -7,6 +7,7 @@
 #include "BaseDecorator.h"
 
 class Sensor: public BaseDecorator {
+
 protected:
     Animal* wrapAnimal;
     float capacityOfDetection;
