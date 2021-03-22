@@ -17,6 +17,7 @@ Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, 
 
    cout << "const Aquarium" << endl;
 
+   // TODO : fixer la liste des availableCaptorsAndAccessories
    Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName()});
 
    // TODO : fixer la liste des availableCaptorsAndAccessories

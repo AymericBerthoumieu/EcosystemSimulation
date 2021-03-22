@@ -1,20 +1,34 @@
+#ifndef KAMIKAZE_BEHAVIOUR_H
+#define KAMIKAZE_BEHAVIOUR_H
+
 #include "BehaviourStrategy.h"
+
 #include <string>
 
 
 class KamikazeBehaviour: public BehaviourStrategy{
-private:
-	static std::string NAME ;
-	static KamikazeBehaviour* kamikazebehaviour;
-	bool has_reset_orientation = 0;
-	KamikazeBehaviour(){};
+    private:
+        KamikazeBehaviour(){};
 
-public:
-	~KamikazeBehaviour(){};
-	static KamikazeBehaviour* getBehaviourInstance();
+	static std::string NAME ;
+        static const T color[3];
+
+        static KamikazeBehaviour* kamikazebehaviour;
+
+        bool has_reset_orientation = 0;
+
+    public:
+	~KamikazeBehaviour();
+	
+        static KamikazeBehaviour* getBehaviourInstance();
 	static void getRidOfInstance();
-	static std::string getBehaviourName();
+	
+        static std::string getBehaviourName();
+        static const T* getColor() ;
+
 	std::vector<Animal> nearestNeighbors(Animal& pet, Environment& myEnvironment) override;
 	void move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) override;
 
 };
+
+#endif

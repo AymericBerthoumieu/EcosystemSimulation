@@ -1,22 +1,26 @@
 #include "GregariousBehaviour.h"
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <vector>
 
 
-std::string GregariousBehaviour::NAME = "Gregarious";
-
-GregariousBehaviour* GregariousBehaviour::gregariousbehaviour= nullptr;
+std::string GregariousBehaviour::NAME = "b_Gregarious";
 
 std::string GregariousBehaviour::getBehaviourName(){
    return NAME;
 }
 
-void GregariousBehaviour::getRidOfInstance(void){
-   delete gregariousbehaviour;
-   cout << " LA DESTRUCTION DE LA GREGAIRE EFFECTIVEMENT LIEU !" <<endl;   
+
+const T GregariousBehaviour::color[3] = {0, 230, 0};
+
+const T* GregariousBehaviour::getColor() {
+    return color;
 }
+
+
+GregariousBehaviour* GregariousBehaviour::gregariousbehaviour= nullptr;
 
 GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
    if (gregariousbehaviour == nullptr ){
@@ -25,11 +29,20 @@ GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
     return gregariousbehaviour;
 }
 
+void GregariousBehaviour::getRidOfInstance(void){
+   delete gregariousbehaviour;
+   cout << " LA DESTRUCTION DE LA GREGAIRE EFFECTIVEMENT LIEU !" <<endl;   
+}
+
+GregariousBehaviour::~GregariousBehaviour() {
+    delete[] &color;
+}
+
+
 std::vector<Animal> GregariousBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
-
-
    std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
    return pets;}
+
 
 void GregariousBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
 

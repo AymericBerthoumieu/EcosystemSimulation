@@ -1,4 +1,5 @@
 #include "KamikazeBehaviour.h"
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
@@ -8,16 +9,19 @@
 
 std::string KamikazeBehaviour::NAME = "Kamikaze";
 
-KamikazeBehaviour* KamikazeBehaviour::kamikazebehaviour= nullptr;
-
 std::string KamikazeBehaviour::getBehaviourName(){
    return NAME;
 }
 
-void KamikazeBehaviour::getRidOfInstance(void){
-   delete kamikazebehaviour;
-   cout << " LA DESTRUCTION DE LA KAMIKAZE EFFECTIVEMENT LIEU !" <<endl;   
+
+const T KamikazeBehaviour::color[3] = {230, 0, 0};
+
+const T* KamikazeBehaviour::getColor() {
+    return color;
 }
+
+
+KamikazeBehaviour* KamikazeBehaviour::kamikazebehaviour= nullptr;
 
 KamikazeBehaviour* KamikazeBehaviour::getBehaviourInstance(){
    if (kamikazebehaviour == nullptr ){
@@ -25,6 +29,17 @@ KamikazeBehaviour* KamikazeBehaviour::getBehaviourInstance(){
     }
     return kamikazebehaviour;
 }
+
+
+void KamikazeBehaviour::getRidOfInstance(void){
+   delete kamikazebehaviour;
+   cout << " LA DESTRUCTION DE LA KAMIKAZE EFFECTIVEMENT LIEU !" <<endl;   
+}
+
+KamikazeBehaviour::~KamikazeBehaviour() {
+    delete[] &color;
+}
+
 
 std::vector<Animal> KamikazeBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
 

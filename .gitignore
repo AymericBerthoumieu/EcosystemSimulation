@@ -2,6 +2,7 @@
 *.o
 *.csv
 *.swp
+*.old
 main
 
 

@@ -9,6 +9,7 @@
 #include <cmath>
 #include <stdlib.h>
 
+
 const double Animal::AFF_SIZE = 8.;
 const double Animal::MAX_SPEED = 10.;
 const double Animal::LIMIT_VIEW = 30.;
@@ -30,17 +31,9 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
-
-  
-  isMultiple = 1;
-  //behaviour = new KamikazeBehaviour();
-  behaviour = FearfulBehaviour::getBehaviourInstance();
-
    color = new T[ 3 ];
-   color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );}
-
+   behaviour = FearfulBehaviour::getBehaviourInstance();
+}
 
 Animal::Animal( const Animal & a ){
    identity = ++next;
@@ -56,13 +49,10 @@ Animal::Animal( const Animal & a ){
    orientation = a.orientation;
    speed = a.speed;
 
-
-  isMultiple = 1;
-  //behaviour = new KamikazeBehaviour();
-  behaviour = FearfulBehaviour::getBehaviourInstance();
-
-  color = new T[ 3 ];
-  memcpy( color, a.color, 3*sizeof(T) );}
+   color = new T[ 3 ];
+   memcpy( color, a.color, 3*sizeof(T) );
+   behaviour = FearfulBehaviour::getBehaviourInstance();
+}
 
 
 Animal::~Animal( void ){
@@ -72,6 +62,7 @@ Animal::~Animal( void ){
     //delete behaviour;
     cout << "dest Pet" << endl;
 }
+
 
 Animal& Animal::operator=(Animal&& p) noexcept
 {
@@ -115,13 +106,13 @@ Animal& Animal::operator=(const Animal& p) noexcept
     return *this;
 }
 
+
 void Animal::initCoords( int xLim, int yLim ){
    x = rand() % xLim;
    y = rand() % yLim;}
 
 
-void Animal::move( int xLim, int yLim, Environment& myEnvironment){
-   
+void Animal::move( int xLim, int yLim, Environment& myEnvironment){   
    behaviour->move(xLim,yLim,*this, myEnvironment);}
 
 
@@ -132,6 +123,7 @@ void Animal::action( Environment & myEnvironment ){
       move( myEnvironment.getWidth(), myEnvironment.getHeight(), myEnvironment);
     }
 }
+
 
 void Animal::draw( UImg & support ){
    double xt = x + cos( orientation )*AFF_SIZE/2.1;
@@ -151,10 +143,12 @@ bool Animal::isDetecting( const Animal & a ) const{
    dist = std::sqrt( (x-a.x)*(x-a.x) + (y-a.y)*(y-a.y) );
    return ( dist <= LIMIT_VIEW );}
 
+
 void Animal::decrement() {
     // decrement the life of the animal
     --life;
 }
+
 
 void Animal::onCollision(){
     double proba = ((double) rand() / (RAND_MAX));
@@ -164,28 +158,24 @@ void Animal::onCollision(){
     }
 }
 
+
 int Animal::getLife() const {
     return life;
 }
+
 
 int Animal::getIdentity() const {
    return this->identity;
 }
 
+
 double Animal::getProbabilityOfFatalCollision() const {
     return probabilityOfFatalCollision;
 }
 
+
 std::tuple<int, int> Animal::getCoordinates(){
     return std::make_tuple(this->x,this->y);
-}
-
-std::tuple<double, double> Animal::getCumul(){
-   return std::make_tuple(this->cumulX,this->cumulY);
-}
-   
-std::tuple<double, double> Animal::getOrientationSpeed(){
-   return std::make_tuple(this->orientation,this->speed);
 }
 
 void Animal::setCoordinates(int new_x,int new_y){
@@ -193,14 +183,26 @@ void Animal::setCoordinates(int new_x,int new_y){
    this->y = new_y;
 }
 
+
+std::tuple<double, double> Animal::getCumul(){
+   return std::make_tuple(this->cumulX,this->cumulY);
+}
+   
 void Animal::setCumul(double new_cumul_x,double new_cumul_y){
    this->cumulX = new_cumul_x;
    this->cumulY = new_cumul_y;
 }
+
+
+std::tuple<double, double> Animal::getOrientationSpeed(){
+   return std::make_tuple(this->orientation,this->speed);
+}
+
 void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
    }
+
 
 BehaviourStrategy* choose_behaviour() {
   BehaviourStrategy* behaviour;
@@ -208,19 +210,13 @@ BehaviourStrategy* choose_behaviour() {
   which_behaviour = rand() % 3 + 1;
 
   if ( which_behaviour == 1 ){
-      // TODO
-    //behaviour = GregariousBehaviour::getBehaviourInstance();
-    behaviour = FearfulBehaviour::getBehaviourInstance();
+    behaviour = GregariousBehaviour::getBehaviourInstance();
   }
-
   if ( which_behaviour == 2 ){
     behaviour = FearfulBehaviour::getBehaviourInstance();
   }
-
   if ( which_behaviour == 3 ){
-      // TODO
-    //behaviour = KamikazeBehaviour::getBehaviourInstance();
-    behaviour = FearfulBehaviour::getBehaviourInstance();
+    behaviour = KamikazeBehaviour::getBehaviourInstance();
   }
   return behaviour;
 }
@@ -250,29 +246,22 @@ void Animal::setColor(const T c[3]) {
 
 
 void Animal::setBehaviour(string behaviourName) {
-        this->setColor(FearfulBehaviour::getColor());
-        this->behaviour = FearfulBehaviour::getBehaviourInstance();
-    // TODO TODO TODO
-//    if (behaviourName == GregariousBehaviour::getBehaviourName()) {
-//        this->setColor(GregariousBehaviour::getColor());
-//        // TODO
-//        //this->behaviour = GregariousBehaviour::getBehaviourInstance();
-//        this->behaviour = FearfulBehaviour::getBehaviourInstance();
-//        }
-//     else {
-//         if (behaviourName == FearfulBehaviour::getBehaviourName()) {
-//            this->setColor(FearfulBehaviour::getColor());
-//            this->behaviour = FearfulBehaviour::getBehaviourInstance();
-//         }
-//          else {
-//             if (behaviourName == KamikazeBehaviour::getBehaviourName()) {
-//                this->setColor(KamikazeBehaviour::getColor());
-//                // TODO
-//                //this->behaviour = KamikazeBehaviour::getBehaviourInstance();
-//                this->behaviour = FearfulBehaviour::getBehaviourInstance();
-//             }
-//          }
-//     }
+    if (behaviourName == GregariousBehaviour::getBehaviourName()) {
+        this->setColor(GregariousBehaviour::getColor());
+        this->behaviour = GregariousBehaviour::getBehaviourInstance();
+        }
+     else {
+         if (behaviourName == FearfulBehaviour::getBehaviourName()) {
+            this->setColor(FearfulBehaviour::getColor());
+            this->behaviour = FearfulBehaviour::getBehaviourInstance();
+         }
+          else {
+             if (behaviourName == KamikazeBehaviour::getBehaviourName()) {
+                this->setColor(KamikazeBehaviour::getColor());
+                this->behaviour = KamikazeBehaviour::getBehaviourInstance();
+             }
+          }
+     }
 }
 
 
