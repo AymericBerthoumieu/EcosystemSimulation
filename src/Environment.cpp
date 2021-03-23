@@ -1,4 +1,5 @@
 #include "Environment.h"
+#include "AnimalFactory.h"
 #include "Statistics.h"
 
 #include <cstdlib>
@@ -11,13 +12,22 @@ const std:
 string multiple = "b_multiple" // name for multiple behaviour
 const T Environment::white[] = {(T) 255, (T) 255, (T) 255};
 
-Environment::Environment(int _width, int _height) : UImg(_width, _height, 1, 3), width(_width),
-                                                        height(_height), nb_steps(0) {
-    cout << "const Environment" << endl;
-    std::srand(time(NULL));
+Environment::Environment(int _width, int _height, int nbAnimalsToStartWith, AnimalFactory& factory, Statistics& stats): 
+ UImg( _width, _height, 1, 3 ), width(_width), height(_height), 
+ petCreator(factory), statistics(stats){
+   cout << "const Environment" << endl;
+   this->animals = this->petCreator.initializePopulation(nbAnimalsToStartWith);
+   std::srand(time(NULL));
 }
 
+
 Environment::~Environment() {
+    delete &petCreator;
+    delete &statistics;
+    for (std::vector<Animal *>::iterator it = animals.begin(); it != animals.end(); ++it) {
+        delete *it;
+    }
+
     cout << "dest Environment" << endl;
 }
 
@@ -36,25 +46,16 @@ void Environment::step() {
     cimg_forXY(*this, x, y)
     fillC(x, y, 0, white[0], white[1], white[2]);
 
-    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
+    for (std::vector<Animal *>::iterator it = animals.begin(); it != animals.end(); ++it) {
         hasCollision(*it); // check if there is a collision
-        it->action(*this); // let the animal do the action he has to do
+        (*it)->action(*this);// let the animal do the action he has to do
 
         // we draw only if the pet is still alive
-        if (it->getLife() > 0) {
-            it->draw(*this);
+        if ((*it)->getLife() > 0) {
+            (*it)->draw(*this);
         }
     }
     this->die(); // delete the dead animals
-}
-
-int Environment::nbNeighbors(const Animal &a) {
-    // find all animals that a can detect
-    int nb = 0;
-    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it)
-        if (!(a == *it) && a.isDetecting(*it))
-            ++nb;
-    return nb;
 }
 
 void Environment::addMember(const Animal &a) {
@@ -65,10 +66,23 @@ void Environment::addMember(const Animal &a) {
 
 bool mustDie(Animal const &p) {
     // return true if the p has a life < 0. It means p must die at the end of the step
-    if (p.getLife() <= 0) {
-        cout << " Pets (" << p.getIdentity() << ") is gonna be destructed with life = " << p.getLife() << endl;
-    }
     return p.getLife() <= 0;
+}
+
+void Environment::addMember(Animal* a) {
+	this->animals.push_back(a);
+	this->animals.back()->initCoords(width, height);
+}
+
+
+std::vector<Animal *> Environment::detectedNeighbors(Animal* a){
+   std::vector<Animal *> petNeighbors;
+
+   for (std::vector<Animal *>::iterator it = animals.begin() ; it != animals.end() ; ++it)
+      if (a->getIdentity() != (*it)->getIdentity() && a->isDetecting(**it)){
+         petNeighbors.push_back(*it);
+      }
+   return petNeighbors;
 }
 
 void Environment::die() {
@@ -97,19 +111,19 @@ void Environment::die() {
     animals.erase(it, animals.end());
 }
 
-void Environment::hasCollision(Animal &p) {
+void Environment::hasCollision(Animal* p) {
     // Check if p has a collision with another animal
-    int id = p.getIdentity(); // unique id of p
+    int id = p->getIdentity(); // unique id of the animal p
     double r = 15; // collision radius
-    std::tuple<int, int> pet_coords = p.getCoordinates(); // coordinates of p
+    std::tuple<int, int> pet_coords = p->getCoordinates(); // coordinates of p
     std::tuple<int, int> current_coords; // will be used to contain coordinates of other animals
-    double dist; // will me used to store the distance between p and another animal
+    double dist;// will me used to store the distance between p and another animal
 
     // we check for every other animals
-    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
+    for (std::vector<Animal *>::iterator it = animals.begin(); it != animals.end(); ++it) {
         // first we verify if the animal is not itself
-        if (it->getIdentity() != id) {
-            current_coords = it->getCoordinates(); // get the other animal coordinates
+        if ((*it)->getIdentity() != id) {
+            current_coords = (*it)->getCoordinates();// get the other animal coordinates
 
             // calculation of the distance between the two animals
             dist = std::pow((std::pow((double(std::get<0>(pet_coords)) - double(std::get<0>(current_coords))), 2) +
@@ -117,20 +131,19 @@ void Environment::hasCollision(Animal &p) {
                             0.5);
             // if the two animals are close enough (distance lower than the radius of collision) there is a collision
             if (dist <= r) {
-                cout << "Collision of " << p.getIdentity() << endl;
-                p.onCollision(); // notify the animal it has a collision
+                p->onCollision();
             }
         }
     }
 }
 
-// ############################## for tests ########################################
 
+// ############################## for tests ########################################
 void Environment::setLife(int i) {
     // Set life to all pets at i
     // It is only used for nominal test purpose
     cout << "[TEST] Setting life of all pets at " << i << "." << endl;
-    for (std::vector<Animal>::iterator it = animals.begin(); it != animals.end(); ++it) {
-        it->setLife(i);
+    for (std::vector<Animal *>::iterator it = animals.begin(); it != animals.end(); ++it) {
+        (*it)->setLife(i);
     }
 }

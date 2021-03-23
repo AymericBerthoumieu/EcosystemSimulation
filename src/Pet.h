@@ -8,14 +8,15 @@
 
 using namespace std;
 
-
 class Environment;
 
 
 class Pet: public Animal{
 public :
    Pet();
+   Pet(const Pet& p); 
    ~Pet();
 };
 
 #endif
+

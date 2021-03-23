@@ -1,12 +1,15 @@
-#ifndef _ANIMAL_H_
+#ifndef _ANIMAL_H_ 
 #define _ANIMAL_H_
 
 #include "UImg.h"
 
 #include <iostream>
+
 #include <vector>
+#include <tuple>
 
 using namespace std;
+
 
 class BehaviourStrategy;
 class Environment;
@@ -24,6 +27,7 @@ protected:
    double cumulX, cumulY;
    double orientation;
    double speed;
+
    int life;
    double probabilityOfFatalCollision;
    bool isMultiple; // for multiple behaviour type
@@ -34,7 +38,9 @@ protected:
    T* color;
 
 
-   void move(int xLim, int yLim);
+   void move(int xLim, int yLim, Environment &myEnvironment);
+   void changeBehaviour();
+   void setColor(const T* c);
 
 public :
    Animal();
@@ -67,7 +73,11 @@ public :
    void draw(UImg& support);
    bool isDetecting(const Animal& a) const;
 
-   void changeBehaviour();
+   std::string getBehaviourName();
+   bool getIsMultiple();
+   void setBehaviour(string behaviourName);
+   void setBehaviourAsMultiple();
+
 
    // for tests
    void setLife(int i);
