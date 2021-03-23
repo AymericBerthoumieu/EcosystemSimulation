@@ -1,6 +1,8 @@
 .idea
 *.o
 *.csv
+*.swp
+*.old
 main
 
 
@@ -9,11 +11,9 @@ testStatistics
 testDeath1
 testDeath2
 testCollision
-
-testPetFactory
-
 testGregarious
 testKamikaze
-testBehaviours
 testFearful
+testBehaviours
 testMultipleBehaviours
+testPetFactory

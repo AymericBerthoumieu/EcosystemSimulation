@@ -10,9 +10,9 @@
  */
 class Ears: public Sensor {
 public:
-    Ears(Animal* animal); // Constructor that decorate the object in parameter
+    Ears(Animal& animal); // Constructor that decorate the object in parameter
     bool isDetecting(const Animal& animal) const override; // Method used to know if the animal in parameter is detectable by the current object
-    std::string getName() override;
+    static const string getName()  {return "c_Ears";};
     ~Ears();
 };
 

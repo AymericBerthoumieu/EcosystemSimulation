@@ -15,6 +15,7 @@ protected:
     float minimumDistanceOfPerception; // Minimum distance for the object to know there is an object close to him
     float maximumDistanceOfPerception; // Maximum distance for the current object to know there is an object close to him
 public:
+    Sensor(Animal& a);
     float getCapacityOfDetection() const;
     void setCapacityOfDetection(float capacityOfDetection);
     float getMinimumDistanceOfPerception() const;

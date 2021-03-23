@@ -40,6 +40,7 @@ protected:
 
 
    void changeBehaviour();
+   void setColor(const T* c);
 public :
     virtual void move(int xLim, int yLim, Environment &myEnvironment);
    Animal();
@@ -73,6 +74,8 @@ public :
    virtual bool isDetecting(const Animal& a) const;
    std::string getBehaviourName();
    bool getIsMultiple();
+   void setBehaviour(string behaviourName);
+   void setBehaviourAsMultiple();
 
 
    // for tests

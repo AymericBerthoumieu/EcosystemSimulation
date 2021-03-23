@@ -12,9 +12,9 @@
  */
 class BaseDecorator: public Animal {
 protected:
-    Animal* wrapAnimal; // Give access to the decorated object
+    Animal& wrapAnimal; // Give access to the decorated object
 public:
-    virtual std::string getName() = 0; //Give the name of the decorator. Used for statistics.
+    BaseDecorator(Animal& a);
 };
 
 #endif

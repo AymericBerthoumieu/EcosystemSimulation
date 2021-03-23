@@ -1,22 +1,28 @@
 #include "FearfulBehaviour.h"
+#include "MoveUtils.h"
+
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <vector>
 
 
-std::string FearfulBehaviour::NAME = "Fearful";
-
-FearfulBehaviour* FearfulBehaviour::fearfulbehaviour= nullptr;
+std::string FearfulBehaviour::NAME = "b_Fearful";
 
 std::string FearfulBehaviour::getBehaviourName(){
    return NAME;
 }
 
-void FearfulBehaviour::getRidOfInstance(void){
-   delete fearfulbehaviour;
-   cout << " LA DESTRUCTION DE LA PEUREUSE EFFECTIVEMENT LIEU !" <<endl;   
+
+const T FearfulBehaviour::color[3] = {0, 0, 230};
+
+const T* FearfulBehaviour::getColor() {
+    return color;
 }
+
+
+FearfulBehaviour* FearfulBehaviour::fearfulbehaviour= nullptr;
 
 FearfulBehaviour* FearfulBehaviour::getBehaviourInstance(){
    if (fearfulbehaviour == nullptr ){
@@ -25,19 +31,25 @@ FearfulBehaviour* FearfulBehaviour::getBehaviourInstance(){
     return fearfulbehaviour;
 }
 
-std::vector<Animal> FearfulBehaviour::nearestNeighbors(Animal& pet, Environment& myEnvironment){
+void FearfulBehaviour::getRidOfInstance(void){
+   delete fearfulbehaviour;
+}
 
-  
-  std::vector<Animal> pets = myEnvironment.detectedNeighbors(pet);
+FearfulBehaviour::~FearfulBehaviour() {
+    delete[] &color;
+}
+
+
+// Méthode permettant de récupérer les bestioles environnantes
+std::vector<Animal *> FearfulBehaviour::nearestNeighbors(Animal* pet, Environment& myEnvironment){
+  std::vector<Animal *> pets = myEnvironment.detectedNeighbors(pet);
   return pets;}
 
 
-void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvironment) {
-
-
-   auto cord = pet.getCoordinates();
-   auto cumul = pet.getCumul();
-   auto orient_speed = pet.getOrientationSpeed();
+void FearfulBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
+   auto cord = pet->getCoordinates();
+   auto cumul = pet->getCumul();
+   auto orient_speed = pet->getOrientationSpeed();
 
    int x = std::get<0>(cord);
    int y = std::get<1>(cord);
@@ -45,61 +57,28 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal& pet, Environment& myEnvi
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
    double speed = std::get<1>(orient_speed);
+
    // On calcule le nombre de bestioles environnantes
-
-   
    int nb_neighbors = 0;
-
-   std::vector<Animal> closestPets = this->nearestNeighbors(pet,myEnvironment);
-   for (std::vector<Animal>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
+   std::vector<Animal *> closestPets = this->nearestNeighbors(pet,myEnvironment);
+   for (std::vector<Animal *>::iterator it = closestPets.begin() ; it != closestPets.end() ; ++it){
      	nb_neighbors += 1;
-
    }
 
+   // Si le nombre de bestioles environnantes est
+   // suffisamment grand alors la bestiole change de vitesse
    if(nb_neighbors >= LIMIT_SURROUNDING){
-
    		orientation = M_PI-orientation;
-  	  	speed = pet.getMaxSpeed();
-  	  	//cout << "Orientation Updated and neigbors are " << nb_neighbors << endl;
-
+  	  	speed = pet->getMaxSpeed();
   	  }
 
-  	// Otherwise we set the speed to the cruising speed
-
-  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet.getMaxSpeed()){
+    // Si le nombre de bestioles environnantes n'est pas 
+    // important et que sa vitesse est la vitesse maximale
+    // la bestiole reprend sa vitesse de croisière
+  	if(nb_neighbors < LIMIT_SURROUNDING && speed == pet->getMaxSpeed()){
   		speed = CRUISING_SPEED;
   	}
 
-
-   double nx, ny;
-   double dx = cos( orientation )*speed;
-   double dy = -sin( orientation )*speed;
-   int cx, cy;
-
-   cx = static_cast<int>( cumulX ); cumulX -= cx;
-   cy = static_cast<int>( cumulY ); cumulY -= cy;
-
-   nx = x + dx + cx;
-   ny = y + dy + cy;
-
-   if ( (nx < 0) || (nx > xLim - 1) ) {
-      orientation = M_PI - orientation;
-      cumulX = 0.;}
-   else {
-      x = static_cast<int>( nx );
-      cumulX += nx - x;}
-
-   if ( (ny < 0) || (ny > yLim - 1) ) {
-      orientation = -orientation;
-      cumulY = 0.;}
-   else {
-      y = static_cast<int>( ny );
-      cumulY += ny - y;} 
-
-
-   // We modify the pet travel information
-   
-   pet.setCoordinates(x,y);
-   pet.setCumul(cumulX,cumulY);
-   pet.setOrientationSpeed(orientation,speed); 
-   } 
+    // On définit les nouveaux paramètres de mouvement de la bestiole
+    MoveUtils::setMoveParameters(pet, x, y, xLim, yLim, orientation, speed, cumulX, cumulY);
+  } 

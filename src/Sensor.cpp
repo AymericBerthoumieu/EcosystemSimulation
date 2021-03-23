@@ -4,6 +4,12 @@
 
 #include "Sensor.h"
 
+Sensor::Sensor(Animal& a): BaseDecorator(a) {
+    capacityOfDetection = (float)rand() / (float)RAND_MAX ;
+    minimumDistanceOfPerception = 0;
+    maximumDistanceOfPerception = (float)rand() / (float)RAND_MAX * LIMIT_VIEW;
+}
+
 float Sensor::getCapacityOfDetection() const {
     return capacityOfDetection;
 }

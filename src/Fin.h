@@ -11,15 +11,14 @@
  */
 class Fin : public BaseDecorator{
 protected:
-    Animal* wrapAnimal; // Give access to the decorated object
     float speedCoef; // Coefficient that modify the speed of the decorated object
 
 public:
     float getSpeedCoef() const;
     void setSpeedCoef(float speedCoef);
     void move(int xLim, int yLim, Environment &myEnvironment) override; // Change the way decorated object move.
-    std::string getName() override;
-    Fin(Animal* animal); // Constructor that decorate the object in parameter
+    Fin(Animal& a);
+    static const string getName() {return "a_Fin";};
     ~Fin(); // Destructor
 };
 

@@ -8,12 +8,7 @@
 #include "memory"
 
 
-Ears::Ears(Animal* animal) {
-    wrapAnimal = animal;
-    capacityOfDetection = (float)rand() / (float)RAND_MAX ;
-    minimumDistanceOfPerception = 0;
-    maximumDistanceOfPerception = (float)rand() / (float)RAND_MAX * LIMIT_VIEW;
-}
+Ears::Ears(Animal& animal): Sensor(animal) {}
 
 bool Ears::isDetecting(const Animal& animal) const{
     std::cout << " >>>>>>>>>>>>>>Ears isDetecting<<<<<<<<<< " << std::endl;
@@ -23,10 +18,6 @@ bool Ears::isDetecting(const Animal& animal) const{
     bool exp1 = minimumDistanceOfPerception <= sqrt((x-xNeighbor)*(x-xNeighbor) + (y-yNeighbor)*(y-yNeighbor) );
     bool exp2 = sqrt((x-xNeighbor)*(x-xNeighbor) + (y-yNeighbor)*(y-yNeighbor)) <=  maximumDistanceOfPerception * animal.getVisibility() * capacityOfDetection;
     return (exp1 && exp2);
-}
-
-std::string Ears::getName() {
-    return "c_Ears";
 }
 
 Ears::~Ears() {}

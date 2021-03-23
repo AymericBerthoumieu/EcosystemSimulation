@@ -6,7 +6,7 @@
 #include "stdlib.h"
 
 // Create the decorator with the decorated object as attribut, the speedCoef and the armor
-Shell::Shell(Animal* animal): wrapAnimal(animal), armor((double)rand() / RAND_MAX * 99 + 1) {}
+Shell::Shell(Animal& a): BaseDecorator(a), armor((double)rand() / RAND_MAX * 99 + 1) {};
 
 void Shell::move(int xLim, int yLim, Environment &myEnvironment){
     double nx, ny;
@@ -33,10 +33,6 @@ void Shell::move(int xLim, int yLim, Environment &myEnvironment){
     else {
         y = static_cast<int>( ny );
         cumulY += ny - y;}
-}
-
-std::string Shell::getName() {
-    return "a_Shell";
 }
 
 void Shell::onCollision(){

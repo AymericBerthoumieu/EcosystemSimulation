@@ -7,9 +7,10 @@
 #include <iostream>
 #include <cstring>
 
-// Create the decorator with the decorated object as attribut and the speedCoef
-Fin::Fin(Animal* animal): wrapAnimal(animal), speedCoef((double)rand()) {}
+Fin::Fin(Animal& a): BaseDecorator(a), speedCoef((double)rand()) {};
 
+// Create the decorator with the decorated object as attribut and the speedCoef
+//Fin::Fin(Animal* animal): wrapAnimal(animal), speedCoef((double)rand()) {};
 
 void Fin::move(int xLim, int yLim, Environment &myEnvironment){
     double nx, ny;
@@ -36,10 +37,6 @@ void Fin::move(int xLim, int yLim, Environment &myEnvironment){
     else {
         y = static_cast<int>( ny );
         cumulY += ny - y;}
-}
-
-std::string Fin::getName() {
-    return "a_Fin";
 }
 
 float Fin::getSpeedCoef() const{

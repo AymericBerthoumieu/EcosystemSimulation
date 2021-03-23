@@ -4,3 +4,4 @@
 
 #include "BaseDecorator.h"
 
+BaseDecorator::BaseDecorator(Animal& a): Animal(a), wrapAnimal(a) {};

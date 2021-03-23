@@ -30,16 +30,9 @@ Animal::Animal() {
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    speed = static_cast<double>( rand() )/RAND_MAX*MAX_SPEED;
 
-
-  
-  // isMultiple = 1;
-  // //behaviour = new KamikazeBehaviour();
-  // behaviour = FearfulBehaviour::getBehaviourInstance();
-
    color = new T[ 3 ];
-   color[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   color[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );}
+    behaviour = FearfulBehaviour::getBehaviourInstance();
+}
 
 
 Animal::Animal( const Animal & a ){
@@ -57,19 +50,17 @@ Animal::Animal( const Animal & a ){
    speed = a.speed;
 
 
-  //isMultiple = 1;
-  //behaviour = new KamikazeBehaviour();
-  behaviour = FearfulBehaviour::getBehaviourInstance();
+   isMultiple = a.isMultiple;
+   behaviour = a.behaviour;
 
-  color = new T[ 3 ];
-  memcpy( color, a.color, 3*sizeof(T) );}
+   color = new T[ 3 ];
+   memcpy( color, a.color, 3*sizeof(T) );}
 
 
-Animal::~Animal( void ){
+Animal::~Animal(){
     if (color != NULL){
         delete[] color;
     }
-    //delete behaviour;
     cout << "dest Pet" << endl;
 }
 
@@ -125,8 +116,7 @@ float Animal::getVisibility() const {
 }
 
 void Animal::move( int xLim, int yLim, Environment& myEnvironment){
-   
-   behaviour->move(xLim,yLim,*this, myEnvironment);}
+   behaviour->move(xLim,yLim,this, myEnvironment);}
 
 
 void Animal::action( Environment & myEnvironment ){
@@ -184,52 +174,88 @@ std::tuple<int, int> Animal::getCoordinates() const{
     return std::make_tuple(this->x,this->y);
 }
 
+void Animal::setCoordinates(int new_x,int new_y){
+    this->x = new_x;
+    this->y = new_y;
+}
+
 std::tuple<double, double> Animal::getCumul(){
    return std::make_tuple(this->cumulX,this->cumulY);
+}
+
+void Animal::setCumul(double new_cumul_x,double new_cumul_y){
+    this->cumulX = new_cumul_x;
+    this->cumulY = new_cumul_y;
 }
    
 std::tuple<double, double> Animal::getOrientationSpeed(){
    return std::make_tuple(this->orientation,this->speed);
 }
 
-void Animal::setCoordinates(int new_x,int new_y){
-   this->x = new_x;
-   this->y = new_y;
-}
-
-void Animal::setCumul(double new_cumul_x,double new_cumul_y){
-   this->cumulX = new_cumul_x;
-   this->cumulY = new_cumul_y;
-}
 void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
-   }
-void Animal::changeBehaviour(){
-  double proba_to_change = ((double) rand() / (RAND_MAX));
+}
 
-  if (isMultiple && proba_to_change >= 0.9) {
-      cout << "Reach Here ? Change Behaviour" << endl;
-      //delete behaviour;
-      int which_behaviour; 
-      which_behaviour = rand() % 3 + 1;
+BehaviourStrategy* choose_behaviour() {
+    BehaviourStrategy* behaviour;
+    int which_behaviour;
+    which_behaviour = rand() % 3 + 1;
 
-      if ( which_behaviour == 1 ){
-        //behaviour = new GregariousBehaviour();
+    if ( which_behaviour == 1 ){
         behaviour = GregariousBehaviour::getBehaviourInstance();
-      }
-
-      if ( which_behaviour == 2 ){
-        //behaviour = new FearfulBehaviour();
+    }
+    if ( which_behaviour == 2 ){
         behaviour = FearfulBehaviour::getBehaviourInstance();
-      }
-
-      if ( which_behaviour == 3 ){
-        //behaviour = new KamikazeBehaviour();
+    }
+    if ( which_behaviour == 3 ){
         behaviour = KamikazeBehaviour::getBehaviourInstance();
-      }
+    }
+    return behaviour;
+}
+
+
+void Animal::setBehaviourAsMultiple(){
+    T c[3] = {0, 0, 0};
+    this->setColor(c);
+    this->isMultiple = true;
+    this->behaviour = choose_behaviour();
+}
+
+// Method to randomly change the behaviour of an animal with multiple behaviour
+void Animal::changeBehaviour(){
+    double proba_to_change = ((double) rand() / (RAND_MAX));
+
+    if (isMultiple && proba_to_change >= 0.9) {
+        this->behaviour = choose_behaviour();
     }
 }
+
+void Animal::setColor(const T c[3]) {
+    this->color[0] = c[0];
+    this->color[1] = c[1];
+    this->color[2] = c[2];
+}
+
+void Animal::setBehaviour(string behaviourName) {
+    if (behaviourName == GregariousBehaviour::getBehaviourInstance()->getBehaviourName()) {
+        this->setColor(GregariousBehaviour::getColor());
+        this->behaviour = GregariousBehaviour::getBehaviourInstance();
+    }
+    else {
+        if (behaviourName == FearfulBehaviour::getBehaviourInstance()->getBehaviourName()) {
+            this->setColor(FearfulBehaviour::getColor());
+            this->behaviour = FearfulBehaviour::getBehaviourInstance();
+        }
+        else {
+            if (behaviourName == KamikazeBehaviour::getBehaviourInstance()->getBehaviourName()) {
+                this->setColor(KamikazeBehaviour::getColor());
+                this->behaviour = KamikazeBehaviour::getBehaviourInstance();
+            }
+        }
+    }
+}
+
 double Animal::getMaxSpeed(){
    return MAX_SPEED;
 }
