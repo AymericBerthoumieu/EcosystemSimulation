@@ -75,6 +75,7 @@ Statistics::Statistics(vector<string> behaviorAccessoriesCaptorsNames){
 void Statistics::modifyData(string key, bool increment){
     // modify the data contained in header with the key "key". If increment is at true the data takes +1,
     // else the data takes -1
+    cout << key << ":" << increment << endl;
     if (increment){data[key] = data[key] + 1;}
     else{data[key] = data[key] - 1;}
 }
