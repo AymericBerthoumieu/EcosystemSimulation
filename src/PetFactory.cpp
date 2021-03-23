@@ -7,6 +7,8 @@
 
 #include "Fin.h"
 #include "Eyes.h"
+#include "Ears.h"
+#include "Shell.h"
 
 #include <iterator>
 #include <random>
@@ -65,13 +67,17 @@ Animal* PetFactory::createMember(string behaviour) {
     // choosing and adding captors and accessories to the returned pet
     unordered_set<string> captorsAndAccessories = choose_elements(this->availableAccessoriesAndCaptors);
     for (string e : captorsAndAccessories) {
-        if (e == "fin") {
+        if (e == "a_Fin") {
             pet = new Fin(*pet);
         }
-        else{
-            if (e == "eyes") {
-                pet = new Eyes(*pet);
-            }
+        else if (e == "c_Eyes"){
+            pet = new Eyes(*pet);
+        }
+        else if (e == "c_Ears") {
+            pet = new Ears(*pet);
+        }
+        else if (e == "a_Shell") {
+            pet = new Shell(*pet);
         }
     }
 

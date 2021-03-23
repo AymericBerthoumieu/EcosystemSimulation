@@ -6,9 +6,10 @@
 #include "stdlib.h"
 
 // Create the decorator with the decorated object as attribut, the speedCoef and the armor
-Shell::Shell(Animal& a): BaseDecorator(a), armor((double)rand() / RAND_MAX * 99 + 1) {};
+Shell::Shell(Animal& a): BaseDecorator(a), armor((double)rand() / RAND_MAX * 2 + 1) {};
 
 void Shell::move(int xLim, int yLim, Environment &myEnvironment){
+    std::cout << " >>>>>>>>>>>>>>Shell Move<<<<<<<<<< " << std::endl;
     double nx, ny;
     double dx = cos( orientation )*speed/armor; // speedCoef is going to modify the speed of the decorated object
     double dy = -sin( orientation )*speed/armor; // speedCoef is going to modify the speed of the decorated object

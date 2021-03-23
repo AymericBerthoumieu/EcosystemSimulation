@@ -7,12 +7,13 @@
 #include <iostream>
 #include <cstring>
 
-Fin::Fin(Animal& a): BaseDecorator(a), speedCoef((double)rand()) {};
+Fin::Fin(Animal& a): BaseDecorator(a), speedCoef((double)rand()/RAND_MAX * MAX_SPEED + 1) {};
 
 // Create the decorator with the decorated object as attribut and the speedCoef
 //Fin::Fin(Animal* animal): wrapAnimal(animal), speedCoef((double)rand()) {};
 
 void Fin::move(int xLim, int yLim, Environment &myEnvironment){
+    std::cout << " >>>>>>>>>>>>>>Fin Move<<<<<<<<<< " << std::endl;
     double nx, ny;
     double dx = cos( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object
     double dy = -sin( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object

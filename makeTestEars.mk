@@ -1,8 +1,8 @@
 SRCDIR := src/
 TESTSDIR := tests/
 
-testEars : $(TESTSDIR)testEars.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Ears.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o
-	g++ -Wall -std=c++11 -o testEars $(TESTSDIR)testEars.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Ears.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o -I $(SRCDIR) -lX11 -lpthread
+testEars : $(TESTSDIR)testEars.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Eyes.o Fin.o Ears.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o MoveUtils.o PetFactory.o Statistics.o
+	g++ -Wall -std=c++11 -o testEars $(TESTSDIR)testEars.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Eyes.o Fin.o Ears.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o MoveUtils.o PetFactory.o Statistics.o -I $(SRCDIR) -lX11 -lpthread
 
 Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR)
@@ -22,6 +22,12 @@ Sensor.o : $(SRCDIR)Sensor.h $(SRCDIR)Sensor.cpp
 Ears.o : $(SRCDIR)Ears.h $(SRCDIR)Ears.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Ears.cpp -I $(SRCDIR)
 
+Fin.o : $(SRCDIR)Fin.h $(SRCDIR)Fin.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)Fin.cpp -I $(SRCDIR)
+
+Eyes.o : $(SRCDIR)Eyes.h $(SRCDIR)Eyes.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)Eyes.cpp -I $(SRCDIR)
+
 BaseDecorator.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)BaseDecorator.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)BaseDecorator.cpp -I $(SRCDIR)
 
@@ -33,3 +39,12 @@ FearfulBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)FearfulBehaviour.h $(
 
 KamikazeBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)KamikazeBehaviour.h $(SRCDIR)KamikazeBehaviour.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)KamikazeBehaviour.cpp -I $(SRCDIR)
+
+PetFactory.o : $(SRCDIR)PetFactory.h $(SRCDIR)PetFactory.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)PetFactory.cpp -I $(SRCDIR)
+
+Statistics.o : $(SRCDIR)Statistics.h $(SRCDIR)Statistics.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)Statistics.cpp -I $(SRCDIR)
+
+MoveUtils.o : $(SRCDIR)MoveUtils.h $(SRCDIR)MoveUtils.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)MoveUtils.cpp -I $(SRCDIR)

@@ -11,24 +11,19 @@
  * Class used to test the decorator Fin
  */
 int main(){
-    Aquarium ecosystem(640, 480, 30);
+
     //Decorated Pet creation with Fin
-    Fin f = Fin(new Pet());
+    Pet p = Pet();
+    Fin f = Fin(p);
     //Decoration of decorated object
     Fin f2 = Fin(f);
     // methods test
     std::cout << "Accessories name: " << f.getName() << std::endl;
+    std::cout << "Get speedCoef: " << f.getSpeedCoef() << std::endl;
     std::cout << "Set speedCoef to 1 " << std::endl;
     f.setSpeedCoef(1.0);
     std::cout << "Get speedCoef: " << f.getSpeedCoef() << std::endl;
     std::cout << "Accessories name: " << f2.getName() << std::endl;
-
-    // Test of the ecosystem with Decorated Pet
-    for (int i = 1; i <= 6; ++i){
-        std::cout << "AddMember" << std::endl;
-        ecosystem.getEnvironment().addMember(Fin(new Pet()));
-    }
-    ecosystem.run();
 
     return 0;
 }

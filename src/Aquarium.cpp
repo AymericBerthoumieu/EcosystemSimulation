@@ -9,6 +9,7 @@
 
 #include "Fin.h"
 #include "Eyes.h"
+#include "Ears.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, map<string, float> animalsDistribution) : CImgDisplay(), delay( _delay ){
@@ -18,10 +19,10 @@ Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, 
    cout << "const Aquarium" << endl;
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
-   Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName()});
+   Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName(), Ears::getName()});
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
-   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);
+   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName(), Ears::getName()}, *statistics);
 
    water = new Environment(width, height, startingNbOfAnimals, *factory, *statistics);
    assign( *water, "Simulation d'écosystème" );

@@ -141,7 +141,6 @@ bool operator==( const Animal & b1, const Animal & b2 ){
 
 bool Animal::isDetecting( const Animal & a ) const{
    double         dist;
-
    dist = std::sqrt( (x-a.x)*(x-a.x) + (y-a.y)*(y-a.y) );
    return ( dist <= LIMIT_VIEW );}
 
