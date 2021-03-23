@@ -18,11 +18,13 @@ int main(){
     //Decoration of decorated object
     Fin f2 = Fin(f);
     // methods test
+
+    std::cout << "Get speed: " << p.getSpeed() << std::endl;
     std::cout << "Accessories name: " << f.getName() << std::endl;
-    std::cout << "Get speedCoef: " << f.getSpeedCoef() << std::endl;
-    std::cout << "Set speedCoef to 1 " << std::endl;
-    f.setSpeedCoef(1.0);
-    std::cout << "Get speedCoef: " << f.getSpeedCoef() << std::endl;
+    std::cout << "Get speed: " << f.getSpeed() << std::endl;
+    std::cout << "Set speed to 2 " << std::endl;
+    f.setSpeed(2.0);
+    std::cout << "Get speed: " << f.getSpeed() << std::endl;
     std::cout << "Accessories name: " << f2.getName() << std::endl;
 
     return 0;

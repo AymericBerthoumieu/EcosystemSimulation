@@ -1,8 +1,8 @@
 SRCDIR := src/
 TESTSDIR := tests/
 
-testFin : $(TESTSDIR)testFin.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Eyes.o Fin.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o PetFactory.o Statistics.o MoveUtils.o
-	g++ -Wall -std=c++11 -o testFin $(TESTSDIR)testFin.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Eyes.o Fin.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o PetFactory.o Statistics.o MoveUtils.o -I $(SRCDIR) -lX11 -lpthread
+testFin : $(TESTSDIR)testFin.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Ears.o Shell.o Eyes.o Fin.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o PetFactory.o Statistics.o MoveUtils.o
+	g++ -Wall -std=c++11 -o testFin $(TESTSDIR)testFin.cpp Aquarium.o Pet.o Environment.o Animal.o BaseDecorator.o Sensor.o Ears.o Shell.o Eyes.o Fin.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o PetFactory.o Statistics.o MoveUtils.o -I $(SRCDIR) -lX11 -lpthread
 
 Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR)
@@ -21,6 +21,12 @@ Fin.o : $(SRCDIR)Fin.h $(SRCDIR)Fin.cpp
 
 Eyes.o : $(SRCDIR)Eyes.h $(SRCDIR)Eyes.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Eyes.cpp -I $(SRCDIR)
+
+Ears.o : $(SRCDIR)Ears.h $(SRCDIR)Ears.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)Ears.cpp -I $(SRCDIR)
+
+Shell.o : $(SRCDIR)Shell.h $(SRCDIR)Shell.cpp
+	g++ -Wall -std=c++11  -c $(SRCDIR)Shell.cpp -I $(SRCDIR)
 
 BaseDecorator.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)BaseDecorator.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)BaseDecorator.cpp -I $(SRCDIR)

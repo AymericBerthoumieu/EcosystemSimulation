@@ -106,6 +106,10 @@ Animal& Animal::operator=(const Animal& p) noexcept
     return *this;
 }
 
+double Animal::getSpeed(){
+    return speed;
+}
+
 void Animal::initCoords( int xLim, int yLim ){
    x = rand() % xLim;
    y = rand() % yLim;

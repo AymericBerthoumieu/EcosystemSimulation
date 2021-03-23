@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstring>
 
-Fin::Fin(Animal& a): BaseDecorator(a), speed(speed * (double)rand()/RAND_MAX * MAX_SPEED + 1) {};
+Fin::Fin(Animal& a): BaseDecorator(a), speed(a.getSpeed() * (double)rand()/RAND_MAX * MAX_SPEED + 1) {};
 
 double Fin::getSpeed() const{
     return speed;

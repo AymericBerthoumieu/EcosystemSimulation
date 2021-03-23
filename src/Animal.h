@@ -77,6 +77,8 @@ public :
    void setBehaviour(string behaviourName);
    void setBehaviourAsMultiple();
 
+   double getSpeed();
+
 
    // for tests
    void setLife(int i);
