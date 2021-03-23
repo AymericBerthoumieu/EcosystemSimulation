@@ -2,15 +2,27 @@
 #include "Environment.h"
 #include "Pet.h"
 
+#include "GregariousBehaviour.h"
+#include "FearfulBehaviour.h"
+#include "KamikazeBehaviour.h"
+
 #include <iostream>
 
 using namespace std;
 
-int main(){
-   Aquarium ecosystem(640, 480, 30);
 
-   for (int i = 1; i <= 3; ++i)
-      ecosystem.getEnvironment().addMember(Pet());
-   ecosystem.run();
+int main() {
+    int windowWidth = 1200; //640
+    int windowHeight = 800; //480
+    int delay = 30;
+    int startingNbPets = 100;
+    map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(),   100},
+                                              {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(),    0},
+                                              {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 0},
+                                              {"b_multiple",                                                    0}};
+    Aquarium ecosystem(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
 
-   return 0;}
+    ecosystem.run();
+
+    return 0;
+}
