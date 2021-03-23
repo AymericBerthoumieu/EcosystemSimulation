@@ -20,7 +20,11 @@ At the end of the simulation, a `.csv` file will have been generated in the dire
 
 All behaviour's names are stored such as `b_behaviourName`. Same logic for captors and accessories that are respectively stored such as `c_captorName` and `a_accessoryName`.
 
-You can plot a graph of the evolution of the different populations inside the environment of simulation using Excel, python or any tool that is able to read a `.csv` file.
+You can plot a graph of the evolution of the different populations inside the environment of simulation using Excel, python or any tool that is able to read a `.csv` file. <br>
+A python script is available in the repository as an example of plot you could want to analyse. It will plot to figures by `.csv` files in the current directory as stackplots. The first plot is the evolution of the population of animals in the ecosystem detailed by behavior. The second plot is the evolution of the number of captors and accessories in the ecosystem. In order to run this python file, be sure to are in a python environment with `pandas`, `matplolib`, and `numpy` installed. Then run the following command :
+```bash
+python plotPopulationEvolution.py
+```
 
 If you want to have access to the total number of animal in the aquarium, you will just need to sum all subpopulations of the different behaviours (and behaviour only, not accessories and captors).
 
