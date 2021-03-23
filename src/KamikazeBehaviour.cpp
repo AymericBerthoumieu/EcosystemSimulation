@@ -79,7 +79,7 @@ std::vector<Animal*> KamikazeBehaviour::nearestNeighbors(Animal* pet, Environmen
 }
 
 
-void KamikazeBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
+void KamikazeBehaviour::move(int xLim, int yLim, Animal* pet, double speedDeco, Environment& myEnvironment) {
    auto cord = pet->getCoordinates();
    auto cumul = pet->getCumul();
    auto orient_speed = pet->getOrientationSpeed();
@@ -89,9 +89,10 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnv
    double cumulX = std::get<0>(cumul); 
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
-   double speed = std::get<1>(orient_speed);
+   //double speed = std::get<1>(orient_speed);
+   double speed = speedDeco;
 
-   // On récupère les coordonnées de la bestiole la plus proche
+    // On récupère les coordonnées de la bestiole la plus proche
    // de la bestiole courante
    double nearestPet_x;
    double nearestPet_y;

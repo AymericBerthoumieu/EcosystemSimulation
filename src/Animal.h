@@ -42,7 +42,7 @@ protected:
    void changeBehaviour();
    void setColor(const T* c);
 public :
-    virtual void move(int xLim, int yLim, Environment &myEnvironment);
+    virtual void move(int xLim, int yLim, double speed, Environment &myEnvironment);
    Animal();
    Animal(const Animal& a); // copy cstor
    Animal(Animal&& a); // move cstor

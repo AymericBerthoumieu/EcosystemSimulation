@@ -115,15 +115,15 @@ float Animal::getVisibility() const {
     return visibility;
 }
 
-void Animal::move( int xLim, int yLim, Environment& myEnvironment){
-   behaviour->move(xLim,yLim,this, myEnvironment);}
+void Animal::move( int xLim, int yLim, double speed, Environment& myEnvironment){
+   behaviour->move(xLim,yLim,this, speed, myEnvironment);}
 
 
 void Animal::action( Environment & myEnvironment ){
     this->decrement();
     if (life > 0) {
       changeBehaviour();
-      move( myEnvironment.getWidth(), myEnvironment.getHeight(), myEnvironment);
+      move( myEnvironment.getWidth(), myEnvironment.getHeight(), this->speed, myEnvironment);
     }
 }
 

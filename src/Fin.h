@@ -11,12 +11,11 @@
  */
 class Fin : public BaseDecorator{
 protected:
-    float speedCoef; // Coefficient that modify the speed of the decorated object
+    double speed; // Coefficient that modify the speed of the decorated object
 
 public:
-    float getSpeedCoef() const;
-    void setSpeedCoef(float speedCoef);
-    void move(int xLim, int yLim, Environment &myEnvironment) override; // Change the way decorated object move.
+    double getSpeed() const;
+    void setSpeed(double speedDeco);
     Fin(Animal& a);
     static const string getName() {return "a_Fin";};
     ~Fin(); // Destructor

@@ -7,45 +7,14 @@
 #include <iostream>
 #include <cstring>
 
-Fin::Fin(Animal& a): BaseDecorator(a), speedCoef((double)rand()/RAND_MAX * MAX_SPEED + 1) {};
+Fin::Fin(Animal& a): BaseDecorator(a), speed(speed * (double)rand()/RAND_MAX * MAX_SPEED + 1) {};
 
-// Create the decorator with the decorated object as attribut and the speedCoef
-//Fin::Fin(Animal* animal): wrapAnimal(animal), speedCoef((double)rand()) {};
-
-void Fin::move(int xLim, int yLim, Environment &myEnvironment){
-    std::cout << " >>>>>>>>>>>>>>Fin Move<<<<<<<<<< " << std::endl;
-    double nx, ny;
-    double dx = cos( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object
-    double dy = -sin( orientation )*speed*speedCoef; // speedCoef is going to modify the speed of the decorated object
-    int cx, cy;
-
-    cx = static_cast<int>( cumulX ); cumulX -= cx;
-    cy = static_cast<int>( cumulY ); cumulY -= cy;
-
-    nx = x + dx + cx;
-    ny = y + dy + cy;
-
-    if ( (nx < 0) || (nx > xLim - 1) ) {
-        orientation = M_PI - orientation;
-        cumulX = 0.;}
-    else {
-        x = static_cast<int>( nx );
-        cumulX += nx - x;}
-
-    if ( (ny < 0) || (ny > yLim - 1) ) {
-        orientation = -orientation;
-        cumulY = 0.;}
-    else {
-        y = static_cast<int>( ny );
-        cumulY += ny - y;}
+double Fin::getSpeed() const{
+    return speed;
 }
 
-float Fin::getSpeedCoef() const{
-    return speedCoef;
-}
-
-void Fin::setSpeedCoef(float speedCoef) {
-    this->speedCoef = speedCoef;
+void Fin::setSpeed(double speedDeco) {
+    this->speed = speedDeco;
 }
 
 Fin::~Fin(){}

@@ -46,7 +46,7 @@ std::vector<Animal *> FearfulBehaviour::nearestNeighbors(Animal* pet, Environmen
   return pets;}
 
 
-void FearfulBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
+void FearfulBehaviour::move(int xLim, int yLim, Animal* pet, double speedDeco, Environment& myEnvironment) {
    auto cord = pet->getCoordinates();
    auto cumul = pet->getCumul();
    auto orient_speed = pet->getOrientationSpeed();
@@ -56,7 +56,8 @@ void FearfulBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvi
    double cumulX = std::get<0>(cumul); 
    double cumulY = std::get<1>(cumul);
    double orientation = std::get<0>(orient_speed);
-   double speed = std::get<1>(orient_speed);
+   //double speed = std::get<1>(orient_speed);
+    double speed = speedDeco;
 
    // On calcule le nombre de bestioles environnantes
    int nb_neighbors = 0;
