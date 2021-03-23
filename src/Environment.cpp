@@ -15,6 +15,7 @@ Environment::Environment(int _width, int _height, int nbAnimalsToStartWith, Anim
  UImg( _width, _height, 1, 3 ), width(_width), height(_height), 
  petCreator(factory), statistics(stats){
    cout << "const Environment" << endl;
+   this->nb_steps =0;
    this->animals = this->petCreator.initializePopulation(nbAnimalsToStartWith);
    std::srand(time(NULL));
 }
@@ -99,7 +100,7 @@ void Environment::die() {
             statistics.modifyData(behaviour, false);
         }
         // Captors and accessories
-        // TODO
+        // TODO: decrement accessories and captors
         /*std::vector <std::string> acc = (*iter)->getAccessoriesAndCaptors();
         for (std::string element : acc) {
             statistics.modifyData(element, false);

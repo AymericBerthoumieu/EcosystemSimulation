@@ -119,7 +119,6 @@ vector<Animal*> PetFactory::initializePopulation(int number){
         const auto nbPetsPerBehaviourPair = toCreate.end();
         createdPets.push_back(this->createMember(nbPetsPerBehaviourPair->first));
     }
-    statistics.saveData();
     return createdPets;
 }
 
