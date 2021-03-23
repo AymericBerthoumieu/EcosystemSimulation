@@ -41,6 +41,7 @@ int Environment::getHeight() const {
 
 void Environment::step() {
     ++nb_steps; // increment the number of steps
+    cout << "[" << nb_steps << "]" << endl;
     statistics.saveData(); // save statistics of the previous step before doing the new one
 
     cimg_forXY(*this, x, y)
@@ -66,7 +67,9 @@ void Environment::addMember(Animal* a) {
 
 bool mustDie(Animal * p) {
     // return true if the p has a life < 0. It means p must die at the end of the step
-    return p->getLife() <= 0;
+    bool ret = p->getLife() <= 0;
+    if (ret){delete p;} // the animal must be deleted
+    return ret;
 }
 
 
