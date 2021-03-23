@@ -85,16 +85,18 @@ std::vector<Animal *> Environment::detectedNeighbors(Animal* a){
 
 void Environment::die() {
     // kill animal in the ecosystem at the end of the step
-
     // first we update Statistics
     for (std::vector<Animal*>::iterator iter = animals.begin(); iter != animals.end(); ++iter) {
         // All animal at the end of the vector at this step are going to die
         // Behaviours
         if ((*iter)->getLife() <= 0){
+            cout << "in" << endl;
             if ((*iter)->getIsMultiple()) {
+                cout << " decrement multiple " << endl;
                 statistics.modifyData(multiple, false);
             } else {
                 std::string behaviour = (*iter)->getBehaviourName();
+                cout << " decrement " << behaviour << endl;
                 statistics.modifyData(behaviour, false);
             }
             // Captors and accessories

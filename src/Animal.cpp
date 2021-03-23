@@ -32,6 +32,7 @@ Animal::Animal() {
 
    color = new T[ 3 ];
    behaviour = FearfulBehaviour::getBehaviourInstance();
+   isMultiple = false;
 }
 
 Animal::Animal( const Animal& a ){
@@ -77,6 +78,8 @@ Animal& Animal::operator=(Animal&& p) noexcept
 
     x = p.x;
     y = p.y;
+    behaviour = p.behaviour;
+    isMultiple = p.isMultiple;
     cumulX = cumulY = 0.;
     orientation = p.orientation;
     speed = p.speed;
@@ -99,6 +102,8 @@ Animal& Animal::operator=(const Animal& p) noexcept
 
     x = p.x;
     y = p.y;
+    behaviour = p.behaviour;
+    isMultiple = p.isMultiple;
     cumulX = cumulY = 0.;
     orientation = p.orientation;
     speed = p.speed;
