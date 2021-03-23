@@ -1,10 +1,6 @@
 #include "PetFactory.h"
 #include "Pet.h"
 
-#include "FearfulBehaviour.h"
-#include "GregariousBehaviour.h"
-#include "KamikazeBehaviour.h"
-
 #include "Fin.h"
 #include "Eyes.h"
 
