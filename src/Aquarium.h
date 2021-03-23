@@ -12,16 +12,16 @@ class Environment;
 
 
 class Aquarium : public CImgDisplay{
-    Environment       * water;
-    int            delay;
+    Environment *water;
+    int delay;
 
 public :
-    Aquarium( int width, int height, int _delay );
-    ~Aquarium( void );
+    Aquarium(int width, int height, int _delay);
+    ~Aquarium(void);
 
-    Environment & getEnvironment( void ) { return *water; }
+    Environment& getEnvironment(void) {return *water;}
 
-    void run( void );
+    void run(void);
 };
 
 
