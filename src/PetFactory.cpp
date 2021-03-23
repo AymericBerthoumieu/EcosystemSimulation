@@ -110,7 +110,6 @@ vector<Animal*> PetFactory::initializePopulation(int number){
     for (const auto &nbPetsPerBehaviourPair : toCreate) {
         createdNumber = createdNumber + static_cast<int>(nbPetsPerBehaviourPair.second);
         for (int _i=0; _i<nbPetsPerBehaviourPair.second; _i++) {
-            cout << "                                      " << nbPetsPerBehaviourPair.first << endl;
             createdPets.push_back(this->createMember(nbPetsPerBehaviourPair.first));
         }
     // in case the rounding, while casting to int, results in a lower number of created pets than requested
