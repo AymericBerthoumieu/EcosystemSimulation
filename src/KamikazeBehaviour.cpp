@@ -8,7 +8,7 @@
 #include <limits>
 
 
-std::string KamikazeBehaviour::NAME = "B_Kamikaze";
+std::string KamikazeBehaviour::NAME = "b_Kamikaze";
 
 
 std::string KamikazeBehaviour::getBehaviourName(){

@@ -65,18 +65,18 @@ Animal* PetFactory::createMember(string behaviour) {
     // choosing and adding captors and accessories to the returned pet
     unordered_set<string> captorsAndAccessories = choose_elements(this->availableAccessoriesAndCaptors);
     for (string e : captorsAndAccessories) {
-        if (e == "fin") {
+        if (e == "a_fin") {
             pet = new Fin(*pet);
         }
         else{
-            if (e == "eyes") {
+            if (e == "c_eyes") {
                 pet = new Eyes(*pet);
             }
         }
     }
 
     // adding the requested behaviour the returned pet
-    if (behaviour == "multiple"){
+    if (behaviour == "b_multiple"){
         pet->setBehaviourAsMultiple();
     }
     else{
@@ -110,6 +110,7 @@ vector<Animal*> PetFactory::initializePopulation(int number){
     for (const auto &nbPetsPerBehaviourPair : toCreate) {
         createdNumber = createdNumber + static_cast<int>(nbPetsPerBehaviourPair.second);
         for (int _i=0; _i<nbPetsPerBehaviourPair.second; _i++) {
+            cout << "                                      " << nbPetsPerBehaviourPair.first << endl;
             createdPets.push_back(this->createMember(nbPetsPerBehaviourPair.first));
         }
     // in case the rounding, while casting to int, results in a lower number of created pets than requested

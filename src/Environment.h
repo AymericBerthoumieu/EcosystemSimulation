@@ -3,6 +3,7 @@
 
 #include "UImg.h"
 #include "Animal.h"
+#include "Statistics.h"
 
 #include <iostream>
 #include <vector>
@@ -32,7 +33,7 @@ public :
 
    void hasCollision(Animal* a);
    void die();
-   void addMember(Animal * a);
+   void addMember(Animal* a);
    std::vector<Animal *> detectedNeighbors(Animal* a);
 
    // for test
