@@ -17,9 +17,12 @@ Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, 
    int screenHeight = 1024; //screen_height();
 
    cout << "const Aquarium" << endl;
+   string gregariousName = (GregariousBehaviour::getBehaviourInstance())->getBehaviourName();
+   string fearfulName = (FearfulBehaviour::getBehaviourInstance())->getBehaviourName();
+   string kamikazeName = (KamikazeBehaviour::getBehaviourInstance())->getBehaviourName();
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
-   Statistics* statistics = new Statistics({Fin::getName(), Eyes::getName()});
+   Statistics* statistics = new Statistics({"b_multiple", gregariousName, fearfulName, kamikazeName, Fin::getName(), Eyes::getName()});
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
    AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);

@@ -65,18 +65,18 @@ Animal* PetFactory::createMember(string behaviour) {
     // choosing and adding captors and accessories to the returned pet
     unordered_set<string> captorsAndAccessories = choose_elements(this->availableAccessoriesAndCaptors);
     for (string e : captorsAndAccessories) {
-        if (e == "fin") {
+        if (e == "a_fin") {
             pet = new Fin(*pet);
         }
         else{
-            if (e == "eyes") {
+            if (e == "c_eyes") {
                 pet = new Eyes(*pet);
             }
         }
     }
 
     // adding the requested behaviour the returned pet
-    if (behaviour == "multiple"){
+    if (behaviour == "b_multiple"){
         pet->setBehaviourAsMultiple();
     }
     else{

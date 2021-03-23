@@ -8,8 +8,7 @@
 #include <memory>
 #include <vector>
 
-const std:
-string multiple = "b_multiple" // name for multiple behaviour
+string multiple = "b_multiple"; // name for multiple behaviour
 const T Environment::white[] = {(T) 255, (T) 255, (T) 255};
 
 Environment::Environment(int _width, int _height, int nbAnimalsToStartWith, AnimalFactory& factory, Statistics& stats): 
@@ -58,20 +57,15 @@ void Environment::step() {
     this->die(); // delete the dead animals
 }
 
-void Environment::addMember(const Animal &a) {
+void Environment::addMember(Animal* a) {
     // add an animal to the ecosystem
     this->animals.push_back(a);
-    this->animals.back().initCoords(width, height);
+    this->animals.back()->initCoords(width, height);
 }
 
-bool mustDie(Animal const &p) {
+bool mustDie(Animal * p) {
     // return true if the p has a life < 0. It means p must die at the end of the step
-    return p.getLife() <= 0;
-}
-
-void Environment::addMember(Animal* a) {
-	this->animals.push_back(a);
-	this->animals.back()->initCoords(width, height);
+    return p->getLife() <= 0;
 }
 
 
@@ -89,23 +83,27 @@ void Environment::die() {
     // kill animal in the ecosystem at the end of the step
 
     // first we identify the animals to remove (if any)
-    auto it = std::remove_if(animals.begin(), animals.end(), mustDie);
+    std::vector<Animal*>::iterator it = std::remove_if(animals.begin(), animals.end(), mustDie);
 
     // then we update Statistics
-    for (std::vector<Animal>::iterator iter = it; iter != animals.end(); ++iter) {
+    for (std::vector<Animal*>::iterator iter = it; iter != animals.end(); ++iter) {
         // All animal at the end of the vector at this step are going to die
         // Behaviours
-        if (iter->getIsMultiple()) {
+
+        if ((*iter)->getIsMultiple()) {
+            cout << "In Environment::die(), isMultiple= " << (*iter)->getIsMultiple() << endl;
             statistics.modifyData(multiple, false);
         } else {
-            std::string behaviour = iter->getBehaviourName();
+            cout << "In Environment::die(), not multiple so = " << (*iter)->getBehaviourName() << endl;
+            std::string behaviour = (*iter)->getBehaviourName();
             statistics.modifyData(behaviour, false);
         }
         // Captors and accessories
-        std::vector <std::string> acc = iter->getAccessoriesAndCaptors();
-        for (string element : acc) {
+        // TODO
+        /*std::vector <std::string> acc = (*iter)->getAccessoriesAndCaptors();
+        for (std::string element : acc) {
             statistics.modifyData(element, false);
-        }
+        }*/
     }
     // Finally, we delete the relevant animals
     animals.erase(it, animals.end());

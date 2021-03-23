@@ -33,7 +33,7 @@ public :
 
    void hasCollision(Animal* a);
    void die();
-   void addMember(Animal * a);
+   void addMember(Animal* a);
    std::vector<Animal *> detectedNeighbors(Animal* a);
 
    // for test
