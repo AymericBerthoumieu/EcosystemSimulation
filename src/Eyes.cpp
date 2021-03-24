@@ -1,4 +1,6 @@
 #include "Eyes.h"
 
-Eyes::Eyes(Animal& a): Animal(a) {};
+std::string Eyes::NAME = "a_Eyes";
+
+Eyes::Eyes(Animal& a): Sensor(a) {};
 

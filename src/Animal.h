@@ -59,6 +59,7 @@ public :
    void setCumul(double new_cumul_x, double new_cumul_y);
    tuple<double, double> getOrientationSpeed();
    void setOrientationSpeed(double new_orientation, double new_speed);
+   double getSpeed();
    float getVisibility();
    double getMaxSpeed();
    vector<string> getAccessoriesAndCaptors();

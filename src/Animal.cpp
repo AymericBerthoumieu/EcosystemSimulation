@@ -163,6 +163,9 @@ void Animal::onCollision(){
     }
 }
 
+double Animal::getSpeed(){
+    return speed;
+}
 
 int Animal::getLife() const {
     return life;
@@ -200,14 +203,17 @@ void Animal::setCumul(double new_cumul_x,double new_cumul_y){
 
 
 std::tuple<double, double> Animal::getOrientationSpeed(){
-   return std::make_tuple(this->orientation,this->speed);
+   return std::make_tuple(this->orientation,this->getSpeed());
 }
 
 void Animal::setOrientationSpeed(double new_orientation,double new_speed){
    this->orientation = new_orientation;
    this->speed = new_speed;
    }
-
+vector<string> Animal::getAccessoriesAndCaptors(){
+    vector<string> names;
+    return names;
+}
 
 BehaviourStrategy* choose_behaviour() {
   BehaviourStrategy* behaviour;
