@@ -30,6 +30,12 @@ If you want to have access to the total number of animal in the aquarium, you wi
 
 ## Miscellaneous
 
+### Documentation
+
+You can find static diagrams for the whole system as well as sequence diagrams for some of the functionalities (implemented or not), in the docs directory.
+
+### Template code for new coders
+
 This repository contains a directory *templates* which contains some code templates to get a common base for the coding styles adopted while developing this project.
 It is highly recommended to have a look at these files before coding here.
 
