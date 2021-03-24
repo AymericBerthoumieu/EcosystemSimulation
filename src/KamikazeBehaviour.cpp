@@ -39,7 +39,7 @@ void KamikazeBehaviour::getRidOfInstance(void){
 }
 
 KamikazeBehaviour::~KamikazeBehaviour() {
-    delete[] &color;
+//    delete[] &color;
 }
 
 
