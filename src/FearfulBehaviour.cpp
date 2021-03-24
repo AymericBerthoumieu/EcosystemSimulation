@@ -36,7 +36,6 @@ void FearfulBehaviour::getRidOfInstance(void){
 }
 
 FearfulBehaviour::~FearfulBehaviour() {
-//    delete[] &color;
 }
 
 

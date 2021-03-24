@@ -35,7 +35,6 @@ GregariousBehaviour* GregariousBehaviour::getBehaviourInstance(){
 }
 
 GregariousBehaviour::~GregariousBehaviour() {
-//    delete[] &color;
 }
 
 
