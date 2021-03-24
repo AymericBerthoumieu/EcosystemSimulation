@@ -5,7 +5,7 @@
 #include "Eyes.h"
 
 #include <iterator>
-#include <random>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -22,10 +22,8 @@ string choose_unchosen_element(const unordered_set<string> remaining_elements) {
     string chosen_one;
 
     // randomly choosing an index in remaining_elements
-    default_random_engine random_generator;
-    uniform_int_distribution<int> distribution(0, remaining_elements.size()-1);
-    int index = distribution(random_generator);
-    
+    int index = rand() % remaining_elements.size();
+
     auto it = remaining_elements.begin();
     for (int _i=0; _i<index; _i++){
         it++;
@@ -42,9 +40,7 @@ unordered_set<string> choose_elements(const unordered_set<string> available_elem
 
     // randomly choosing a number of elements to choose
     // this number is bound by the number of elements in available_elements
-    default_random_engine random_generator;
-    uniform_int_distribution<int> distribution(0,available_elements.size());
-    int nb_to_choose = distribution(random_generator);
+    int nb_to_choose = rand() % available_elements.size();
 
     for (int i=0; i<nb_to_choose; i++){
         string chosen_elem;
@@ -76,7 +72,7 @@ Animal* PetFactory::createMember(string behaviour) {
         pet->setBehaviourAsMultiple();
     }
     else{
-        if (behaviour != "none"){
+        if (behaviour != "a_None"){
             pet->setBehaviour(behaviour);
         }
     }

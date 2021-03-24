@@ -22,10 +22,12 @@ Aquarium::Aquarium( int width, int height, int _delay, int startingNbOfAnimals, 
    string kamikazeName = (KamikazeBehaviour::getBehaviourInstance())->getBehaviourName();
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
-   Statistics* statistics = new Statistics({"b_multiple", gregariousName, fearfulName, kamikazeName, Fin::getName(), Eyes::getName()});
+   //Statistics* statistics = new Statistics({"b_multiple", gregariousName, fearfulName, kamikazeName, Fin::getName(), Eyes::getName()});
+   Statistics* statistics = new Statistics({"b_multiple", gregariousName, fearfulName, kamikazeName, "a_None"});
 
    // TODO : fixer la liste des availableCaptorsAndAccessories
-   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);
+   //AnimalFactory* factory = new PetFactory(width, height, animalsDistribution,  {Fin::getName(), Eyes::getName()}, *statistics);
+   AnimalFactory* factory = new PetFactory(width, height, animalsDistribution, {"a_None"} , *statistics);
 
    water = new Environment(width, height, startingNbOfAnimals, *factory, *statistics);
 

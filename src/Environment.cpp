@@ -41,7 +41,7 @@ int Environment::getHeight() const {
 
 void Environment::step() {
     ++nb_steps; // increment the number of steps
-    cout << "[" << nb_steps << "]" << endl;
+    cout << "[step #" << nb_steps << "]" << endl;
     statistics.saveData(); // save statistics of the previous step before doing the new one
 
     cimg_forXY(*this, x, y)
