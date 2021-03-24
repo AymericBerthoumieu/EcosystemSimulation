@@ -16,10 +16,10 @@ int main() {
     int windowHeight = 800; //480
     int delay = 30;
     int startingNbPets = 100;
-    map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(),   10},
-                                              {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(),    30},
-                                              {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 40},
-                                              {"b_multiple",                                                    20}};
+    map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(),   25},
+                                              {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(),    25},
+                                              {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 25},
+                                              {"b_multiple",                                                    25}};
     Aquarium ecosystem(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
 
     ecosystem.run();

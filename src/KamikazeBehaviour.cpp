@@ -78,7 +78,7 @@ std::vector<Animal *> KamikazeBehaviour::nearestNeighbors(Animal *pet, Environme
 }
 
 
-void KamikazeBehaviour::move(int xLim, int yLim, Animal *pet, Environment &myEnvironment) {
+void KamikazeBehaviour::move(int xLim, int yLim, Animal* pet, Environment& myEnvironment) {
     auto cord = pet->getCoordinates();
     auto cumul = pet->getCumul();
     auto orient_speed = pet->getOrientationSpeed();
@@ -94,11 +94,11 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal *pet, Environment &myEnv
     // de la bestiole courante
     double nearestPet_x;
     double nearestPet_y;
-    std::vector < Animal * > closestPets = this->nearestNeighbors(pet, myEnvironment);
+    std::vector<Animal *> closestPets = this->nearestNeighbors(pet,myEnvironment);
 
     // On vérifie qu'il y a au moins une bestiole identifiée
     // comme étant la plus proche
-    if (!closestPets.empty()) {
+    if(!closestPets.empty()){
         cout << "At least one neighbor for Kamikaze ! " << endl;
         // Lorsqu'une Kamikaze ne détecte aucun bestiole autour d'elle
         // la variable has_reset_orientation permettra de vérifier que
@@ -111,24 +111,35 @@ void KamikazeBehaviour::move(int xLim, int yLim, Animal *pet, Environment &myEnv
 
         // La nouvelle orientation de la kamikaze sera fonction
         // de ses cordonnées et celles de son plus proche voisin
-        double abs_diff = nearestPet_x - x;
-        double ord_diff = nearestPet_y - y;
-        double hypothenuse = sqrt(pow(abs_diff, 2) + pow(ord_diff, 2));
-        if (hypothenuse != 0) {
+        double abs_diff = nearestPet_x-x;
+        double ord_diff = nearestPet_y-y;
+        double hypothenuse = sqrt (pow(abs_diff,2)+pow(ord_diff,2));
+        if(hypothenuse != 0){
             // La nouvelle orientation de la kamikaze sera fonction
             // de ses cordonnées et celles de son plus proche voisin
-            orientation = acos(abs_diff / hypothenuse);
-        } else {
-            // Si la kamikaze ne détecte rien, on lui attribue une orientation 
-            // aléatoire (si cela n'a pas été déjà fait)
-            cout << "No neighbor for Kamikaze " << endl;
-            if (!has_reset_orientation) {
-                cout << "Reset Orientation for Kamikaze " << orientation << endl;
-                has_reset_orientation = 1;
-                orientation = static_cast<double>( rand()) / RAND_MAX * 2. * M_PI;
-            }
+            orientation = acos (abs_diff / hypothenuse) ;
         }
-        // On définit les nouveaux paramètres de mouvement de la bestiole
-        MoveUtils::setMoveParameters(pet, x, y, xLim, yLim, orientation, speed, cumulX, cumulY);
+
+            // Si les deux bestioles sont confondues, la kamikaze ira dans le
+            // sens contraire de la bestiole la plus proche
+        else{
+            auto nearestPet_orient_speed = closestPets.back()->getOrientationSpeed();
+            double nearestPet_orientation = std::get<0>(nearestPet_orient_speed);
+            orientation = -nearestPet_orientation;
+        }
     }
+
+    else{
+        // Si la kamikaze ne détecte rien, on lui attribue une orientation
+        // aléatoire (si cela n'a pas été déjà fait)
+        cout << "No neighbor for Kamikaze "<< endl;
+        if (!has_reset_orientation){
+            cout << "Reset Orientation for Kamikaze "<< orientation << endl;
+            has_reset_orientation = 1;
+            orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
+        }
+    }
+    // On définit les nouveaux paramètres de mouvement de la bestiole
+    MoveUtils::setMoveParameters(pet, x, y, xLim, yLim, orientation, speed, cumulX, cumulY);
+
 }

@@ -1,8 +1,9 @@
-#include "Animal.h"
+#include "Sensor.h"
 
-class Eyes: public Animal {
-    public:
-        Eyes(Animal& a);
-        static const string getName() {return "name";};
+class Eyes: public Sensor {
+    static string NAME;
+public:
+    Eyes(Animal& a);
+    vector<string> getAccessoriesAndCaptors();
 };
 
