@@ -19,28 +19,16 @@ int main(){
 
     map<string, float> animalsDistribution = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(), 100}};
     map<string, float> animalsDistribution2 = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(), 50}, {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(), 50}};
-    map<string, float> animalsDistribution3 = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(), 30}, {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 20}, {"multiple", 20}};
+    map<string, float> animalsDistribution3 = {{KamikazeBehaviour::getBehaviourInstance()->getBehaviourName(), 30}, {FearfulBehaviour::getBehaviourInstance()->getBehaviourName(), 30}, {GregariousBehaviour::getBehaviourInstance()->getBehaviourName(), 20}, {"b_multiple", 20}};
 
-    Aquarium* ecosystem = new Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
-    ecosystem->run();
-    //usleep(5*pow(10,6));
-    //ecosystem.close();
+    Aquarium ecosystem = Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution);
+    ecosystem.run();
 
-    delete ecosystem;
-     
-    Aquarium* ecosystem2 = new Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution2);
-    ecosystem2->run();
-    //usleep(5*pow(10,6));
-    //ecosystem2.close();
+    Aquarium ecosystem2 = Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution2);
+    ecosystem2.run();
 
-    delete ecosystem2;
-
-    Aquarium* ecosystem3 = new Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution3);
-    ecosystem3->run();
-    //usleep(5*pow(10,6));
-    //ecosystem3.close();
-
-    delete ecosystem3;
+    Aquarium ecosystem3 = Aquarium(windowWidth, windowHeight, delay, startingNbPets, animalsDistribution3);
+    ecosystem3.run();
 
     return 0;}
 
