@@ -1,11 +1,11 @@
 SRCDIR := src/
 TESTSDIR := tests/
 
-testFearful : $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o Fin.o Eyes.o PetFactory.o Statistics.o MoveUtils.o
-	g++ -Wall -std=c++11 -o testFearful $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o Fin.o Eyes.o PetFactory.o Statistics.o MoveUtils.o -I $(SRCDIR) -lX11 -lpthread
+testFearful : $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o Sensor.o BaseDecorator.o Fin.o Ears.o Shell.o Eyes.o PetFactory.o Statistics.o MoveUtils.o
+	g++ -Wall -std=c++11 -o testFearful $(TESTSDIR)testFearful.cpp Aquarium.o Pet.o Environment.o Animal.o GregariousBehaviour.o FearfulBehaviour.o KamikazeBehaviour.o Sensor.o BaseDecorator.o Ears.o Shell.o Fin.o Eyes.o PetFactory.o Statistics.o MoveUtils.o -I $(SRCDIR) -lX11 -lpthread
 
 Aquarium.o : $(SRCDIR)Aquarium.h $(SRCDIR)Aquarium.cpp
-	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR) 
+	g++ -Wall -std=c++11  -c $(SRCDIR)Aquarium.cpp -I $(SRCDIR)
 
 Pet.o : $(SRCDIR)Pet.h $(SRCDIR)Pet.cpp
 	g++ -Wall -std=c++11  -c $(SRCDIR)Pet.cpp -I  $(SRCDIR)
@@ -31,10 +31,22 @@ KamikazeBehaviour.o : $(SRCDIR)BehaviourStrategy.h $(SRCDIR)KamikazeBehaviour.h 
 Statistics.o : $(SRCDIR)Statistics.h $(SRCDIR)Statistics.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)Statistics.cpp -I $(SRCDIR)
 
-Fin.o : $(SRCDIR)Fin.h $(SRCDIR)Fin.cpp
+Fin.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)Fin.h $(SRCDIR)Fin.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)Fin.cpp -I $(SRCDIR)
 
-Eyes.o : $(SRCDIR)Eyes.h $(SRCDIR)Eyes.cpp
+Ears.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)Sensor.h $(SRCDIR)Ears.h $(SRCDIR)Ears.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)Ears.cpp -I $(SRCDIR)
+
+Shell.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)Shell.h $(SRCDIR)Shell.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)Shell.cpp -I $(SRCDIR)
+
+Sensor.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)Sensor.h $(SRCDIR)Sensor.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)Sensor.cpp -I $(SRCDIR)
+
+BaseDecorator.o : $(SRCDIR)Animal.h $(SRCDIR)BaseDecorator.h $(SRCDIR)BaseDecorator.cpp
+	g++ -Wall -std=c++11 -c $(SRCDIR)BaseDecorator.cpp -I $(SRCDIR)
+
+Eyes.o : $(SRCDIR)BaseDecorator.h $(SRCDIR)Sensor.h $(SRCDIR)Eyes.h $(SRCDIR)Eyes.cpp
 	g++ -Wall -std=c++11 -c $(SRCDIR)Eyes.cpp -I $(SRCDIR)
 
 PetFactory.o : $(SRCDIR)PetFactory.h $(SRCDIR)PetFactory.cpp
